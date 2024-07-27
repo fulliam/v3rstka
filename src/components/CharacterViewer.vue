@@ -1,7 +1,5 @@
 <template>
   <div class="character-viewer" v-if="category">
-
-
     <div class="animation">
       <img :src="currentFrame" alt="Character Animation Frame" />
     </div>
@@ -98,20 +96,20 @@ const selectCharacter = (character: string) => {
   currentCharacter.value = character;
   actions.value = Object.keys(animations.char[props.category][character]);
   currentAnimation.value = 'idle';
-  socketStore.sendMessage(JSON.stringify({ userId: props.userId, character, action: 'idle' }));
+  socketStore.updateUser(props.userId, character, 'idle');
   updateFrames();
 };
 
 const startAction = (action: string) => {
   currentAnimation.value = action;
-  socketStore.sendMessage(JSON.stringify({ userId: props.userId, character: currentCharacter.value, action }));
+  socketStore.updateUser(props.userId, currentCharacter.value, action);
   updateFrames();
   startAnimation();
 };
 
 const stopAction = () => {
   currentAnimation.value = 'idle';
-  socketStore.sendMessage(JSON.stringify({ userId: props.userId, character: currentCharacter.value, action: 'idle' }));
+  socketStore.updateUser(props.userId, currentCharacter.value, 'idle');
   updateFrames();
   startAnimation();
 };

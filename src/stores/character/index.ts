@@ -12,6 +12,9 @@ export const useCharacterStore = defineStore('character', {
     character: 'wizard',
     action: 'idle',
   }),
+  getters: {
+
+  },
   actions: {
     setUserId(userId: string) {
       this.userId = userId;

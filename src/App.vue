@@ -18,7 +18,7 @@
     </div>
     <ChatViewer />
   </div>
-{{ socketStore.users }}
+
   <div class="viewers" v-if="currentTab === 'ally'">
     <CharacterViewer
       v-for="user in socketStore.users"

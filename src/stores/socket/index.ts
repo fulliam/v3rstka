@@ -38,12 +38,11 @@ export const useSocketStore = defineStore('socket', {
 
       this.socket.onopen = () => {
         this.isConnected = true;
-        this.addUser({ userId, character: 'wizard', action: 'idle' });
       };
 
       this.socket.onclose = () => {
         this.isConnected = false;
-        this.removeUser(userId);
+        this.users = [];
       };
 
       this.socket.onmessage = (event: MessageEvent) => {
@@ -67,13 +66,10 @@ export const useSocketStore = defineStore('socket', {
         this.socket.send(JSON.stringify({ type: "message", content: message }));
       }
     },
-    addUser(user: User) {
-      if (!this.users.some(u => u.userId === user.userId)) {
-        this.users.push(user);
+    updateUser(userId: string, character: string, action: string) {
+      if (this.socket && this.isConnected) {
+        this.socket.send(JSON.stringify({ type: "action", userId, character, action }));
       }
-    },
-    removeUser(userId: string) {
-      this.users = this.users.filter(user => user.userId !== userId);
     },
   },
 });
