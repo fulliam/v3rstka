@@ -1,0 +1,1262 @@
+{
+  "bg": {
+    "castle": {
+      "bg": "/src/assets/bg/castle/bg.png",
+      "candeliar": "/src/assets/bg/castle/candeliar.png",
+      "columns": "/src/assets/bg/castle/columns.png",
+      "dragon": "/src/assets/bg/castle/dragon.png",
+      "floor": "/src/assets/bg/castle/floor.png",
+      "full": "/src/assets/bg/castle/full.png",
+      "mountains": "/src/assets/bg/castle/mountains.png",
+      "windows": "/src/assets/bg/castle/windows.png"
+    },
+    "cave": {
+      "cave1": "/src/assets/bg/cave/cave1.png",
+      "cave2": "/src/assets/bg/cave/cave2.png",
+      "cave3": "/src/assets/bg/cave/cave3.png",
+      "cave4": "/src/assets/bg/cave/cave4.png",
+      "cave5": "/src/assets/bg/cave/cave5.png",
+      "cave6": "/src/assets/bg/cave/cave6.png",
+      "cave7": "/src/assets/bg/cave/cave7.png",
+      "full": "/src/assets/bg/cave/full.png"
+    },
+    "cemetery": {
+      "bones": "/src/assets/bg/cemetery/bones.png",
+      "crypt": "/src/assets/bg/cemetery/crypt.png",
+      "full": "/src/assets/bg/cemetery/full.png",
+      "graves": "/src/assets/bg/cemetery/graves.png",
+      "ground": "/src/assets/bg/cemetery/ground.png",
+      "sky": "/src/assets/bg/cemetery/sky.png",
+      "tree": "/src/assets/bg/cemetery/tree.png",
+      "trees": "/src/assets/bg/cemetery/trees.png",
+      "wall": "/src/assets/bg/cemetery/wall.png"
+    },
+    "forest": {
+      "bg": "/src/assets/bg/forest/bg.png",
+      "fireflys": "/src/assets/bg/forest/fireflys.png",
+      "full": "/src/assets/bg/forest/full.png",
+      "grasses": "/src/assets/bg/forest/grasses.png",
+      "lianas": "/src/assets/bg/forest/lianas.png",
+      "road": "/src/assets/bg/forest/road.png",
+      "sky": "/src/assets/bg/forest/sky.png",
+      "tree": "/src/assets/bg/forest/tree.png",
+      "trees": "/src/assets/bg/forest/trees.png"
+    },
+    "inventoryBg": "/src/assets/bg/inventoryBg.png",
+    "ruin": {
+      "bg": "/src/assets/bg/ruin/bg.png",
+      "full": "/src/assets/bg/ruin/full.png",
+      "grass": "/src/assets/bg/ruin/grass.png",
+      "ruins": "/src/assets/bg/ruin/ruins.png",
+      "ruins2": "/src/assets/bg/ruin/ruins2.png",
+      "sky": "/src/assets/bg/ruin/sky.png",
+      "statue": "/src/assets/bg/ruin/statue.png",
+      "trees": "/src/assets/bg/ruin/trees.png"
+    }
+  },
+  "char": {
+    "ally": {
+      "archer": {
+        "arrow": {
+          "arrow": "/src/assets/char/ally/archer/arrow/arrow.png"
+        },
+        "attack": {
+          "attack1": "/src/assets/char/ally/archer/attack/attack1.png",
+          "attack2": "/src/assets/char/ally/archer/attack/attack2.png",
+          "attack3": "/src/assets/char/ally/archer/attack/attack3.png",
+          "attack4": "/src/assets/char/ally/archer/attack/attack4.png"
+        },
+        "attack2": {
+          "attack21": "/src/assets/char/ally/archer/attack2/attack21.png",
+          "attack210": "/src/assets/char/ally/archer/attack2/attack210.png",
+          "attack211": "/src/assets/char/ally/archer/attack2/attack211.png",
+          "attack212": "/src/assets/char/ally/archer/attack2/attack212.png",
+          "attack213": "/src/assets/char/ally/archer/attack2/attack213.png",
+          "attack214": "/src/assets/char/ally/archer/attack2/attack214.png",
+          "attack22": "/src/assets/char/ally/archer/attack2/attack22.png",
+          "attack23": "/src/assets/char/ally/archer/attack2/attack23.png",
+          "attack24": "/src/assets/char/ally/archer/attack2/attack24.png",
+          "attack25": "/src/assets/char/ally/archer/attack2/attack25.png",
+          "attack26": "/src/assets/char/ally/archer/attack2/attack26.png",
+          "attack27": "/src/assets/char/ally/archer/attack2/attack27.png",
+          "attack28": "/src/assets/char/ally/archer/attack2/attack28.png",
+          "attack29": "/src/assets/char/ally/archer/attack2/attack29.png"
+        },
+        "attack3": {
+          "attack31": "/src/assets/char/ally/archer/attack3/attack31.png",
+          "attack310": "/src/assets/char/ally/archer/attack3/attack310.png",
+          "attack311": "/src/assets/char/ally/archer/attack3/attack311.png",
+          "attack312": "/src/assets/char/ally/archer/attack3/attack312.png",
+          "attack313": "/src/assets/char/ally/archer/attack3/attack313.png",
+          "attack32": "/src/assets/char/ally/archer/attack3/attack32.png",
+          "attack33": "/src/assets/char/ally/archer/attack3/attack33.png",
+          "attack34": "/src/assets/char/ally/archer/attack3/attack34.png",
+          "attack35": "/src/assets/char/ally/archer/attack3/attack35.png",
+          "attack36": "/src/assets/char/ally/archer/attack3/attack36.png",
+          "attack37": "/src/assets/char/ally/archer/attack3/attack37.png",
+          "attack38": "/src/assets/char/ally/archer/attack3/attack38.png",
+          "attack39": "/src/assets/char/ally/archer/attack3/attack39.png"
+        },
+        "dead": {
+          "dead1": "/src/assets/char/ally/archer/dead/dead1.png",
+          "dead2": "/src/assets/char/ally/archer/dead/dead2.png",
+          "dead3": "/src/assets/char/ally/archer/dead/dead3.png"
+        },
+        "idle": {
+          "idle1": "/src/assets/char/ally/archer/idle/idle1.png",
+          "idle2": "/src/assets/char/ally/archer/idle/idle2.png",
+          "idle3": "/src/assets/char/ally/archer/idle/idle3.png",
+          "idle4": "/src/assets/char/ally/archer/idle/idle4.png",
+          "idle5": "/src/assets/char/ally/archer/idle/idle5.png",
+          "idle6": "/src/assets/char/ally/archer/idle/idle6.png"
+        },
+        "jump": {
+          "jump1": "/src/assets/char/ally/archer/jump/jump1.png",
+          "jump2": "/src/assets/char/ally/archer/jump/jump2.png",
+          "jump3": "/src/assets/char/ally/archer/jump/jump3.png",
+          "jump4": "/src/assets/char/ally/archer/jump/jump4.png",
+          "jump5": "/src/assets/char/ally/archer/jump/jump5.png",
+          "jump6": "/src/assets/char/ally/archer/jump/jump6.png",
+          "jump7": "/src/assets/char/ally/archer/jump/jump7.png",
+          "jump8": "/src/assets/char/ally/archer/jump/jump8.png",
+          "jump9": "/src/assets/char/ally/archer/jump/jump9.png"
+        },
+        "run": {
+          "run1": "/src/assets/char/ally/archer/run/run1.png",
+          "run2": "/src/assets/char/ally/archer/run/run2.png",
+          "run3": "/src/assets/char/ally/archer/run/run3.png",
+          "run4": "/src/assets/char/ally/archer/run/run4.png",
+          "run5": "/src/assets/char/ally/archer/run/run5.png",
+          "run6": "/src/assets/char/ally/archer/run/run6.png",
+          "run7": "/src/assets/char/ally/archer/run/run7.png",
+          "run8": "/src/assets/char/ally/archer/run/run8.png"
+        },
+        "skills": {
+          "skill1": "/src/assets/char/ally/archer/skills/skill1.png",
+          "skill2": "/src/assets/char/ally/archer/skills/skill2.png",
+          "skill3": "/src/assets/char/ally/archer/skills/skill3.png"
+        },
+        "walk": {
+          "walk1": "/src/assets/char/ally/archer/walk/walk1.png",
+          "walk2": "/src/assets/char/ally/archer/walk/walk2.png",
+          "walk3": "/src/assets/char/ally/archer/walk/walk3.png",
+          "walk4": "/src/assets/char/ally/archer/walk/walk4.png",
+          "walk5": "/src/assets/char/ally/archer/walk/walk5.png",
+          "walk6": "/src/assets/char/ally/archer/walk/walk6.png",
+          "walk7": "/src/assets/char/ally/archer/walk/walk7.png",
+          "walk8": "/src/assets/char/ally/archer/walk/walk8.png"
+        }
+      },
+      "skeleton": {
+        "attack": {
+          "attack1": "/src/assets/char/ally/skeleton/attack/attack1.png",
+          "attack2": "/src/assets/char/ally/skeleton/attack/attack2.png",
+          "attack3": "/src/assets/char/ally/skeleton/attack/attack3.png",
+          "attack4": "/src/assets/char/ally/skeleton/attack/attack4.png",
+          "attack5": "/src/assets/char/ally/skeleton/attack/attack5.png",
+          "attack6": "/src/assets/char/ally/skeleton/attack/attack6.png",
+          "attack7": "/src/assets/char/ally/skeleton/attack/attack7.png"
+        },
+        "attack2": {
+          "attack21": "/src/assets/char/ally/skeleton/attack2/attack21.png",
+          "attack22": "/src/assets/char/ally/skeleton/attack2/attack22.png",
+          "attack23": "/src/assets/char/ally/skeleton/attack2/attack23.png",
+          "attack24": "/src/assets/char/ally/skeleton/attack2/attack24.png"
+        },
+        "attack3": {
+          "attack31": "/src/assets/char/ally/skeleton/attack3/attack31.png",
+          "attack32": "/src/assets/char/ally/skeleton/attack3/attack32.png",
+          "attack33": "/src/assets/char/ally/skeleton/attack3/attack33.png",
+          "attack34": "/src/assets/char/ally/skeleton/attack3/attack34.png",
+          "attack35": "/src/assets/char/ally/skeleton/attack3/attack35.png",
+          "attack36": "/src/assets/char/ally/skeleton/attack3/attack36.png",
+          "attack37": "/src/assets/char/ally/skeleton/attack3/attack37.png"
+        },
+        "dead": {
+          "dead1": "/src/assets/char/ally/skeleton/dead/dead1.png",
+          "dead2": "/src/assets/char/ally/skeleton/dead/dead2.png",
+          "dead3": "/src/assets/char/ally/skeleton/dead/dead3.png"
+        },
+        "idle": {
+          "idle1": "/src/assets/char/ally/skeleton/idle/idle1.png",
+          "idle2": "/src/assets/char/ally/skeleton/idle/idle2.png",
+          "idle3": "/src/assets/char/ally/skeleton/idle/idle3.png",
+          "idle4": "/src/assets/char/ally/skeleton/idle/idle4.png",
+          "idle5": "/src/assets/char/ally/skeleton/idle/idle5.png",
+          "idle6": "/src/assets/char/ally/skeleton/idle/idle6.png",
+          "idle7": "/src/assets/char/ally/skeleton/idle/idle7.png"
+        },
+        "jump": {
+          "jump1": "/src/assets/char/ally/skeleton/jump/jump1.png",
+          "jump2": "/src/assets/char/ally/skeleton/jump/jump2.png",
+          "jump3": "/src/assets/char/ally/skeleton/jump/jump3.png",
+          "jump4": "/src/assets/char/ally/skeleton/jump/jump4.png",
+          "jump5": "/src/assets/char/ally/skeleton/jump/jump5.png",
+          "jump6": "/src/assets/char/ally/skeleton/jump/jump6.png",
+          "jump7": "/src/assets/char/ally/skeleton/jump/jump7.png",
+          "jump8": "/src/assets/char/ally/skeleton/jump/jump8.png",
+          "jump9": "/src/assets/char/ally/skeleton/jump/jump9.png",
+          "jump10": "/src/assets/char/ally/skeleton/jump/jump10.png"
+        },
+        "run": {
+          "run1": "/src/assets/char/ally/skeleton/run/run1.png",
+          "run2": "/src/assets/char/ally/skeleton/run/run2.png",
+          "run3": "/src/assets/char/ally/skeleton/run/run3.png",
+          "run4": "/src/assets/char/ally/skeleton/run/run4.png",
+          "run5": "/src/assets/char/ally/skeleton/run/run5.png",
+          "run6": "/src/assets/char/ally/skeleton/run/run6.png",
+          "run7": "/src/assets/char/ally/skeleton/run/run7.png"
+        },
+        "skills": {
+          "skill1": "/src/assets/char/ally/skeleton/skills/skill1.png",
+          "skill2": "/src/assets/char/ally/skeleton/skills/skill2.png",
+          "skill3": "/src/assets/char/ally/skeleton/skills/skill3.png"
+        },
+        "walk": {
+          "walk1": "/src/assets/char/ally/skeleton/walk/walk1.png",
+          "walk2": "/src/assets/char/ally/skeleton/walk/walk2.png",
+          "walk3": "/src/assets/char/ally/skeleton/walk/walk3.png",
+          "walk4": "/src/assets/char/ally/skeleton/walk/walk4.png",
+          "walk5": "/src/assets/char/ally/skeleton/walk/walk5.png",
+          "walk6": "/src/assets/char/ally/skeleton/walk/walk6.png",
+          "walk7": "/src/assets/char/ally/skeleton/walk/walk7.png",
+          "walk8": "/src/assets/char/ally/skeleton/walk/walk8.png"
+        }
+      },
+      "swordsman": {
+        "attack": {
+          "attack1": "/src/assets/char/ally/swordsman/attack/attack1.png",
+          "attack2": "/src/assets/char/ally/swordsman/attack/attack2.png",
+          "attack3": "/src/assets/char/ally/swordsman/attack/attack3.png",
+          "attack4": "/src/assets/char/ally/swordsman/attack/attack4.png",
+          "attack5": "/src/assets/char/ally/swordsman/attack/attack5.png",
+          "attack6": "/src/assets/char/ally/swordsman/attack/attack6.png"
+        },
+        "attack2": {
+          "attack21": "/src/assets/char/ally/swordsman/attack2/attack21.png",
+          "attack22": "/src/assets/char/ally/swordsman/attack2/attack22.png",
+          "attack23": "/src/assets/char/ally/swordsman/attack2/attack23.png"
+        },
+        "attack3": {
+          "attack31": "/src/assets/char/ally/swordsman/attack3/attack31.png",
+          "attack32": "/src/assets/char/ally/swordsman/attack3/attack32.png",
+          "attack33": "/src/assets/char/ally/swordsman/attack3/attack33.png",
+          "attack34": "/src/assets/char/ally/swordsman/attack3/attack34.png"
+        },
+        "dead": {
+          "dead1": "/src/assets/char/ally/swordsman/dead/dead1.png",
+          "dead2": "/src/assets/char/ally/swordsman/dead/dead2.png",
+          "dead3": "/src/assets/char/ally/swordsman/dead/dead3.png"
+        },
+        "idle": {
+          "idle1": "/src/assets/char/ally/swordsman/idle/idle1.png",
+          "idle2": "/src/assets/char/ally/swordsman/idle/idle2.png",
+          "idle3": "/src/assets/char/ally/swordsman/idle/idle3.png",
+          "idle4": "/src/assets/char/ally/swordsman/idle/idle4.png",
+          "idle5": "/src/assets/char/ally/swordsman/idle/idle5.png",
+          "idle6": "/src/assets/char/ally/swordsman/idle/idle6.png",
+          "idle7": "/src/assets/char/ally/swordsman/idle/idle7.png",
+          "idle8": "/src/assets/char/ally/swordsman/idle/idle8.png"
+        },
+        "jump": {
+          "jump1": "/src/assets/char/ally/swordsman/jump/jump1.png",
+          "jump2": "/src/assets/char/ally/swordsman/jump/jump2.png",
+          "jump3": "/src/assets/char/ally/swordsman/jump/jump3.png",
+          "jump4": "/src/assets/char/ally/swordsman/jump/jump4.png",
+          "jump5": "/src/assets/char/ally/swordsman/jump/jump5.png",
+          "jump6": "/src/assets/char/ally/swordsman/jump/jump6.png",
+          "jump7": "/src/assets/char/ally/swordsman/jump/jump7.png",
+          "jump8": "/src/assets/char/ally/swordsman/jump/jump8.png"
+        },
+        "run": {
+          "run1": "/src/assets/char/ally/swordsman/run/run1.png",
+          "run2": "/src/assets/char/ally/swordsman/run/run2.png",
+          "run3": "/src/assets/char/ally/swordsman/run/run3.png",
+          "run4": "/src/assets/char/ally/swordsman/run/run4.png",
+          "run5": "/src/assets/char/ally/swordsman/run/run5.png",
+          "run6": "/src/assets/char/ally/swordsman/run/run6.png",
+          "run7": "/src/assets/char/ally/swordsman/run/run7.png",
+          "run8": "/src/assets/char/ally/swordsman/run/run8.png"
+        },
+        "skills": {
+          "skill1": "/src/assets/char/ally/swordsman/skills/skill1.png",
+          "skill2": "/src/assets/char/ally/swordsman/skills/skill2.png",
+          "skill3": "/src/assets/char/ally/swordsman/skills/skill3.png"
+        },
+        "walk": {
+          "walk1": "/src/assets/char/ally/swordsman/walk/walk1.png",
+          "walk2": "/src/assets/char/ally/swordsman/walk/walk2.png",
+          "walk3": "/src/assets/char/ally/swordsman/walk/walk3.png",
+          "walk4": "/src/assets/char/ally/swordsman/walk/walk4.png",
+          "walk5": "/src/assets/char/ally/swordsman/walk/walk5.png",
+          "walk6": "/src/assets/char/ally/swordsman/walk/walk6.png",
+          "walk7": "/src/assets/char/ally/swordsman/walk/walk7.png",
+          "walk8": "/src/assets/char/ally/swordsman/walk/walk8.png"
+        }
+      },
+      "wizard": {
+        "attack": {
+          "attack1": "/src/assets/char/ally/wizard/attack/attack1.png",
+          "attack2": "/src/assets/char/ally/wizard/attack/attack2.png",
+          "attack3": "/src/assets/char/ally/wizard/attack/attack3.png",
+          "attack4": "/src/assets/char/ally/wizard/attack/attack4.png",
+          "attack5": "/src/assets/char/ally/wizard/attack/attack5.png",
+          "attack6": "/src/assets/char/ally/wizard/attack/attack6.png",
+          "attack7": "/src/assets/char/ally/wizard/attack/attack7.png",
+          "attack8": "/src/assets/char/ally/wizard/attack/attack8.png",
+          "attack9": "/src/assets/char/ally/wizard/attack/attack9.png",
+          "attack10": "/src/assets/char/ally/wizard/attack/attack10.png"
+        },
+        "attack2": {
+          "attack21": "/src/assets/char/ally/wizard/attack2/attack21.png",
+          "attack22": "/src/assets/char/ally/wizard/attack2/attack22.png",
+          "attack23": "/src/assets/char/ally/wizard/attack2/attack23.png",
+          "attack24": "/src/assets/char/ally/wizard/attack2/attack24.png"
+        },
+        "attack3": {
+          "attack31": "/src/assets/char/ally/wizard/attack3/attack31.png",
+          "attack32": "/src/assets/char/ally/wizard/attack3/attack32.png",
+          "attack33": "/src/assets/char/ally/wizard/attack3/attack33.png",
+          "attack34": "/src/assets/char/ally/wizard/attack3/attack34.png",
+          "attack35": "/src/assets/char/ally/wizard/attack3/attack35.png",
+          "attack36": "/src/assets/char/ally/wizard/attack3/attack36.png",
+          "attack37": "/src/assets/char/ally/wizard/attack3/attack37.png"
+        },
+        "dead": {
+          "dead1": "/src/assets/char/ally/wizard/dead/dead1.png",
+          "dead2": "/src/assets/char/ally/wizard/dead/dead2.png",
+          "dead3": "/src/assets/char/ally/wizard/dead/dead3.png",
+          "dead4": "/src/assets/char/ally/wizard/dead/dead4.png"
+        },
+        "hurt": {
+          "hurt1": "/src/assets/char/ally/wizard/hurt/hurt1.png",
+          "hurt2": "/src/assets/char/ally/wizard/hurt/hurt2.png",
+          "hurt3": "/src/assets/char/ally/wizard/hurt/hurt3.png",
+          "hurt4": "/src/assets/char/ally/wizard/hurt/hurt4.png"
+        },
+        "idle": {
+          "idle1": "/src/assets/char/ally/wizard/idle/idle1.png",
+          "idle2": "/src/assets/char/ally/wizard/idle/idle2.png",
+          "idle3": "/src/assets/char/ally/wizard/idle/idle3.png",
+          "idle4": "/src/assets/char/ally/wizard/idle/idle4.png",
+          "idle5": "/src/assets/char/ally/wizard/idle/idle5.png",
+          "idle6": "/src/assets/char/ally/wizard/idle/idle6.png"
+        },
+        "jump": {
+          "jump1": "/src/assets/char/ally/wizard/jump/jump1.png",
+          "jump2": "/src/assets/char/ally/wizard/jump/jump2.png",
+          "jump3": "/src/assets/char/ally/wizard/jump/jump3.png",
+          "jump4": "/src/assets/char/ally/wizard/jump/jump4.png",
+          "jump5": "/src/assets/char/ally/wizard/jump/jump5.png",
+          "jump6": "/src/assets/char/ally/wizard/jump/jump6.png",
+          "jump7": "/src/assets/char/ally/wizard/jump/jump7.png",
+          "jump8": "/src/assets/char/ally/wizard/jump/jump8.png",
+          "jump9": "/src/assets/char/ally/wizard/jump/jump9.png",
+          "jump10": "/src/assets/char/ally/wizard/jump/jump10.png",
+          "jump11": "/src/assets/char/ally/wizard/jump/jump11.png"
+        },
+        "run": {
+          "run1": "/src/assets/char/ally/wizard/run/run1.png",
+          "run2": "/src/assets/char/ally/wizard/run/run2.png",
+          "run3": "/src/assets/char/ally/wizard/run/run3.png",
+          "run4": "/src/assets/char/ally/wizard/run/run4.png",
+          "run5": "/src/assets/char/ally/wizard/run/run5.png",
+          "run6": "/src/assets/char/ally/wizard/run/run6.png",
+          "run7": "/src/assets/char/ally/wizard/run/run7.png",
+          "run8": "/src/assets/char/ally/wizard/run/run8.png"
+        },
+        "skills": {
+          "skill1": "/src/assets/char/ally/wizard/skills/skill1.png",
+          "skill2": "/src/assets/char/ally/wizard/skills/skill2.png",
+          "skill3": "/src/assets/char/ally/wizard/skills/skill3.png"
+        },
+        "walk": {
+          "walk1": "/src/assets/char/ally/wizard/walk/walk1.png",
+          "walk2": "/src/assets/char/ally/wizard/walk/walk2.png",
+          "walk3": "/src/assets/char/ally/wizard/walk/walk3.png",
+          "walk4": "/src/assets/char/ally/wizard/walk/walk4.png",
+          "walk5": "/src/assets/char/ally/wizard/walk/walk5.png",
+          "walk6": "/src/assets/char/ally/wizard/walk/walk6.png",
+          "walk7": "/src/assets/char/ally/wizard/walk/walk7.png"
+        }
+      }
+    },
+    "enemy": {
+      "orcs": {
+        "berserk": {
+          "attack": {
+            "attack1": "/src/assets/char/enemy/orcs/berserk/attack/attack1.png",
+            "attack2": "/src/assets/char/enemy/orcs/berserk/attack/attack2.png",
+            "attack3": "/src/assets/char/enemy/orcs/berserk/attack/attack3.png",
+            "attack4": "/src/assets/char/enemy/orcs/berserk/attack/attack4.png"
+          },
+          "attack2": {
+            "attack21": "/src/assets/char/enemy/orcs/berserk/attack2/attack21.png",
+            "attack22": "/src/assets/char/enemy/orcs/berserk/attack2/attack22.png",
+            "attack23": "/src/assets/char/enemy/orcs/berserk/attack2/attack23.png",
+            "attack24": "/src/assets/char/enemy/orcs/berserk/attack2/attack24.png",
+            "attack25": "/src/assets/char/enemy/orcs/berserk/attack2/attack25.png"
+          },
+          "dead": {
+            "dead1": "/src/assets/char/enemy/orcs/berserk/dead/dead1.png",
+            "dead2": "/src/assets/char/enemy/orcs/berserk/dead/dead2.png",
+            "dead3": "/src/assets/char/enemy/orcs/berserk/dead/dead3.png",
+            "dead4": "/src/assets/char/enemy/orcs/berserk/dead/dead4.png"
+          },
+          "idle": {
+            "idle1": "/src/assets/char/enemy/orcs/berserk/idle/idle1.png",
+            "idle2": "/src/assets/char/enemy/orcs/berserk/idle/idle2.png",
+            "idle3": "/src/assets/char/enemy/orcs/berserk/idle/idle3.png",
+            "idle4": "/src/assets/char/enemy/orcs/berserk/idle/idle4.png",
+            "idle5": "/src/assets/char/enemy/orcs/berserk/idle/idle5.png"
+          },
+          "run": {
+            "run1": "/src/assets/char/enemy/orcs/berserk/run/run1.png",
+            "run2": "/src/assets/char/enemy/orcs/berserk/run/run2.png",
+            "run3": "/src/assets/char/enemy/orcs/berserk/run/run3.png",
+            "run4": "/src/assets/char/enemy/orcs/berserk/run/run4.png",
+            "run5": "/src/assets/char/enemy/orcs/berserk/run/run5.png",
+            "run6": "/src/assets/char/enemy/orcs/berserk/run/run6.png"
+          },
+          "walk": {
+            "walk1": "/src/assets/char/enemy/orcs/berserk/walk/walk1.png",
+            "walk2": "/src/assets/char/enemy/orcs/berserk/walk/walk2.png",
+            "walk3": "/src/assets/char/enemy/orcs/berserk/walk/walk3.png",
+            "walk4": "/src/assets/char/enemy/orcs/berserk/walk/walk4.png",
+            "walk5": "/src/assets/char/enemy/orcs/berserk/walk/walk5.png",
+            "walk6": "/src/assets/char/enemy/orcs/berserk/walk/walk6.png",
+            "walk7": "/src/assets/char/enemy/orcs/berserk/walk/walk7.png"
+          }
+        },
+        "shaman": {
+          "attack": {
+            "attack1": "/src/assets/char/enemy/orcs/shaman/attack/attack1.png",
+            "attack2": "/src/assets/char/enemy/orcs/shaman/attack/attack2.png",
+            "attack3": "/src/assets/char/enemy/orcs/shaman/attack/attack3.png",
+            "attack4": "/src/assets/char/enemy/orcs/shaman/attack/attack4.png"
+          },
+          "attack2": {
+            "attack21": "/src/assets/char/enemy/orcs/shaman/attack2/attack21.png",
+            "attack22": "/src/assets/char/enemy/orcs/shaman/attack2/attack22.png"
+          },
+          "dead": {
+            "dead1": "/src/assets/char/enemy/orcs/shaman/dead/dead1.png",
+            "dead2": "/src/assets/char/enemy/orcs/shaman/dead/dead2.png",
+            "dead3": "/src/assets/char/enemy/orcs/shaman/dead/dead3.png",
+            "dead4": "/src/assets/char/enemy/orcs/shaman/dead/dead4.png",
+            "dead5": "/src/assets/char/enemy/orcs/shaman/dead/dead5.png"
+          },
+          "idle": {
+            "idle1": "/src/assets/char/enemy/orcs/shaman/idle/idle1.png",
+            "idle2": "/src/assets/char/enemy/orcs/shaman/idle/idle2.png",
+            "idle3": "/src/assets/char/enemy/orcs/shaman/idle/idle3.png",
+            "idle4": "/src/assets/char/enemy/orcs/shaman/idle/idle4.png",
+            "idle5": "/src/assets/char/enemy/orcs/shaman/idle/idle5.png"
+          },
+          "run": {
+            "run1": "/src/assets/char/enemy/orcs/shaman/run/run1.png",
+            "run2": "/src/assets/char/enemy/orcs/shaman/run/run2.png",
+            "run3": "/src/assets/char/enemy/orcs/shaman/run/run3.png",
+            "run4": "/src/assets/char/enemy/orcs/shaman/run/run4.png",
+            "run5": "/src/assets/char/enemy/orcs/shaman/run/run5.png",
+            "run6": "/src/assets/char/enemy/orcs/shaman/run/run6.png"
+          },
+          "walk": {
+            "walk1": "/src/assets/char/enemy/orcs/shaman/walk/walk1.png",
+            "walk2": "/src/assets/char/enemy/orcs/shaman/walk/walk2.png",
+            "walk3": "/src/assets/char/enemy/orcs/shaman/walk/walk3.png",
+            "walk4": "/src/assets/char/enemy/orcs/shaman/walk/walk4.png",
+            "walk5": "/src/assets/char/enemy/orcs/shaman/walk/walk5.png",
+            "walk6": "/src/assets/char/enemy/orcs/shaman/walk/walk6.png",
+            "walk7": "/src/assets/char/enemy/orcs/shaman/walk/walk7.png"
+          }
+        },
+        "warrior": {
+          "attack": {
+            "attack1": "/src/assets/char/enemy/orcs/warrior/attack/attack1.png",
+            "attack2": "/src/assets/char/enemy/orcs/warrior/attack/attack2.png",
+            "attack3": "/src/assets/char/enemy/orcs/warrior/attack/attack3.png",
+            "attack4": "/src/assets/char/enemy/orcs/warrior/attack/attack4.png"
+          },
+          "attack2": {
+            "attack21": "/src/assets/char/enemy/orcs/warrior/attack2/attack21.png",
+            "attack22": "/src/assets/char/enemy/orcs/warrior/attack2/attack22.png",
+            "attack23": "/src/assets/char/enemy/orcs/warrior/attack2/attack23.png",
+            "attack24": "/src/assets/char/enemy/orcs/warrior/attack2/attack24.png"
+          },
+          "dead": {
+            "dead1": "/src/assets/char/enemy/orcs/warrior/dead/dead1.png",
+            "dead2": "/src/assets/char/enemy/orcs/warrior/dead/dead2.png",
+            "dead3": "/src/assets/char/enemy/orcs/warrior/dead/dead3.png",
+            "dead4": "/src/assets/char/enemy/orcs/warrior/dead/dead4.png"
+          },
+          "idle": {
+            "idle1": "/src/assets/char/enemy/orcs/warrior/idle/idle1.png",
+            "idle2": "/src/assets/char/enemy/orcs/warrior/idle/idle2.png",
+            "idle3": "/src/assets/char/enemy/orcs/warrior/idle/idle3.png",
+            "idle4": "/src/assets/char/enemy/orcs/warrior/idle/idle4.png",
+            "idle5": "/src/assets/char/enemy/orcs/warrior/idle/idle5.png"
+          },
+          "run": {
+            "run1": "/src/assets/char/enemy/orcs/warrior/run/run1.png",
+            "run2": "/src/assets/char/enemy/orcs/warrior/run/run2.png",
+            "run3": "/src/assets/char/enemy/orcs/warrior/run/run3.png",
+            "run4": "/src/assets/char/enemy/orcs/warrior/run/run4.png",
+            "run5": "/src/assets/char/enemy/orcs/warrior/run/run5.png",
+            "run6": "/src/assets/char/enemy/orcs/warrior/run/run6.png"
+          },
+          "walk": {
+            "walk1": "/src/assets/char/enemy/orcs/warrior/walk/walk1.png",
+            "walk2": "/src/assets/char/enemy/orcs/warrior/walk/walk2.png",
+            "walk3": "/src/assets/char/enemy/orcs/warrior/walk/walk3.png",
+            "walk4": "/src/assets/char/enemy/orcs/warrior/walk/walk4.png",
+            "walk5": "/src/assets/char/enemy/orcs/warrior/walk/walk5.png",
+            "walk6": "/src/assets/char/enemy/orcs/warrior/walk/walk6.png",
+            "walk7": "/src/assets/char/enemy/orcs/warrior/walk/walk7.png"
+          }
+        }
+      },
+      "paladin": {
+        "attack": {
+          "attack1": "/src/assets/char/enemy/paladin/attack/attack1.png",
+          "attack2": "/src/assets/char/enemy/paladin/attack/attack2.png",
+          "attack3": "/src/assets/char/enemy/paladin/attack/attack3.png",
+          "attack4": "/src/assets/char/enemy/paladin/attack/attack4.png"
+        },
+        "attack2": {
+          "attack21": "/src/assets/char/enemy/paladin/attack2/attack21.png",
+          "attack22": "/src/assets/char/enemy/paladin/attack2/attack22.png",
+          "attack23": "/src/assets/char/enemy/paladin/attack2/attack23.png",
+          "attack24": "/src/assets/char/enemy/paladin/attack2/attack24.png"
+        },
+        "dead": {
+          "dead1": "/src/assets/char/enemy/paladin/dead/dead1.png",
+          "dead2": "/src/assets/char/enemy/paladin/dead/dead2.png",
+          "dead3": "/src/assets/char/enemy/paladin/dead/dead3.png",
+          "dead4": "/src/assets/char/enemy/paladin/dead/dead4.png"
+        },
+        "idle": {
+          "idle1": "/src/assets/char/enemy/paladin/idle/idle1.png",
+          "idle2": "/src/assets/char/enemy/paladin/idle/idle2.png",
+          "idle3": "/src/assets/char/enemy/paladin/idle/idle3.png",
+          "idle4": "/src/assets/char/enemy/paladin/idle/idle4.png",
+          "idle5": "/src/assets/char/enemy/paladin/idle/idle5.png"
+        },
+        "jump": {
+          "jump1": "/src/assets/char/enemy/paladin/jump/jump1.png",
+          "jump2": "/src/assets/char/enemy/paladin/jump/jump2.png",
+          "jump3": "/src/assets/char/enemy/paladin/jump/jump3.png",
+          "jump4": "/src/assets/char/enemy/paladin/jump/jump4.png",
+          "jump5": "/src/assets/char/enemy/paladin/jump/jump5.png",
+          "jump6": "/src/assets/char/enemy/paladin/jump/jump6.png",
+          "jump7": "/src/assets/char/enemy/paladin/jump/jump7.png"
+        },
+        "protect": {
+          "protect1": "/src/assets/char/enemy/paladin/protect/protect1.png",
+          "protect2": "/src/assets/char/enemy/paladin/protect/protect2.png"
+        },
+        "run": {
+          "run1": "/src/assets/char/enemy/paladin/run/run1.png",
+          "run2": "/src/assets/char/enemy/paladin/run/run2.png",
+          "run3": "/src/assets/char/enemy/paladin/run/run3.png",
+          "run4": "/src/assets/char/enemy/paladin/run/run4.png",
+          "run5": "/src/assets/char/enemy/paladin/run/run5.png",
+          "run6": "/src/assets/char/enemy/paladin/run/run6.png"
+        },
+        "walk": {
+          "walk1": "/src/assets/char/enemy/paladin/walk/walk1.png",
+          "walk2": "/src/assets/char/enemy/paladin/walk/walk2.png",
+          "walk3": "/src/assets/char/enemy/paladin/walk/walk3.png",
+          "walk4": "/src/assets/char/enemy/paladin/walk/walk4.png",
+          "walk5": "/src/assets/char/enemy/paladin/walk/walk5.png",
+          "walk6": "/src/assets/char/enemy/paladin/walk/walk6.png",
+          "walk7": "/src/assets/char/enemy/paladin/walk/walk7.png",
+          "walk8": "/src/assets/char/enemy/paladin/walk/walk8.png"
+        }
+      },
+      "slimes": {
+        "blue": {
+          "attack": {
+            "attack1": "/src/assets/char/enemy/slimes/blue/attack/attack1.png",
+            "attack2": "/src/assets/char/enemy/slimes/blue/attack/attack2.png",
+            "attack3": "/src/assets/char/enemy/slimes/blue/attack/attack3.png",
+            "attack4": "/src/assets/char/enemy/slimes/blue/attack/attack4.png"
+          },
+          "attack2": {
+            "attack21": "/src/assets/char/enemy/slimes/blue/attack2/attack21.png",
+            "attack22": "/src/assets/char/enemy/slimes/blue/attack2/attack22.png",
+            "attack23": "/src/assets/char/enemy/slimes/blue/attack2/attack23.png",
+            "attack24": "/src/assets/char/enemy/slimes/blue/attack2/attack24.png"
+          },
+          "dead": {
+            "dead1": "/src/assets/char/enemy/slimes/blue/dead/dead1.png",
+            "dead2": "/src/assets/char/enemy/slimes/blue/dead/dead2.png",
+            "dead3": "/src/assets/char/enemy/slimes/blue/dead/dead3.png"
+          },
+          "idle": {
+            "idle1": "/src/assets/char/enemy/slimes/blue/idle/idle1.png",
+            "idle2": "/src/assets/char/enemy/slimes/blue/idle/idle2.png",
+            "idle3": "/src/assets/char/enemy/slimes/blue/idle/idle3.png",
+            "idle4": "/src/assets/char/enemy/slimes/blue/idle/idle4.png",
+            "idle5": "/src/assets/char/enemy/slimes/blue/idle/idle5.png",
+            "idle6": "/src/assets/char/enemy/slimes/blue/idle/idle6.png",
+            "idle7": "/src/assets/char/enemy/slimes/blue/idle/idle7.png",
+            "idle8": "/src/assets/char/enemy/slimes/blue/idle/idle8.png"
+          },
+          "run": {
+            "run1": "/src/assets/char/enemy/slimes/blue/run/run1.png",
+            "run2": "/src/assets/char/enemy/slimes/blue/run/run2.png",
+            "run3": "/src/assets/char/enemy/slimes/blue/run/run3.png",
+            "run4": "/src/assets/char/enemy/slimes/blue/run/run4.png",
+            "run5": "/src/assets/char/enemy/slimes/blue/run/run5.png",
+            "run6": "/src/assets/char/enemy/slimes/blue/run/run6.png",
+            "run7": "/src/assets/char/enemy/slimes/blue/run/run7.png"
+          },
+          "walk": {
+            "walk1": "/src/assets/char/enemy/slimes/blue/walk/walk1.png",
+            "walk2": "/src/assets/char/enemy/slimes/blue/walk/walk2.png",
+            "walk3": "/src/assets/char/enemy/slimes/blue/walk/walk3.png",
+            "walk4": "/src/assets/char/enemy/slimes/blue/walk/walk4.png",
+            "walk5": "/src/assets/char/enemy/slimes/blue/walk/walk5.png",
+            "walk6": "/src/assets/char/enemy/slimes/blue/walk/walk6.png",
+            "walk7": "/src/assets/char/enemy/slimes/blue/walk/walk7.png",
+            "walk8": "/src/assets/char/enemy/slimes/blue/walk/walk8.png"
+          }
+        },
+        "green": {
+          "attack": {
+            "attack1": "/src/assets/char/enemy/slimes/green/attack/attack1.png",
+            "attack2": "/src/assets/char/enemy/slimes/green/attack/attack2.png",
+            "attack3": "/src/assets/char/enemy/slimes/green/attack/attack3.png",
+            "attack4": "/src/assets/char/enemy/slimes/green/attack/attack4.png"
+          },
+          "attack2": {
+            "attack21": "/src/assets/char/enemy/slimes/green/attack2/attack21.png",
+            "attack22": "/src/assets/char/enemy/slimes/green/attack2/attack22.png",
+            "attack23": "/src/assets/char/enemy/slimes/green/attack2/attack23.png",
+            "attack24": "/src/assets/char/enemy/slimes/green/attack2/attack24.png"
+          },
+          "dead": {
+            "dead1": "/src/assets/char/enemy/slimes/green/dead/dead1.png",
+            "dead2": "/src/assets/char/enemy/slimes/green/dead/dead2.png",
+            "dead3": "/src/assets/char/enemy/slimes/green/dead/dead3.png"
+          },
+          "idle": {
+            "idle1": "/src/assets/char/enemy/slimes/green/idle/idle1.png",
+            "idle2": "/src/assets/char/enemy/slimes/green/idle/idle2.png",
+            "idle3": "/src/assets/char/enemy/slimes/green/idle/idle3.png",
+            "idle4": "/src/assets/char/enemy/slimes/green/idle/idle4.png",
+            "idle5": "/src/assets/char/enemy/slimes/green/idle/idle5.png",
+            "idle6": "/src/assets/char/enemy/slimes/green/idle/idle6.png",
+            "idle7": "/src/assets/char/enemy/slimes/green/idle/idle7.png",
+            "idle8": "/src/assets/char/enemy/slimes/green/idle/idle8.png"
+          },
+          "run": {
+            "run1": "/src/assets/char/enemy/slimes/green/run/run1.png",
+            "run2": "/src/assets/char/enemy/slimes/green/run/run2.png",
+            "run3": "/src/assets/char/enemy/slimes/green/run/run3.png",
+            "run4": "/src/assets/char/enemy/slimes/green/run/run4.png",
+            "run5": "/src/assets/char/enemy/slimes/green/run/run5.png",
+            "run6": "/src/assets/char/enemy/slimes/green/run/run6.png",
+            "run7": "/src/assets/char/enemy/slimes/green/run/run7.png"
+          },
+          "walk": {
+            "walk1": "/src/assets/char/enemy/slimes/green/walk/walk1.png",
+            "walk2": "/src/assets/char/enemy/slimes/green/walk/walk2.png",
+            "walk3": "/src/assets/char/enemy/slimes/green/walk/walk3.png",
+            "walk4": "/src/assets/char/enemy/slimes/green/walk/walk4.png",
+            "walk5": "/src/assets/char/enemy/slimes/green/walk/walk5.png",
+            "walk6": "/src/assets/char/enemy/slimes/green/walk/walk6.png",
+            "walk7": "/src/assets/char/enemy/slimes/green/walk/walk7.png",
+            "walk8": "/src/assets/char/enemy/slimes/green/walk/walk8.png"
+          }
+        },
+        "red": {
+          "attack": {
+            "attack1": "/src/assets/char/enemy/slimes/red/attack/attack1.png",
+            "attack2": "/src/assets/char/enemy/slimes/red/attack/attack2.png",
+            "attack3": "/src/assets/char/enemy/slimes/red/attack/attack3.png",
+            "attack4": "/src/assets/char/enemy/slimes/red/attack/attack4.png"
+          },
+          "attack2": {
+            "attack21": "/src/assets/char/enemy/slimes/red/attack2/attack21.png",
+            "attack22": "/src/assets/char/enemy/slimes/red/attack2/attack22.png",
+            "attack23": "/src/assets/char/enemy/slimes/red/attack2/attack23.png",
+            "attack24": "/src/assets/char/enemy/slimes/red/attack2/attack24.png"
+          },
+          "dead": {
+            "dead1": "/src/assets/char/enemy/slimes/red/dead/dead1.png",
+            "dead2": "/src/assets/char/enemy/slimes/red/dead/dead2.png",
+            "dead3": "/src/assets/char/enemy/slimes/red/dead/dead3.png"
+          },
+          "idle": {
+            "idle1": "/src/assets/char/enemy/slimes/red/idle/idle1.png",
+            "idle2": "/src/assets/char/enemy/slimes/red/idle/idle2.png",
+            "idle3": "/src/assets/char/enemy/slimes/red/idle/idle3.png",
+            "idle4": "/src/assets/char/enemy/slimes/red/idle/idle4.png",
+            "idle5": "/src/assets/char/enemy/slimes/red/idle/idle5.png",
+            "idle6": "/src/assets/char/enemy/slimes/red/idle/idle6.png",
+            "idle7": "/src/assets/char/enemy/slimes/red/idle/idle7.png",
+            "idle8": "/src/assets/char/enemy/slimes/red/idle/idle8.png"
+          },
+          "run": {
+            "run1": "/src/assets/char/enemy/slimes/red/run/run1.png",
+            "run2": "/src/assets/char/enemy/slimes/red/run/run2.png",
+            "run3": "/src/assets/char/enemy/slimes/red/run/run3.png",
+            "run4": "/src/assets/char/enemy/slimes/red/run/run4.png",
+            "run5": "/src/assets/char/enemy/slimes/red/run/run5.png",
+            "run6": "/src/assets/char/enemy/slimes/red/run/run6.png",
+            "run7": "/src/assets/char/enemy/slimes/red/run/run7.png"
+          },
+          "walk": {
+            "walk1": "/src/assets/char/enemy/slimes/red/walk/walk1.png",
+            "walk2": "/src/assets/char/enemy/slimes/red/walk/walk2.png",
+            "walk3": "/src/assets/char/enemy/slimes/red/walk/walk3.png",
+            "walk4": "/src/assets/char/enemy/slimes/red/walk/walk4.png",
+            "walk5": "/src/assets/char/enemy/slimes/red/walk/walk5.png",
+            "walk6": "/src/assets/char/enemy/slimes/red/walk/walk6.png",
+            "walk7": "/src/assets/char/enemy/slimes/red/walk/walk7.png",
+            "walk8": "/src/assets/char/enemy/slimes/red/walk/walk8.png"
+          }
+        }
+      },
+      "spirit": {
+        "attack": {
+          "attack1": "/src/assets/char/enemy/spirit/attack/attack1.png",
+          "attack10": "/src/assets/char/enemy/spirit/attack/attack10.png",
+          "attack11": "/src/assets/char/enemy/spirit/attack/attack11.png",
+          "attack2": "/src/assets/char/enemy/spirit/attack/attack2.png",
+          "attack3": "/src/assets/char/enemy/spirit/attack/attack3.png",
+          "attack4": "/src/assets/char/enemy/spirit/attack/attack4.png",
+          "attack5": "/src/assets/char/enemy/spirit/attack/attack5.png",
+          "attack6": "/src/assets/char/enemy/spirit/attack/attack6.png",
+          "attack7": "/src/assets/char/enemy/spirit/attack/attack7.png",
+          "attack8": "/src/assets/char/enemy/spirit/attack/attack8.png",
+          "attack9": "/src/assets/char/enemy/spirit/attack/attack9.png"
+        },
+        "attack2": {
+          "attack21": "/src/assets/char/enemy/spirit/attack2/attack21.png",
+          "attack210": "/src/assets/char/enemy/spirit/attack2/attack210.png",
+          "attack211": "/src/assets/char/enemy/spirit/attack2/attack211.png",
+          "attack212": "/src/assets/char/enemy/spirit/attack2/attack212.png",
+          "attack213": "/src/assets/char/enemy/spirit/attack2/attack213.png",
+          "attack22": "/src/assets/char/enemy/spirit/attack2/attack22.png",
+          "attack23": "/src/assets/char/enemy/spirit/attack2/attack23.png",
+          "attack24": "/src/assets/char/enemy/spirit/attack2/attack24.png",
+          "attack25": "/src/assets/char/enemy/spirit/attack2/attack25.png",
+          "attack26": "/src/assets/char/enemy/spirit/attack2/attack26.png",
+          "attack27": "/src/assets/char/enemy/spirit/attack2/attack27.png",
+          "attack28": "/src/assets/char/enemy/spirit/attack2/attack28.png",
+          "attack29": "/src/assets/char/enemy/spirit/attack2/attack29.png"
+        },
+        "dead": {
+          "dead1": "/src/assets/char/enemy/spirit/dead/dead1.png",
+          "dead2": "/src/assets/char/enemy/spirit/dead/dead2.png",
+          "dead3": "/src/assets/char/enemy/spirit/dead/dead3.png",
+          "dead4": "/src/assets/char/enemy/spirit/dead/dead4.png",
+          "dead5": "/src/assets/char/enemy/spirit/dead/dead5.png"
+        },
+        "idle": {
+          "idle1": "/src/assets/char/enemy/spirit/idle/idle1.png",
+          "idle2": "/src/assets/char/enemy/spirit/idle/idle2.png",
+          "idle3": "/src/assets/char/enemy/spirit/idle/idle3.png",
+          "idle4": "/src/assets/char/enemy/spirit/idle/idle4.png",
+          "idle5": "/src/assets/char/enemy/spirit/idle/idle5.png",
+          "idle6": "/src/assets/char/enemy/spirit/idle/idle6.png"
+        },
+        "run": {
+          "run1": "/src/assets/char/enemy/spirit/run/run1.png",
+          "run10": "/src/assets/char/enemy/spirit/run/run10.png",
+          "run11": "/src/assets/char/enemy/spirit/run/run11.png",
+          "run12": "/src/assets/char/enemy/spirit/run/run12.png",
+          "run13": "/src/assets/char/enemy/spirit/run/run13.png",
+          "run14": "/src/assets/char/enemy/spirit/run/run14.png",
+          "run15": "/src/assets/char/enemy/spirit/run/run15.png",
+          "run2": "/src/assets/char/enemy/spirit/run/run2.png",
+          "run3": "/src/assets/char/enemy/spirit/run/run3.png",
+          "run4": "/src/assets/char/enemy/spirit/run/run4.png",
+          "run5": "/src/assets/char/enemy/spirit/run/run5.png",
+          "run6": "/src/assets/char/enemy/spirit/run/run6.png",
+          "run7": "/src/assets/char/enemy/spirit/run/run7.png",
+          "run8": "/src/assets/char/enemy/spirit/run/run8.png",
+          "run9": "/src/assets/char/enemy/spirit/run/run9.png"
+        },
+        "walk": {
+          "walk1": "/src/assets/char/enemy/spirit/walk/walk1.png",
+          "walk2": "/src/assets/char/enemy/spirit/walk/walk2.png",
+          "walk3": "/src/assets/char/enemy/spirit/walk/walk3.png",
+          "walk4": "/src/assets/char/enemy/spirit/walk/walk4.png",
+          "walk5": "/src/assets/char/enemy/spirit/walk/walk5.png",
+          "walk6": "/src/assets/char/enemy/spirit/walk/walk6.png",
+          "walk7": "/src/assets/char/enemy/spirit/walk/walk7.png"
+        }
+      },
+      "warmor": {
+        "attack": {
+          "attack1": "/src/assets/char/enemy/warmor/attack/attack1.png",
+          "attack2": "/src/assets/char/enemy/warmor/attack/attack2.png",
+          "attack3": "/src/assets/char/enemy/warmor/attack/attack3.png",
+          "attack4": "/src/assets/char/enemy/warmor/attack/attack4.png"
+        },
+        "attack2": {
+          "attack21": "/src/assets/char/enemy/warmor/attack2/attack21.png",
+          "attack22": "/src/assets/char/enemy/warmor/attack2/attack22.png",
+          "attack23": "/src/assets/char/enemy/warmor/attack2/attack23.png"
+        },
+        "dead": {
+          "dead1": "/src/assets/char/enemy/warmor/dead/dead1.png",
+          "dead2": "/src/assets/char/enemy/warmor/dead/dead2.png",
+          "dead3": "/src/assets/char/enemy/warmor/dead/dead3.png",
+          "dead4": "/src/assets/char/enemy/warmor/dead/dead4.png"
+        },
+        "idle": {
+          "idle1": "/src/assets/char/enemy/warmor/idle/idle1.png",
+          "idle2": "/src/assets/char/enemy/warmor/idle/idle2.png",
+          "idle3": "/src/assets/char/enemy/warmor/idle/idle3.png",
+          "idle4": "/src/assets/char/enemy/warmor/idle/idle4.png",
+          "idle5": "/src/assets/char/enemy/warmor/idle/idle5.png"
+        },
+        "jump": {
+          "jump1": "/src/assets/char/enemy/warmor/jump/jump1.png",
+          "jump2": "/src/assets/char/enemy/warmor/jump/jump2.png",
+          "jump3": "/src/assets/char/enemy/warmor/jump/jump3.png",
+          "jump4": "/src/assets/char/enemy/warmor/jump/jump4.png",
+          "jump5": "/src/assets/char/enemy/warmor/jump/jump5.png",
+          "jump6": "/src/assets/char/enemy/warmor/jump/jump6.png",
+          "jump7": "/src/assets/char/enemy/warmor/jump/jump7.png",
+          "jump8": "/src/assets/char/enemy/warmor/jump/jump8.png"
+        },
+        "protect": {
+          "protect1": "/src/assets/char/enemy/warmor/protect/protect1.png",
+          "protect2": "/src/assets/char/enemy/warmor/protect/protect2.png",
+          "protect3": "/src/assets/char/enemy/warmor/protect/protect3.png"
+        },
+        "run": {
+          "run1": "/src/assets/char/enemy/warmor/run/run1.png",
+          "run2": "/src/assets/char/enemy/warmor/run/run2.png",
+          "run3": "/src/assets/char/enemy/warmor/run/run3.png",
+          "run4": "/src/assets/char/enemy/warmor/run/run4.png",
+          "run5": "/src/assets/char/enemy/warmor/run/run5.png",
+          "run6": "/src/assets/char/enemy/warmor/run/run6.png"
+        },
+        "walk": {
+          "walk1": "/src/assets/char/enemy/warmor/walk/walk1.png",
+          "walk2": "/src/assets/char/enemy/warmor/walk/walk2.png",
+          "walk3": "/src/assets/char/enemy/warmor/walk/walk3.png",
+          "walk4": "/src/assets/char/enemy/warmor/walk/walk4.png",
+          "walk5": "/src/assets/char/enemy/warmor/walk/walk5.png",
+          "walk6": "/src/assets/char/enemy/warmor/walk/walk6.png",
+          "walk7": "/src/assets/char/enemy/warmor/walk/walk7.png",
+          "walk8": "/src/assets/char/enemy/warmor/walk/walk8.png"
+        }
+      },
+      "warrior": {
+        "attack": {
+          "attack1": "/src/assets/char/enemy/warrior/attack/attack1.png",
+          "attack2": "/src/assets/char/enemy/warrior/attack/attack2.png",
+          "attack3": "/src/assets/char/enemy/warrior/attack/attack3.png",
+          "attack4": "/src/assets/char/enemy/warrior/attack/attack4.png"
+        },
+        "attack2": {
+          "attack21": "/src/assets/char/enemy/warrior/attack2/attack21.png",
+          "attack22": "/src/assets/char/enemy/warrior/attack2/attack22.png",
+          "attack23": "/src/assets/char/enemy/warrior/attack2/attack23.png",
+          "attack24": "/src/assets/char/enemy/warrior/attack2/attack24.png"
+        },
+        "attack3": {
+          "attack31": "/src/assets/char/enemy/warrior/attack3/attack31.png",
+          "attack32": "/src/assets/char/enemy/warrior/attack3/attack32.png",
+          "attack33": "/src/assets/char/enemy/warrior/attack3/attack33.png",
+          "attack34": "/src/assets/char/enemy/warrior/attack3/attack34.png"
+        },
+        "dead": {
+          "dead1": "/src/assets/char/enemy/warrior/dead/dead1.png",
+          "dead2": "/src/assets/char/enemy/warrior/dead/dead2.png",
+          "dead3": "/src/assets/char/enemy/warrior/dead/dead3.png",
+          "dead4": "/src/assets/char/enemy/warrior/dead/dead4.png"
+        },
+        "idle": {
+          "idle1": "/src/assets/char/enemy/warrior/idle/idle1.png",
+          "idle2": "/src/assets/char/enemy/warrior/idle/idle2.png",
+          "idle3": "/src/assets/char/enemy/warrior/idle/idle3.png",
+          "idle4": "/src/assets/char/enemy/warrior/idle/idle4.png",
+          "idle5": "/src/assets/char/enemy/warrior/idle/idle5.png",
+          "idle6": "/src/assets/char/enemy/warrior/idle/idle6.png"
+        },
+        "jump": {
+          "jump1": "/src/assets/char/enemy/warrior/jump/jump1.png",
+          "jump2": "/src/assets/char/enemy/warrior/jump/jump2.png",
+          "jump3": "/src/assets/char/enemy/warrior/jump/jump3.png",
+          "jump4": "/src/assets/char/enemy/warrior/jump/jump4.png",
+          "jump5": "/src/assets/char/enemy/warrior/jump/jump5.png"
+        },
+        "run": {
+          "run1": "/src/assets/char/enemy/warrior/run/run1.png",
+          "run2": "/src/assets/char/enemy/warrior/run/run2.png",
+          "run3": "/src/assets/char/enemy/warrior/run/run3.png",
+          "run4": "/src/assets/char/enemy/warrior/run/run4.png",
+          "run5": "/src/assets/char/enemy/warrior/run/run5.png",
+          "run6": "/src/assets/char/enemy/warrior/run/run6.png"
+        },
+        "walk": {
+          "walk1": "/src/assets/char/enemy/warrior/walk/walk1.png",
+          "walk2": "/src/assets/char/enemy/warrior/walk/walk2.png",
+          "walk3": "/src/assets/char/enemy/warrior/walk/walk3.png",
+          "walk4": "/src/assets/char/enemy/warrior/walk/walk4.png",
+          "walk5": "/src/assets/char/enemy/warrior/walk/walk5.png",
+          "walk6": "/src/assets/char/enemy/warrior/walk/walk6.png",
+          "walk7": "/src/assets/char/enemy/warrior/walk/walk7.png",
+          "walk8": "/src/assets/char/enemy/warrior/walk/walk8.png"
+        }
+      }
+    },
+    "hpbar": {}
+  },
+  "currencies": {
+    "coins": {
+      "gold": {
+        "goldCoin1": "/src/assets/currencies/coins/gold/goldCoin1.png",
+        "goldCoin2": "/src/assets/currencies/coins/gold/goldCoin2.png",
+        "goldCoin3": "/src/assets/currencies/coins/gold/goldCoin3.png",
+        "goldCoin4": "/src/assets/currencies/coins/gold/goldCoin4.png",
+        "goldCoin5": "/src/assets/currencies/coins/gold/goldCoin5.png"
+      },
+      "red": {
+        "redCoin1": "/src/assets/currencies/coins/red/redCoin1.png",
+        "redCoin2": "/src/assets/currencies/coins/red/redCoin2.png",
+        "redCoin3": "/src/assets/currencies/coins/red/redCoin3.png",
+        "redCoin4": "/src/assets/currencies/coins/red/redCoin4.png",
+        "redCoin5": "/src/assets/currencies/coins/red/redCoin5.png"
+      },
+      "silver": {
+        "silverCoin1": "/src/assets/currencies/coins/silver/silverCoin1.png",
+        "silverCoin2": "/src/assets/currencies/coins/silver/silverCoin2.png",
+        "silverCoin3": "/src/assets/currencies/coins/silver/silverCoin3.png",
+        "silverCoin4": "/src/assets/currencies/coins/silver/silverCoin4.png",
+        "silverCoin5": "/src/assets/currencies/coins/silver/silverCoin5.png"
+      }
+    },
+    "gems": {
+      "blue": {
+        "blueGem1": "/src/assets/currencies/gems/blue/blueGem1.png",
+        "blueGem2": "/src/assets/currencies/gems/blue/blueGem2.png",
+        "blueGem3": "/src/assets/currencies/gems/blue/blueGem3.png",
+        "blueGem4": "/src/assets/currencies/gems/blue/blueGem4.png"
+      },
+      "green": {
+        "greenGem1": "/src/assets/currencies/gems/green/greenGem1.png",
+        "greenGem2": "/src/assets/currencies/gems/green/greenGem2.png",
+        "greenGem3": "/src/assets/currencies/gems/green/greenGem3.png",
+        "greenGem4": "/src/assets/currencies/gems/green/greenGem4.png"
+      },
+      "grey": {
+        "greyGem1": "/src/assets/currencies/gems/grey/greyGem1.png",
+        "greyGem2": "/src/assets/currencies/gems/grey/greyGem2.png",
+        "greyGem3": "/src/assets/currencies/gems/grey/greyGem3.png",
+        "greyGem4": "/src/assets/currencies/gems/grey/greyGem4.png"
+      },
+      "red": {
+        "redGem1": "/src/assets/currencies/gems/red/redGem1.png",
+        "redGem2": "/src/assets/currencies/gems/red/redGem2.png",
+        "redGem3": "/src/assets/currencies/gems/red/redGem3.png",
+        "redGem4": "/src/assets/currencies/gems/red/redGem4.png"
+      },
+      "yellow": {
+        "yellowGem1": "/src/assets/currencies/gems/yellow/yellowGem1.png",
+        "yellowGem2": "/src/assets/currencies/gems/yellow/yellowGem2.png",
+        "yellowGem3": "/src/assets/currencies/gems/yellow/yellowGem3.png",
+        "yellowGem4": "/src/assets/currencies/gems/yellow/yellowGem4.png"
+      }
+    }
+  },
+  "decorations": {
+    "chest": {
+      "black": {
+        "idle": {
+          "idle1": "/src/assets/decorations/chest/black/idle/idle1.png",
+          "idle2": "/src/assets/decorations/chest/black/idle/idle2.png",
+          "idle3": "/src/assets/decorations/chest/black/idle/idle3.png",
+          "idle4": "/src/assets/decorations/chest/black/idle/idle4.png",
+          "idle5": "/src/assets/decorations/chest/black/idle/idle5.png"
+        },
+        "open": {
+          "open1": "/src/assets/decorations/chest/black/open/open1.png",
+          "open2": "/src/assets/decorations/chest/black/open/open2.png",
+          "open3": "/src/assets/decorations/chest/black/open/open3.png",
+          "open4": "/src/assets/decorations/chest/black/open/open4.png",
+          "open5": "/src/assets/decorations/chest/black/open/open5.png"
+        }
+      },
+      "gold": {
+        "idle": {
+          "idle1": "/src/assets/decorations/chest/gold/idle/idle1.png",
+          "idle2": "/src/assets/decorations/chest/gold/idle/idle2.png",
+          "idle3": "/src/assets/decorations/chest/gold/idle/idle3.png",
+          "idle4": "/src/assets/decorations/chest/gold/idle/idle4.png",
+          "idle5": "/src/assets/decorations/chest/gold/idle/idle5.png"
+        },
+        "open": {
+          "open1": "/src/assets/decorations/chest/gold/open/open1.png",
+          "open2": "/src/assets/decorations/chest/gold/open/open2.png",
+          "open3": "/src/assets/decorations/chest/gold/open/open3.png",
+          "open4": "/src/assets/decorations/chest/gold/open/open4.png",
+          "open5": "/src/assets/decorations/chest/gold/open/open5.png"
+        }
+      },
+      "white": {
+        "idle": {
+          "idle1": "/src/assets/decorations/chest/white/idle/idle1.png",
+          "idle2": "/src/assets/decorations/chest/white/idle/idle2.png",
+          "idle3": "/src/assets/decorations/chest/white/idle/idle3.png",
+          "idle4": "/src/assets/decorations/chest/white/idle/idle4.png",
+          "idle5": "/src/assets/decorations/chest/white/idle/idle5.png"
+        },
+        "open": {
+          "open1": "/src/assets/decorations/chest/white/open/open1.png",
+          "open2": "/src/assets/decorations/chest/white/open/open2.png",
+          "open3": "/src/assets/decorations/chest/white/open/open3.png",
+          "open4": "/src/assets/decorations/chest/white/open/open4.png",
+          "open5": "/src/assets/decorations/chest/white/open/open5.png"
+        }
+      },
+      "wood": {
+        "idle": {
+          "idle1": "/src/assets/decorations/chest/wood/idle/idle1.png",
+          "idle2": "/src/assets/decorations/chest/wood/idle/idle2.png",
+          "idle3": "/src/assets/decorations/chest/wood/idle/idle3.png",
+          "idle4": "/src/assets/decorations/chest/wood/idle/idle4.png",
+          "idle5": "/src/assets/decorations/chest/wood/idle/idle5.png"
+        },
+        "open": {
+          "open1": "/src/assets/decorations/chest/wood/open/open1.png",
+          "open2": "/src/assets/decorations/chest/wood/open/open2.png",
+          "open3": "/src/assets/decorations/chest/wood/open/open3.png",
+          "open4": "/src/assets/decorations/chest/wood/open/open4.png",
+          "open5": "/src/assets/decorations/chest/wood/open/open5.png"
+        }
+      }
+    },
+    "dots": {
+      "green": {
+        "dot1": "/src/assets/decorations/dots/green/dot1.png",
+        "dot2": "/src/assets/decorations/dots/green/dot2.png",
+        "dot3": "/src/assets/decorations/dots/green/dot3.png",
+        "dot4": "/src/assets/decorations/dots/green/dot4.png",
+        "dot5": "/src/assets/decorations/dots/green/dot5.png",
+        "dot6": "/src/assets/decorations/dots/green/dot6.png"
+      },
+      "pink": {
+        "dot1": "/src/assets/decorations/dots/pink/dot1.png",
+        "dot2": "/src/assets/decorations/dots/pink/dot2.png",
+        "dot3": "/src/assets/decorations/dots/pink/dot3.png",
+        "dot4": "/src/assets/decorations/dots/pink/dot4.png",
+        "dot5": "/src/assets/decorations/dots/pink/dot5.png",
+        "dot6": "/src/assets/decorations/dots/pink/dot6.png"
+      }
+    },
+    "effects": {
+      "explosionSmoke": {
+        "explosionSmoke1": "/src/assets/decorations/effects/explosionSmoke/explosionSmoke1.png",
+        "explosionSmoke10": "/src/assets/decorations/effects/explosionSmoke/explosionSmoke10.png",
+        "explosionSmoke11": "/src/assets/decorations/effects/explosionSmoke/explosionSmoke11.png",
+        "explosionSmoke12": "/src/assets/decorations/effects/explosionSmoke/explosionSmoke12.png",
+        "explosionSmoke2": "/src/assets/decorations/effects/explosionSmoke/explosionSmoke2.png",
+        "explosionSmoke3": "/src/assets/decorations/effects/explosionSmoke/explosionSmoke3.png",
+        "explosionSmoke4": "/src/assets/decorations/effects/explosionSmoke/explosionSmoke4.png",
+        "explosionSmoke5": "/src/assets/decorations/effects/explosionSmoke/explosionSmoke5.png",
+        "explosionSmoke6": "/src/assets/decorations/effects/explosionSmoke/explosionSmoke6.png",
+        "explosionSmoke7": "/src/assets/decorations/effects/explosionSmoke/explosionSmoke7.png",
+        "explosionSmoke8": "/src/assets/decorations/effects/explosionSmoke/explosionSmoke8.png",
+        "explosionSmoke9": "/src/assets/decorations/effects/explosionSmoke/explosionSmoke9.png"
+      },
+      "groundSmoke": {
+        "groundSmoke1": "/src/assets/decorations/effects/groundSmoke/groundSmoke1.png",
+        "groundSmoke2": "/src/assets/decorations/effects/groundSmoke/groundSmoke2.png",
+        "groundSmoke3": "/src/assets/decorations/effects/groundSmoke/groundSmoke3.png",
+        "groundSmoke4": "/src/assets/decorations/effects/groundSmoke/groundSmoke4.png",
+        "groundSmoke5": "/src/assets/decorations/effects/groundSmoke/groundSmoke5.png",
+        "groundSmoke6": "/src/assets/decorations/effects/groundSmoke/groundSmoke6.png",
+        "groundSmoke7": "/src/assets/decorations/effects/groundSmoke/groundSmoke7.png",
+        "groundSmoke8": "/src/assets/decorations/effects/groundSmoke/groundSmoke8.png"
+      },
+      "runSmoke": {
+        "runSmoke1": "/src/assets/decorations/effects/runSmoke/runSmoke1.png",
+        "runSmoke2": "/src/assets/decorations/effects/runSmoke/runSmoke2.png",
+        "runSmoke3": "/src/assets/decorations/effects/runSmoke/runSmoke3.png",
+        "runSmoke4": "/src/assets/decorations/effects/runSmoke/runSmoke4.png",
+        "runSmoke5": "/src/assets/decorations/effects/runSmoke/runSmoke5.png",
+        "runSmoke6": "/src/assets/decorations/effects/runSmoke/runSmoke6.png",
+        "runSmoke7": "/src/assets/decorations/effects/runSmoke/runSmoke7.png",
+        "runSmoke8": "/src/assets/decorations/effects/runSmoke/runSmoke8.png",
+        "runSmoke9": "/src/assets/decorations/effects/runSmoke/runSmoke9.png"
+      }
+    },
+    "explosion": {
+      "fire": {
+        "explosion1": "/src/assets/decorations/explosion/fire/explosion1.png",
+        "explosion10": "/src/assets/decorations/explosion/fire/explosion10.png",
+        "explosion2": "/src/assets/decorations/explosion/fire/explosion2.png",
+        "explosion3": "/src/assets/decorations/explosion/fire/explosion3.png",
+        "explosion4": "/src/assets/decorations/explosion/fire/explosion4.png",
+        "explosion5": "/src/assets/decorations/explosion/fire/explosion5.png",
+        "explosion6": "/src/assets/decorations/explosion/fire/explosion6.png",
+        "explosion7": "/src/assets/decorations/explosion/fire/explosion7.png",
+        "explosion8": "/src/assets/decorations/explosion/fire/explosion8.png",
+        "explosion9": "/src/assets/decorations/explosion/fire/explosion9.png"
+      },
+      "lightning": {
+        "lightningExplosion1": "/src/assets/decorations/explosion/lightning/lightningExplosion1.png",
+        "lightningExplosion10": "/src/assets/decorations/explosion/lightning/lightningExplosion10.png",
+        "lightningExplosion2": "/src/assets/decorations/explosion/lightning/lightningExplosion2.png",
+        "lightningExplosion3": "/src/assets/decorations/explosion/lightning/lightningExplosion3.png",
+        "lightningExplosion4": "/src/assets/decorations/explosion/lightning/lightningExplosion4.png",
+        "lightningExplosion5": "/src/assets/decorations/explosion/lightning/lightningExplosion5.png",
+        "lightningExplosion6": "/src/assets/decorations/explosion/lightning/lightningExplosion6.png",
+        "lightningExplosion7": "/src/assets/decorations/explosion/lightning/lightningExplosion7.png",
+        "lightningExplosion8": "/src/assets/decorations/explosion/lightning/lightningExplosion8.png",
+        "lightningExplosion9": "/src/assets/decorations/explosion/lightning/lightningExplosion9.png"
+      }
+    },
+    "fire": {
+      "fire1": "/src/assets/decorations/fire/fire1.png",
+      "fire2": "/src/assets/decorations/fire/fire2.png",
+      "fire3": "/src/assets/decorations/fire/fire3.png",
+      "fire4": "/src/assets/decorations/fire/fire4.png",
+      "fire5": "/src/assets/decorations/fire/fire5.png",
+      "fire6": "/src/assets/decorations/fire/fire6.png"
+    },
+    "lightning": {
+      "cycle": {
+        "lightningCycle1": "/src/assets/decorations/lightning/cycle/lightningCycle1.png",
+        "lightningCycle2": "/src/assets/decorations/lightning/cycle/lightningCycle2.png",
+        "lightningCycle3": "/src/assets/decorations/lightning/cycle/lightningCycle3.png",
+        "lightningCycle4": "/src/assets/decorations/lightning/cycle/lightningCycle4.png",
+        "lightningCycle5": "/src/assets/decorations/lightning/cycle/lightningCycle5.png",
+        "lightningCycle6": "/src/assets/decorations/lightning/cycle/lightningCycle6.png"
+      },
+      "linear": {
+        "lightning1": "/src/assets/decorations/lightning/linear/lightning1.png",
+        "lightning2": "/src/assets/decorations/lightning/linear/lightning2.png",
+        "lightning3": "/src/assets/decorations/lightning/linear/lightning3.png",
+        "lightning4": "/src/assets/decorations/lightning/linear/lightning4.png",
+        "lightning5": "/src/assets/decorations/lightning/linear/lightning5.png"
+      }
+    },
+    "smoke": {
+      "smoke1": "/src/assets/decorations/smoke/smoke1.png",
+      "smoke2": "/src/assets/decorations/smoke/smoke2.png",
+      "smoke3": "/src/assets/decorations/smoke/smoke3.png",
+      "smoke4": "/src/assets/decorations/smoke/smoke4.png",
+      "smoke5": "/src/assets/decorations/smoke/smoke5.png",
+      "smoke6": "/src/assets/decorations/smoke/smoke6.png"
+    }
+  },
+  "items": {
+    "armors": {
+      "heavyArmorBelt": "/src/assets/items/armors/heavyArmorBelt.png",
+      "heavyArmorBoots": "/src/assets/items/armors/heavyArmorBoots.png",
+      "heavyArmorChest": "/src/assets/items/armors/heavyArmorChest.png",
+      "heavyArmorChest2": "/src/assets/items/armors/heavyArmorChest2.png",
+      "heavyArmorGlove": "/src/assets/items/armors/heavyArmorGlove.png",
+      "heavyArmorHelmet": "/src/assets/items/armors/heavyArmorHelmet.png",
+      "heavyArmorHelmet2": "/src/assets/items/armors/heavyArmorHelmet2.png",
+      "heavyArmorPants": "/src/assets/items/armors/heavyArmorPants.png",
+      "heavyArmorPants2": "/src/assets/items/armors/heavyArmorPants2.png",
+      "lightArmorBoots": "/src/assets/items/armors/lightArmorBoots.png",
+      "lightArmorChest": "/src/assets/items/armors/lightArmorChest.png",
+      "lightArmorChest2": "/src/assets/items/armors/lightArmorChest2.png",
+      "lightArmorChest3": "/src/assets/items/armors/lightArmorChest3.png",
+      "lightArmorGlove": "/src/assets/items/armors/lightArmorGlove.png",
+      "lightArmorHelmet": "/src/assets/items/armors/lightArmorHelmet.png",
+      "lightArmorHelmet2": "/src/assets/items/armors/lightArmorHelmet2.png",
+      "lightArmorHelmet3": "/src/assets/items/armors/lightArmorHelmet3.png",
+      "lightArmorPants": "/src/assets/items/armors/lightArmorPants.png"
+    },
+    "books": {
+      "blue": "/src/assets/items/books/blue.png",
+      "brown": "/src/assets/items/books/brown.png",
+      "green": "/src/assets/items/books/green.png",
+      "orange": "/src/assets/items/books/orange.png",
+      "red": "/src/assets/items/books/red.png",
+      "special": "/src/assets/items/books/special.png",
+      "special2": "/src/assets/items/books/special2.png",
+      "yellow": "/src/assets/items/books/yellow.png"
+    },
+    "consumables": {
+      "ace": "/src/assets/items/consumables/ace.png",
+      "box": "/src/assets/items/consumables/box.png",
+      "bunch": "/src/assets/items/consumables/bunch.png",
+      "candle": "/src/assets/items/consumables/candle.png",
+      "key": "/src/assets/items/consumables/key.png",
+      "lamp": "/src/assets/items/consumables/lamp.png",
+      "scroll": "/src/assets/items/consumables/scroll.png",
+      "torch": "/src/assets/items/consumables/torch.png"
+    },
+    "icons": {
+      "arrow": "/src/assets/items/icons/arrow.png",
+      "bag": "/src/assets/items/icons/bag.png",
+      "bag2": "/src/assets/items/icons/bag2.png",
+      "book": "/src/assets/items/icons/book.png",
+      "coin": "/src/assets/items/icons/coin.png",
+      "coins": "/src/assets/items/icons/coins.png",
+      "forge": "/src/assets/items/icons/forge.png",
+      "gift": "/src/assets/items/icons/gift.png",
+      "gold": "/src/assets/items/icons/gold.png",
+      "letter": "/src/assets/items/icons/letter.png",
+      "money": "/src/assets/items/icons/money.png",
+      "roll": "/src/assets/items/icons/roll.png",
+      "wallet": "/src/assets/items/icons/wallet.png"
+    },
+    "jewelry": {
+      "necklace1": "/src/assets/items/jewelry/necklace1.png",
+      "necklace2": "/src/assets/items/jewelry/necklace2.png",
+      "necklace3": "/src/assets/items/jewelry/necklace3.png",
+      "ring1": "/src/assets/items/jewelry/ring1.png",
+      "ring2": "/src/assets/items/jewelry/ring2.png"
+    },
+    "potions": {
+      "UP1": "/src/assets/items/potions/UP1.png",
+      "all1": "/src/assets/items/potions/all1.png",
+      "all2": "/src/assets/items/potions/all2.png",
+      "all3": "/src/assets/items/potions/all3.png",
+      "all4": "/src/assets/items/potions/all4.png",
+      "endurance1": "/src/assets/items/potions/endurance1.png",
+      "endurance2": "/src/assets/items/potions/endurance2.png",
+      "endurance3": "/src/assets/items/potions/endurance3.png",
+      "health1": "/src/assets/items/potions/health1.png",
+      "health2": "/src/assets/items/potions/health2.png",
+      "health3": "/src/assets/items/potions/health3.png",
+      "health4": "/src/assets/items/potions/health4.png",
+      "mana1": "/src/assets/items/potions/mana1.png",
+      "mana2": "/src/assets/items/potions/mana2.png",
+      "mana3": "/src/assets/items/potions/mana3.png"
+    },
+    "stones": {
+      "black": "/src/assets/items/stones/black.png",
+      "blue": "/src/assets/items/stones/blue.png",
+      "green": "/src/assets/items/stones/green.png",
+      "purple": "/src/assets/items/stones/purple.png",
+      "red": "/src/assets/items/stones/red.png",
+      "yellow": "/src/assets/items/stones/yellow.png"
+    },
+    "weapons": {
+      "axe1": "/src/assets/items/weapons/axe1.png",
+      "axe2": "/src/assets/items/weapons/axe2.png",
+      "bow1": "/src/assets/items/weapons/bow1.png",
+      "dagger1": "/src/assets/items/weapons/dagger1.png",
+      "dagger2": "/src/assets/items/weapons/dagger2.png",
+      "staff1": "/src/assets/items/weapons/staff1.png",
+      "staff2": "/src/assets/items/weapons/staff2.png",
+      "staff3": "/src/assets/items/weapons/staff3.png",
+      "staff4": "/src/assets/items/weapons/staff4.png",
+      "staff5": "/src/assets/items/weapons/staff5.png",
+      "sword1": "/src/assets/items/weapons/sword1.png",
+      "sword2": "/src/assets/items/weapons/sword2.png",
+      "sword3": "/src/assets/items/weapons/sword3.png",
+      "sword4": "/src/assets/items/weapons/sword4.png",
+      "sword5": "/src/assets/items/weapons/sword5.png",
+      "sword6": "/src/assets/items/weapons/sword6.png",
+      "sword7": "/src/assets/items/weapons/sword7.png"
+    }
+  }
+}
