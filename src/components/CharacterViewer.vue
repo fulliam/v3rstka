@@ -1,7 +1,11 @@
 <template>
   <div class="character-viewer" v-if="category">
 
-    {{ isOwn }}
+
+    <div class="animation">
+      <img :src="currentFrame" alt="Character Animation Frame" />
+    </div>
+
     <div class="menu" v-if="isOwn">
       <button
         v-for="character in characters"
@@ -11,11 +15,7 @@
         {{ character }}
       </button>
     </div>
-
-    <div class="animation">
-      <img :src="currentFrame" alt="Character Animation Frame" />
-    </div>
-
+    
     <div class="actions" v-if="isOwn">
       <button
         v-for="action in actions"
@@ -27,18 +27,11 @@
         {{ action }}
       </button>
     </div>
-
-    <div class="messages" v-if="isOwn">
-      <ul>
-        <li v-for="msg in messages" :key="msg">{{ msg }}</li>
-      </ul>
-      <input v-model="message" @keyup.enter="sendMessage" placeholder="Type a message" />
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { useSocketStore } from '../stores/socket';
 import animations from '../animations.json';
 
@@ -67,12 +60,6 @@ const props = defineProps({
 });
 
 const socketStore = useSocketStore();
-
-const message = ref('');
-const sendMessage = () => {
-  socketStore.sendMessage(JSON.stringify({ userId: props.userId, message: message.value }));
-  message.value = '';
-};
 
 const characters = ref(Object.keys(animations.char[props.category]));
 const currentCharacter = ref(props.character);
@@ -151,8 +138,6 @@ onMounted(() => {
   updateFrames();
   startAnimation();
 });
-
-const messages = computed(() => socketStore.messages);
 </script>
 
 <style scoped>

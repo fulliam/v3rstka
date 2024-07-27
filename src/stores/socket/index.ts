@@ -7,18 +7,25 @@ interface User {
   action: string;
 }
 
+interface Message {
+  userId: string;
+  content: string;
+}
+
 interface SocketState {
   socket: WebSocket | null;
   isConnected: boolean;
-  messages: string[];
   users: User[];
+}
+
+interface MessageState {
+  messages: Message[];
 }
 
 export const useSocketStore = defineStore('socket', {
   state: (): SocketState => ({
     socket: null,
     isConnected: false,
-    messages: [],
     users: [],
   }),
   actions: {
@@ -43,8 +50,8 @@ export const useSocketStore = defineStore('socket', {
         const data = JSON.parse(event.data);
         if (data.type === "users") {
           this.users = data.data;
-        } else {
-          this.messages.push(data.message);
+        } else if (data.type === "messages") {
+          useMessageStore().setMessages(data.data);
         }
       };
     },
@@ -57,7 +64,7 @@ export const useSocketStore = defineStore('socket', {
     },
     sendMessage(message: string) {
       if (this.socket && this.isConnected) {
-        this.socket.send(message);
+        this.socket.send(JSON.stringify({ type: "message", content: message }));
       }
     },
     addUser(user: User) {
@@ -67,6 +74,20 @@ export const useSocketStore = defineStore('socket', {
     },
     removeUser(userId: string) {
       this.users = this.users.filter(user => user.userId !== userId);
+    },
+  },
+});
+
+export const useMessageStore = defineStore('message', {
+  state: (): MessageState => ({
+    messages: [],
+  }),
+  actions: {
+    setMessages(messages: Message[]) {
+      this.messages = messages;
+    },
+    addMessage(message: Message) {
+      this.messages.push(message);
     },
   },
 });
