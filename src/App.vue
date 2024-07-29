@@ -1,4 +1,5 @@
 <template>
+  <p>Connected: {{ isConnected }}</p>
   <div class="tabs">
     <button :class="{ active: currentTab === 'ally' }" @click="currentTab = 'ally'">Ally</button>
     <button :class="{ active: currentTab === 'enemy' }" @click="currentTab = 'enemy'">Enemy</button>
@@ -7,13 +8,12 @@
 
   <div class="chat-wrapper" v-if="currentTab === 'chat'">
     <div class="user-list">
-      <div v-for="user in socketStore.users" :key="user.userId" class="user-card">
-        <div class="user-chat-image">
-
-        </div>
+      <div v-for="user in usersInSameLocation" :key="user.userId" class="user-card">
+        <div class="user-chat-image"></div>
         <p>{{ user.userId }}</p>
-        <p><strong>Character:</strong> {{ user.character }}</p>
-        <p><strong>Action:</strong> {{ user.action }}</p>
+        <p><strong>Character:</strong> {{ user.character.info.character }}</p>
+        <p><strong>Action:</strong> {{ user.character.state.action }}</p>
+        <p><strong>Location:</strong> {{ user.character.info.location }}</p>
       </div>
     </div>
     <ChatViewer />
@@ -21,13 +21,14 @@
 
   <div class="viewers" v-if="currentTab === 'ally'">
     <CharacterViewer
-      v-for="user in socketStore.users"
+      v-for="user in usersInSameLocation"
       :key="user.userId"
       :user-id="user.userId"
       :category="currentTab"
       :is-own="user.userId === ownUserId"
       :character="user.character"
-      :action="user.action"
+      :action="user.character.state.action"
+      :position="user.character.state.position"
     />
   </div>
 </template>
@@ -38,9 +39,15 @@ import CharacterViewer from './components/CharacterViewer.vue';
 import ChatViewer from './components/ChatViewer.vue';
 import { useSocketStore } from './stores/socket';
 
+const determineUserId = () => {
+  const users = ['Kelly', 'Roh'];
+  const randomIndex = Math.floor(Math.random() * users.length);
+  return users[randomIndex];
+};
+
 const currentTab = ref<'ally' | 'enemy' | 'chat'>('ally');
 const socketStore = useSocketStore();
-const ownUserId = ref<string>(String(Math.random()));
+const ownUserId = ref<string>(determineUserId());
 
 onMounted(() => {
   socketStore.connect(ownUserId.value);
@@ -51,6 +58,13 @@ onUnmounted(() => {
 });
 
 const isConnected = computed(() => socketStore.isConnected);
+
+const usersInSameLocation = computed(() => {
+  const ownUser = socketStore.users.find(user => user.userId === ownUserId.value);
+  if (!ownUser) return [];
+  const location = ownUser.character.info.location;
+  return socketStore.users.filter(user => user.character.info.location === location);
+});
 </script>
 
 <style scoped lang="scss">

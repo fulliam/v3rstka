@@ -1,9 +1,5 @@
 <template>
   <div class="character-viewer" v-if="category">
-    <div class="animation">
-      <img :src="currentFrame" alt="Character Animation Frame" />
-    </div>
-
     <div class="menu" v-if="isOwn">
       <button
         v-for="character in characters"
@@ -13,23 +9,16 @@
         {{ character }}
       </button>
     </div>
-    
-    <div class="actions" v-if="isOwn">
-      <button
-        v-for="action in actions"
-        :key="action"
-        @mousedown="startAction(action)"
-        @mouseup="stopAction"
-        @mouseleave="stopAction"
-      >
-        {{ action }}
-      </button>
+
+    <div class="animation" :style="{position: 'relative', left: `${props.position.x}`, top: `${props.position.y}`}">
+      <img :src="currentFrame" alt="Character Animation Frame" />
     </div>
+    {{ position }}
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, onUnmounted } from 'vue';
 import { useSocketStore } from '../stores/socket';
 import animations from '../animations.json';
 
@@ -48,21 +37,23 @@ const props = defineProps({
     required: true,
   },
   character: {
-    type: String,
+    type: Object,
     required: true,
   },
   action: {
     type: String,
     required: true,
   },
+  position: {
+    type: Object,
+    required: true,
+  }
 });
 
 const socketStore = useSocketStore();
 
-const characters = ref(Object.keys(animations.char[props.category]));
-const currentCharacter = ref(props.character);
-const currentAnimation = ref(props.action);
-const actions = ref(Object.keys(animations.char[props.category][currentCharacter.value]));
+const characters = ref(Object.keys((animations as any).char[props.category]));
+const actions = ref(Object.keys((animations as any).char[props.category][props.character.info.character]));
 
 const frames = ref<string[]>([]);
 const currentFrame = ref<string>('');
@@ -70,71 +61,145 @@ let frameIndex = 0;
 let animationInterval: NodeJS.Timeout;
 
 const preloadImages = (frameList: string[]) => {
-  return frameList.map(src => {
-    const img = new Image();
-    img.src = src;
-    return img;
+  const promises = frameList.map(src => {
+    return new Promise<void>((resolve, reject) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => resolve();
+      img.onerror = () => reject(new Error(`Failed to load image ${src}`));
+    });
   });
+
+  return Promise.all(promises);
 };
 
-const updateFrames = () => {
-  frames.value = Object.values(animations.char[props.category][currentCharacter.value][currentAnimation.value]);
-  preloadImages(frames.value);
+const updateFrames = async () => {
+  frames.value = Object.values((animations as any).char[props.category][props.character.info.character][props.action]);
+  await preloadImages(frames.value);
   currentFrame.value = frames.value[0];
   frameIndex = 0;
 };
 
 const startAnimation = () => {
-  clearInterval(animationInterval);
-  animationInterval = setInterval(() => {
-    frameIndex = (frameIndex + 1) % frames.value.length;
-    currentFrame.value = frames.value[frameIndex];
-  }, 1000 / 10); // 10 fps
+  let lastTime = 0;
+  const frameDuration = 1000 / 10; // 10 fps
+
+  const animate = (timestamp: number) => {
+    if (lastTime === 0) lastTime = timestamp;
+
+    const deltaTime = timestamp - lastTime;
+
+    if (deltaTime >= frameDuration) {
+      frameIndex = (frameIndex + 1) % frames.value.length;
+      currentFrame.value = frames.value[frameIndex];
+      lastTime = timestamp;
+    }
+
+    requestAnimationFrame(animate);
+  };
+
+  requestAnimationFrame(animate);
 };
 
 const selectCharacter = (character: string) => {
-  currentCharacter.value = character;
-  actions.value = Object.keys(animations.char[props.category][character]);
-  currentAnimation.value = 'idle';
-  socketStore.updateUser(props.userId, character, 'idle');
-  updateFrames();
+  actions.value = Object.keys((animations as any).char[props.category][character]);
+  socketStore.updateUserAction(props.userId, character, 'idle');
 };
 
 const startAction = (action: string) => {
-  currentAnimation.value = action;
-  socketStore.updateUser(props.userId, currentCharacter.value, action);
-  updateFrames();
-  startAnimation();
+  socketStore.updateUserAction(props.userId, props.character.info.character, action);
 };
 
 const stopAction = () => {
-  currentAnimation.value = 'idle';
-  socketStore.updateUser(props.userId, currentCharacter.value, 'idle');
-  updateFrames();
-  startAnimation();
+  socketStore.updateUserAction(props.userId, props.character.info.character, 'idle');
+};
+
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (!props.isOwn) return;
+
+  handleMovement(event);
+
+  const actionMap: { [key: string]: string } = {
+    KeyW: 'jump',
+    KeyA: 'walk',
+    KeyS: 'walk', 
+    KeyD: 'walk',
+    Space: 'attack',
+    KeyX: 'jump',
+  };
+
+  const combinedActionMap: { [key: string]: string } = {
+    'Space+Shift': 'attack',
+    'Space+Control': 'attack2',
+    'KeyA+Shift': 'run',
+    'KeyD+Shift': 'run',
+  };
+
+  let action = actionMap[event.code];
+
+  if (!action) {
+    const combinedAction = `${event.code}${event.shiftKey ? '+Shift' : ''}${event.ctrlKey ? '+Control' : ''}`;
+    action = combinedActionMap[combinedAction];
+  }
+
+  if (action) {
+    startAction(action);
+  }
+};
+
+const handleMovement = (event: KeyboardEvent) => {
+    if (!props.isOwn) return;
+
+    let newPosition = { ...props.character.state.position };
+
+    switch (event.code) {
+        case 'KeyW':
+            newPosition.y -= 1;
+            break;
+        case 'KeyS':
+            newPosition.y += 1;
+            break;
+        case 'KeyA':
+            newPosition.x -= 1;
+            break;
+        case 'KeyD':
+            newPosition.x += 1;
+            break;
+    }
+
+    socketStore.updateUserPosition(props.userId, newPosition);
+};
+
+const handleKeyUp = () => {
+  stopAction();
 };
 
 watch(() => props.character, (newCharacter) => {
-  currentCharacter.value = newCharacter;
-  actions.value = Object.keys(animations.char[props.category][newCharacter]);
+  actions.value = Object.keys((animations as any).char[props.category][newCharacter.info.character]);
   updateFrames();
 });
 
-watch(() => props.action, (newAction) => {
-  currentAnimation.value = newAction;
+watch(() => props.action, () => {
   updateFrames();
 });
 
 watch(() => props.category, () => {
-  characters.value = Object.keys(animations.char[props.category]);
-  currentCharacter.value = characters.value[0];
-  actions.value = Object.keys(animations.char[props.category][currentCharacter.value]);
+  characters.value = Object.keys((animations as any).char[props.category]);
+  actions.value = Object.keys((animations as any).char[props.category][props.character.info.character]);
   updateFrames();
 });
 
 onMounted(() => {
   updateFrames();
   startAnimation();
+  window.addEventListener('keydown', handleKeyDown);
+  window.addEventListener('keyup', handleKeyUp);
+});
+
+onUnmounted(() => {
+  clearInterval(animationInterval);
+  window.removeEventListener('keydown', handleKeyDown);
+  window.removeEventListener('keyup', handleKeyUp);
 });
 </script>
 
