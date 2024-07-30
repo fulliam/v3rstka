@@ -19,6 +19,16 @@
     <ChatViewer />
   </div>
 
+  <div class="menu">
+    <button
+      v-for="character in characters"
+      :key="character"
+      @click="selectCharacter(character)"
+    >
+      {{ character }}
+    </button>
+  </div>
+
   <div class="viewers" v-if="currentTab === 'ally'">
     <CharacterViewer
       v-for="user in usersInSameLocation"
@@ -27,8 +37,6 @@
       :category="currentTab"
       :is-own="user.userId === ownUserId"
       :character="user.character"
-      :action="user.character.state.action"
-      :position="user.character.state.position"
     />
   </div>
 </template>
@@ -38,16 +46,30 @@ import { ref, onMounted, onUnmounted, computed } from 'vue';
 import CharacterViewer from './components/CharacterViewer.vue';
 import ChatViewer from './components/ChatViewer.vue';
 import { useSocketStore } from './stores/socket';
+import animations from './animations.json';
 
+const currentUserId = ref<string>('');
 const determineUserId = () => {
   const users = ['Kelly', 'Roh'];
   const randomIndex = Math.floor(Math.random() * users.length);
-  return users[randomIndex];
+  currentUserId.value = users[randomIndex];
+  if (!currentUserId.value) {
+    return users[randomIndex];
+  } else {
+    if (currentUserId.value === 'Kelly') return 'Roh'
+    else return 'Kelly'
+  }
 };
 
 const currentTab = ref<'ally' | 'enemy' | 'chat'>('ally');
 const socketStore = useSocketStore();
 const ownUserId = ref<string>(determineUserId());
+
+const characters = ref(Object.keys((animations as any).char['ally']));
+
+const selectCharacter = (character: string) => {
+  socketStore.updateUserCharacter(currentUserId.value, character);
+};
 
 onMounted(() => {
   socketStore.connect(ownUserId.value);
@@ -129,4 +151,21 @@ const usersInSameLocation = computed(() => {
   flex-direction: row;
   gap: 20px;
 }
+
+.menu {
+  margin-bottom: 20px;
+}
+
+.menu button {
+  margin: 0 5px;
+}
+
+.actions {
+  margin-bottom: 20px;
+}
+
+.actions button {
+  margin: 0 5px;
+}
+
 </style>

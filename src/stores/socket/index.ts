@@ -60,6 +60,12 @@ export const useSocketStore = defineStore('socket', {
           const userIndex = this.users.findIndex(user => user.userId === data.update.userId);
           if (userIndex !== -1) {
             this.users[userIndex].character.state.position = data.update.coords;
+            this.users[userIndex].character.state.direction = data.update.direction;
+          }
+        } else if (data.type === 'change_character') {
+          const userIndex = this.users.findIndex(user => user.userId === data.update.userId);
+          if (userIndex !== -1) {
+            this.users[userIndex].character.info.character = data.update.character;
           }
         } else if (data.type === 'location') {
           const userIndex = this.users.findIndex(user => user.userId === data.userId);
@@ -99,13 +105,25 @@ export const useSocketStore = defineStore('socket', {
         );
       }
     },
-    updateUserPosition(userId: string, position: Position) {
+    updateUserPosition(userId: string, position: Position, direction: 'left' | 'right') {
       if (this.socket) {
           this.socket.send(
               JSON.stringify({
                   type: 'move',
                   userId,
                   position,
+                  direction
+              })
+          );
+      }
+    },
+    updateUserCharacter(userId: string, character: string) {
+      if (this.socket) {
+          this.socket.send(
+              JSON.stringify({
+                  type: 'change_character',
+                  userId,
+                  character,
               })
           );
       }

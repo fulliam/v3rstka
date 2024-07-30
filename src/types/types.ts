@@ -73,6 +73,7 @@ export interface CharacterInfo {
 
 export interface CharacterState {
   position: Position;
+  direction: 'left' | 'right';
   action: string;
   health: Health;
   mana: Mana;
