@@ -1,50 +1,54 @@
 <template>
-  <p>Connected: {{ isConnected }}</p>
-  <div class="tabs">
-    <button :class="{ active: currentTab === 'ally' }" @click="currentTab = 'ally'">Ally</button>
-    <button :class="{ active: currentTab === 'enemy' }" @click="currentTab = 'enemy'">Enemy</button>
-    <button :class="{ active: currentTab === 'chat' }" @click="currentTab = 'chat'">Chat</button>
-  </div>
-
-  <div class="chat-wrapper" v-if="currentTab === 'chat'">
-    <div class="user-list">
-      <div v-for="user in usersInSameLocation" :key="user.userId" class="user-card">
-        <div class="user-chat-image"></div>
-        <p>{{ user.userId }}</p>
-        <p><strong>Character:</strong> {{ user.character.info.character }}</p>
-        <p><strong>Action:</strong> {{ user.character.state.action }}</p>
-        <p><strong>Location:</strong> {{ user.character.info.location }}</p>
-      </div>
+  <div v-if="true">
+    <p>Connected: {{ isConnected }}</p>
+    <div class="tabs">
+      <button :class="{ active: currentTab === 'Gameplay' }" @click="currentTab = 'Gameplay'">Gameplay</button>
+      <button :class="{ active: currentTab === 'enemy' }" @click="currentTab = 'enemy'">Enemy</button>
+      <button :class="{ active: currentTab === 'chat' }" @click="currentTab = 'chat'">Chat</button>
     </div>
-    <ChatViewer />
+
+    <div class="chat-wrapper" v-if="currentTab === 'chat'">
+      <div class="user-list">
+        <div v-for="user in usersInSameLocation" :key="user.userId" class="user-card">
+          <div class="user-chat-image"></div>
+          <p>{{ user.userId }}</p>
+          <p><strong>Character:</strong> {{ user.character.info.character }}</p>
+          <p><strong>Action:</strong> {{ user.character.state.action }}</p>
+          <p><strong>Location:</strong> {{ user.character.info.location }}</p>
+        </div>
+      </div>
+      <ChatViewer />
+    </div>
+
+    <div class="menu">
+      <button
+        v-for="character in characters"
+        :key="character"
+        @click="selectCharacter(character)"
+      >
+        {{ character }}
+      </button>
+    </div>
   </div>
 
-  <div class="menu">
-    <button
-      v-for="character in characters"
-      :key="character"
-      @click="selectCharacter(character)"
-    >
-      {{ character }}
-    </button>
-  </div>
-
-  <div class="viewers" v-if="currentTab === 'ally'">
+  <div class="viewers" v-if="currentTab === 'Gameplay'">
     <CharacterViewer
       v-for="user in usersInSameLocation"
       :key="user.userId"
       :user-id="user.userId"
-      :category="currentTab"
       :is-own="user.userId === ownUserId"
       :character="user.character"
     />
   </div>
+
+  <Dungeon />
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 import CharacterViewer from './components/CharacterViewer.vue';
 import ChatViewer from './components/ChatViewer.vue';
+import Dungeon from './components/Dungeon.vue';
 import { useSocketStore } from './stores/socket';
 import animations from './animations.json';
 
@@ -61,7 +65,7 @@ const determineUserId = () => {
   }
 };
 
-const currentTab = ref<'ally' | 'enemy' | 'chat'>('ally');
+const currentTab = ref<'Gameplay' | 'enemy' | 'chat'>('Gameplay');
 const socketStore = useSocketStore();
 const ownUserId = ref<string>(determineUserId());
 

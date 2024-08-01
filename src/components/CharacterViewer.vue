@@ -1,13 +1,14 @@
 <template>
   <div 
-    class="animation" 
+    class="character" 
     :style="{
       position: 'relative', 
-      left: `${props.character.state.position.x}px`, 
-      top: `${props.character.state.position.y}px`,
+      left: `${props.character.state.position.x - 25}px`, 
+      top: `${props.character.state.position.y + 10}px`,
     }"
   >
     <img 
+      class="character__img"
       :src="currentFrame" 
       :style="direction ? 'transform: scaleX(-1)' : ''"
       alt="Character Animation Frame"
@@ -19,13 +20,9 @@
 import { ref, watch, computed, onMounted, onUnmounted } from 'vue';
 import { useSocketStore } from '../stores/socket';
 import animations from '../animations.json';
+import { useDungeonStore } from '../stores/dungeon';
 
 const props = defineProps({
-  category: {
-    type: String,
-    required: true,
-    default: 'ally',
-  },
   userId: {
     type: String,
     required: true,
@@ -41,6 +38,9 @@ const props = defineProps({
 });
 
 const socketStore = useSocketStore();
+const dungeonStore = useDungeonStore();
+const dungeonMap = dungeonStore.dungeon;
+const spawnPoint = dungeonStore.spawnPoint;
 
 const frames = ref<string[]>([]);
 const currentFrame = ref<string>('');
@@ -61,7 +61,7 @@ const preloadImages = (frameList: string[]) => {
 };
 
 const updateFrames = async () => {
-  frames.value = Object.values((animations as any).char[props.category][props.character.info.character][props.character.state.action]);
+  frames.value = Object.values((animations as any).char[props.character.info.category][props.character.info.character][props.character.state.action]);
   await preloadImages(frames.value);
   currentFrame.value = frames.value[0];
   frameIndex = 0;
@@ -98,6 +98,8 @@ const keys = ref<{ [key: string]: boolean }>({
   ArrowDown: false,
   ArrowLeft: false,
   ArrowRight: false,
+  ShiftLeft: false,
+  ShiftRight: false,
 });
 
 const handleKeyDown = (event: KeyboardEvent) => {
@@ -121,6 +123,9 @@ const handleKeyDown = (event: KeyboardEvent) => {
   let action = actionMap[event.code];
 
   if (action) {
+    if ((keys.value.ShiftLeft || keys.value.ShiftRight) && ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.code)) {
+      action = 'run';
+    }
     startAction(action);
   }
 };
@@ -134,6 +139,11 @@ const handleKeyUp = (event: KeyboardEvent) => {
 
   if (!Object.values(keys.value).some(key => key)) {
     stopAction();
+  } else {
+    if (keys.value.ArrowUp || keys.value.ArrowDown || keys.value.ArrowLeft || keys.value.ArrowRight) {
+      const action = (keys.value.ShiftLeft || keys.value.ShiftRight) ? 'run' : 'walk';
+      startAction(action);
+    }
   }
 };
 
@@ -143,19 +153,34 @@ const handleMovement = () => {
   let newPosition = { ...props.character.state.position };
   let direction: 'left' | 'right' = props.character.state.direction;
 
+  const speedType = (keys.value.ShiftLeft || keys.value.ShiftRight) ? 'running' : 'walking';
+  const speed = props.character.stats.speed[speedType];
+
   if (keys.value.ArrowUp) {
-    newPosition.y -= 1 * props.character.stats.speed['walking'];
+    const newY = newPosition.y - speed;
+    if (dungeonMap[Math.floor(newY / 20)][Math.floor(newPosition.x / 20)].cellType !== 'wall') {
+      newPosition.y = newY;
+    }
   }
   if (keys.value.ArrowDown) {
-    newPosition.y += 1 * props.character.stats.speed['walking'];
+    const newY = newPosition.y + speed;
+    if (dungeonMap[Math.floor(newY / 20)][Math.floor(newPosition.x / 20)].cellType !== 'wall') {
+      newPosition.y = newY;
+    }
   }
   if (keys.value.ArrowLeft) {
-    newPosition.x -= 1 * props.character.stats.speed['walking'];
-    direction = 'left';
+    const newX = newPosition.x - speed;
+    if (dungeonMap[Math.floor(newPosition.y / 20)][Math.floor(newX / 20)].cellType !== 'wall') {
+      newPosition.x = newX;
+      direction = 'left';
+    }
   }
   if (keys.value.ArrowRight) {
-    newPosition.x += 1 * props.character.stats.speed['walking'];
-    direction = 'right';
+    const newX = newPosition.x + speed;
+    if (dungeonMap[Math.floor(newPosition.y / 20)][Math.floor(newX / 20)].cellType !== 'wall') {
+      newPosition.x = newX;
+      direction = 'right';
+    }
   }
 
   socketStore.updateUserPosition(props.userId, newPosition, direction);
@@ -172,6 +197,7 @@ watch(() => props.character.state.action, () => {
 });
 
 onMounted(() => {
+  socketStore.updateUserPosition(props.userId, spawnPoint, 'right');
   updateFrames();
   startAnimation();
   window.addEventListener('keydown', handleKeyDown);
@@ -188,13 +214,14 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped>
-.animation {
+<style scoped lang="scss">
+.character {
   position: absolute;
-}
+  display: block;
 
-img {
-  width: 100px;
-  height: auto;
+  &__img {
+    width: 50px;
+    height: auto;
+  }
 }
 </style>
