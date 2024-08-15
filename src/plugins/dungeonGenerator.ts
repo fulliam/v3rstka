@@ -1,3 +1,5 @@
+import SeedGenerator from './seedGenerator';
+
 type CellType = 'W' | 'E';
 type Cell = { cellType: 'wall' | 'empty' };
 
@@ -18,6 +20,10 @@ interface Config {
   rooms?: number;
 }
 
+// const floorImages = ['floor1.png', 'floor2.png', 'floor3.png', 'floor4.png', 'floor5.png'];
+// const floorImages = ['grass.png'];
+const floorImages = ['floor68.png', 'floor70.png'];
+
 class DungeonGenerator {
   private static WALL: CellType = 'W';
   private static EMPTY: CellType = 'E';
@@ -31,6 +37,7 @@ class DungeonGenerator {
   private static ROOMS: number;
 
   private static rooms: Room[] = [];
+  private static rng: SeedGenerator | null = null;
 
   private static isNotOverlapping(floorMap: CellType[][], room: Room): boolean {
     for (let i = room.row - 1; i < room.row + room.h + 1; i++) {
@@ -58,41 +65,41 @@ class DungeonGenerator {
   }
 
   private static link2Steps(floorMap: CellType[][], r1: Room, r2: Room): boolean {
-    const flipCoin = Math.floor(Math.random() * 2);
+    const flipCoin = this.rng ? Math.floor(this.rng.nextFloat() * 2) : Math.floor(Math.random() * 2);
     if (r1.row > r2.row && r1.col > r2.col) {
-      if (flipCoin) {
-        for (let i = r1.row - 1; i >= r2.row + r2.h - 1; i--) {
-          floorMap[i][r1.col] = DungeonGenerator.EMPTY;
+        if (flipCoin) {
+            for (let i = r1.row - 1; i >= r2.row + r2.h - 1; i--) {
+                floorMap[i][r1.col] = DungeonGenerator.EMPTY;
+            }
+            for (let i = r1.col - 1; i >= r2.col + r2.w; i--) {
+                floorMap[r2.row + r2.h - 1][i] = DungeonGenerator.EMPTY;
+            }
+        } else {
+            for (let i = r1.col - 1; i >= r2.col + r2.w - 1; i--) {
+                floorMap[r1.row][i] = DungeonGenerator.EMPTY;
+            }
+            for (let i = r1.row - 1; i >= r2.row + r2.h; i--) {
+                floorMap[i][r2.col + r2.w - 1] = DungeonGenerator.EMPTY;
+            }
         }
-        for (let i = r1.col - 1; i >= r2.col + r2.w; i--) {
-          floorMap[r2.row + r2.h - 1][i] = DungeonGenerator.EMPTY;
-        }
-      } else {
-        for (let i = r1.col - 1; i >= r2.col + r2.w - 1; i--) {
-          floorMap[r1.row][i] = DungeonGenerator.EMPTY;
-        }
-        for (let i = r1.row - 1; i >= r2.row + r2.h; i--) {
-          floorMap[i][r2.col + r2.w - 1] = DungeonGenerator.EMPTY;
-        }
-      }
     } else if (r1.row > r2.row && r1.col < r2.col) {
-      if (flipCoin) {
-        for (let i = r1.row - 1; i >= r2.row + r2.h - 1; i--) {
-          floorMap[i][r1.col + r1.w - 1] = DungeonGenerator.EMPTY;
+        if (flipCoin) {
+            for (let i = r1.row - 1; i >= r2.row + r2.h - 1; i--) {
+                floorMap[i][r1.col + r1.w - 1] = DungeonGenerator.EMPTY;
+            }
+            for (let i = r1.col + r1.w; i < r2.col; i++) {
+                floorMap[r2.row + r2.h - 1][i] = DungeonGenerator.EMPTY;
+            }
+        } else {
+            for (let i = r1.col + r1.w; i <= r2.col; i++) {
+                floorMap[r1.row][i] = DungeonGenerator.EMPTY;
+            }
+            for (let i = r1.row - 1; i >= r2.row + r2.h; i--) {
+                floorMap[i][r2.col] = DungeonGenerator.EMPTY;
+            }
         }
-        for (let i = r1.col + r1.w; i < r2.col; i++) {
-          floorMap[r2.row + r2.h - 1][i] = DungeonGenerator.EMPTY;
-        }
-      } else {
-        for (let i = r1.col + r1.w; i <= r2.col; i++) {
-          floorMap[r1.row][i] = DungeonGenerator.EMPTY;
-        }
-        for (let i = r1.row - 1; i >= r2.row + r2.h; i--) {
-          floorMap[i][r2.col] = DungeonGenerator.EMPTY;
-        }
-      }
     } else {
-      return false;
+        return false;
     }
     return true;
   }
@@ -115,7 +122,8 @@ class DungeonGenerator {
 
   private static randomEvenOdd(min: number, max: number): number {
     if (max === min) return max;
-    return min + Math.floor(Math.random() * Math.floor((max - min) / 2 + 1)) * 2;
+    const randomValue = this.rng ? this.rng.nextFloat() : Math.random();
+    return min + Math.floor(randomValue * Math.floor((max - min) / 2 + 1)) * 2;
   }
 
   private static addRoom(floorMap: CellType[][]): Room | undefined {
@@ -144,7 +152,7 @@ class DungeonGenerator {
     return Math.sqrt(d2);
   }
 
-  public static generate(config: Config = {}): Cell[][] {
+  public static generate(config: Config = {}, seed?: number): Cell[][] {
     DungeonGenerator.ROWS = config.rows || 31;
     DungeonGenerator.COLS = config.cols || 51;
     DungeonGenerator.MAXSIZE = config.maxRoomSize || 7;
@@ -152,6 +160,12 @@ class DungeonGenerator {
     DungeonGenerator.BORDER = config.padding || 2;
     DungeonGenerator.ATTEMPTS = config.maxAttempts || 500;
     DungeonGenerator.ROOMS = config.rooms || 15;
+
+    if (seed !== undefined) {
+      DungeonGenerator.rng = new SeedGenerator(seed);
+    } else {
+      DungeonGenerator.rng = null;
+    }
 
     const floorMap: CellType[][] = [];
     for (let i = 0; i < DungeonGenerator.ROWS; i++) {
@@ -188,6 +202,7 @@ class DungeonGenerator {
     return floorMap.map(row =>
       row.map(cell => ({
         cellType: cell === DungeonGenerator.WALL ? 'wall' : 'empty',
+        floorImage: cell === DungeonGenerator.WALL ? '' : floorImages[Math.floor(Math.random() * floorImages.length)],
       }))
     );
   }
