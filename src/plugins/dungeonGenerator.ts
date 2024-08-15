@@ -53,14 +53,16 @@ class DungeonGenerator {
   private static linkStraightH(floorMap: CellType[][], r1: Room, r2: Room) {
     const inc = r1.col < r2.col ? 1 : -1;
     for (let i = r1.col; i !== r2.col; i += inc) {
-      floorMap[r1.row][i] = DungeonGenerator.EMPTY;
+        floorMap[r1.row][i] = DungeonGenerator.EMPTY;
+        floorMap[r1.row + 1][i] = DungeonGenerator.EMPTY;
     }
   }
 
   private static linkStraightV(floorMap: CellType[][], r1: Room, r2: Room) {
     const inc = r1.row < r2.row ? 1 : -1;
     for (let i = r1.row; i !== r2.row; i += inc) {
-      floorMap[i][r1.col] = DungeonGenerator.EMPTY;
+        floorMap[i][r1.col] = DungeonGenerator.EMPTY;
+        floorMap[i][r1.col + 1] = DungeonGenerator.EMPTY;
     }
   }
 
@@ -70,32 +72,40 @@ class DungeonGenerator {
         if (flipCoin) {
             for (let i = r1.row - 1; i >= r2.row + r2.h - 1; i--) {
                 floorMap[i][r1.col] = DungeonGenerator.EMPTY;
+                floorMap[i][r1.col + 1] = DungeonGenerator.EMPTY;
             }
             for (let i = r1.col - 1; i >= r2.col + r2.w; i--) {
                 floorMap[r2.row + r2.h - 1][i] = DungeonGenerator.EMPTY;
+                floorMap[r2.row + r2.h - 2][i] = DungeonGenerator.EMPTY;
             }
         } else {
             for (let i = r1.col - 1; i >= r2.col + r2.w - 1; i--) {
                 floorMap[r1.row][i] = DungeonGenerator.EMPTY;
+                floorMap[r1.row + 1][i] = DungeonGenerator.EMPTY;
             }
             for (let i = r1.row - 1; i >= r2.row + r2.h; i--) {
                 floorMap[i][r2.col + r2.w - 1] = DungeonGenerator.EMPTY;
+                floorMap[i][r2.col + r2.w - 2] = DungeonGenerator.EMPTY;
             }
         }
     } else if (r1.row > r2.row && r1.col < r2.col) {
         if (flipCoin) {
             for (let i = r1.row - 1; i >= r2.row + r2.h - 1; i--) {
                 floorMap[i][r1.col + r1.w - 1] = DungeonGenerator.EMPTY;
+                floorMap[i][r1.col + r1.w] = DungeonGenerator.EMPTY;
             }
             for (let i = r1.col + r1.w; i < r2.col; i++) {
                 floorMap[r2.row + r2.h - 1][i] = DungeonGenerator.EMPTY;
+                floorMap[r2.row + r2.h - 2][i] = DungeonGenerator.EMPTY;
             }
         } else {
             for (let i = r1.col + r1.w; i <= r2.col; i++) {
                 floorMap[r1.row][i] = DungeonGenerator.EMPTY;
+                floorMap[r1.row + 1][i] = DungeonGenerator.EMPTY;
             }
             for (let i = r1.row - 1; i >= r2.row + r2.h; i--) {
                 floorMap[i][r2.col] = DungeonGenerator.EMPTY;
+                floorMap[i][r2.col + 1] = DungeonGenerator.EMPTY;
             }
         }
     } else {
