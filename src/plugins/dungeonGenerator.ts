@@ -1,7 +1,6 @@
 import SeedGenerator from './seedGenerator';
 
-type CellType = 'W' | 'E';
-type Cell = { cellType: 'wall' | 'empty' };
+type Cell = { cellType: 'wall' | 'empty', wallType?: string, floorImage?: string };
 
 interface Room {
   h: number;
@@ -25,8 +24,8 @@ interface Config {
 const floorImages = ['floor68.png', 'floor70.png'];
 
 class DungeonGenerator {
-  private static WALL: CellType = 'W';
-  private static EMPTY: CellType = 'E';
+  private static WALL: Cell = { cellType: 'wall' };
+  private static EMPTY: Cell = { cellType: 'empty' };
 
   private static ROWS: number;
   private static COLS: number;
@@ -39,10 +38,49 @@ class DungeonGenerator {
   private static rooms: Room[] = [];
   private static rng: SeedGenerator | null = null;
 
-  private static isNotOverlapping(floorMap: CellType[][], room: Room): boolean {
+  private static classifyWalls(floorMap: Cell[][]) {
+    const isFloor = (row: number, col: number) => {
+      return row >= 0 && col >= 0 && row < this.ROWS && col < this.COLS && floorMap[row][col].cellType === 'empty';
+    };
+  
+    for (let i = 0; i < this.ROWS; i++) {
+      for (let j = 0; j < this.COLS; j++) {
+        if (floorMap[i][j].cellType === 'wall') {
+          const top = isFloor(i - 1, j);
+          const bottom = isFloor(i + 1, j);
+          const left = isFloor(i, j - 1);
+          const right = isFloor(i, j + 1);
+  
+          if (top && bottom && !left && !right) {
+            floorMap[i][j].wallType = 'verticalWall';
+          } else if (left && right && !top && !bottom) {
+            floorMap[i][j].wallType = 'horizontalWall';
+          } else if (top && left) {
+            floorMap[i][j].wallType = 'cornerTopLeft';
+          } else if (top && right) {
+            floorMap[i][j].wallType = 'cornerTopRight';
+          } else if (bottom && left) {
+            floorMap[i][j].wallType = 'cornerBottomLeft';
+          } else if (bottom && right) {
+            floorMap[i][j].wallType = 'cornerBottomRight';
+          } else if (top) {
+            floorMap[i][j].wallType = 'topWall';
+          } else if (bottom) {
+            floorMap[i][j].wallType = 'bottomWall';
+          } else if (left) {
+            floorMap[i][j].wallType = 'leftWall';
+          } else if (right) {
+            floorMap[i][j].wallType = 'rightWall';
+          }
+        }
+      }
+    }
+  }
+
+  private static isNotOverlapping(floorMap: Cell[][], room: Room): boolean {
     for (let i = room.row - 1; i < room.row + room.h + 1; i++) {
       for (let j = room.col - 1; j < room.col + room.w + 1; j++) {
-        if (floorMap[i][j] !== DungeonGenerator.WALL) {
+        if (floorMap[i][j].cellType !== DungeonGenerator.WALL.cellType) {
           return false;
         }
       }
@@ -50,62 +88,62 @@ class DungeonGenerator {
     return true;
   }
 
-  private static linkStraightH(floorMap: CellType[][], r1: Room, r2: Room) {
+  private static linkStraightH(floorMap: Cell[][], r1: Room, r2: Room) {
     const inc = r1.col < r2.col ? 1 : -1;
     for (let i = r1.col; i !== r2.col; i += inc) {
-        floorMap[r1.row][i] = DungeonGenerator.EMPTY;
-        floorMap[r1.row + 1][i] = DungeonGenerator.EMPTY;
+        floorMap[r1.row][i] = { ...DungeonGenerator.EMPTY };
+        floorMap[r1.row + 1][i] = { ...DungeonGenerator.EMPTY };
     }
   }
 
-  private static linkStraightV(floorMap: CellType[][], r1: Room, r2: Room) {
+  private static linkStraightV(floorMap: Cell[][], r1: Room, r2: Room) {
     const inc = r1.row < r2.row ? 1 : -1;
     for (let i = r1.row; i !== r2.row; i += inc) {
-        floorMap[i][r1.col] = DungeonGenerator.EMPTY;
-        floorMap[i][r1.col + 1] = DungeonGenerator.EMPTY;
+        floorMap[i][r1.col] = { ...DungeonGenerator.EMPTY };
+        floorMap[i][r1.col + 1] = { ...DungeonGenerator.EMPTY };
     }
   }
 
-  private static link2Steps(floorMap: CellType[][], r1: Room, r2: Room): boolean {
+  private static link2Steps(floorMap: Cell[][], r1: Room, r2: Room): boolean {
     const flipCoin = this.rng ? Math.floor(this.rng.nextFloat() * 2) : Math.floor(Math.random() * 2);
     if (r1.row > r2.row && r1.col > r2.col) {
         if (flipCoin) {
             for (let i = r1.row - 1; i >= r2.row + r2.h - 1; i--) {
-                floorMap[i][r1.col] = DungeonGenerator.EMPTY;
-                floorMap[i][r1.col + 1] = DungeonGenerator.EMPTY;
+                floorMap[i][r1.col] = { ...DungeonGenerator.EMPTY };
+                floorMap[i][r1.col + 1] = { ...DungeonGenerator.EMPTY };
             }
             for (let i = r1.col - 1; i >= r2.col + r2.w; i--) {
-                floorMap[r2.row + r2.h - 1][i] = DungeonGenerator.EMPTY;
-                floorMap[r2.row + r2.h - 2][i] = DungeonGenerator.EMPTY;
+                floorMap[r2.row + r2.h - 1][i] = { ...DungeonGenerator.EMPTY };
+                floorMap[r2.row + r2.h - 2][i] = { ...DungeonGenerator.EMPTY };
             }
         } else {
             for (let i = r1.col - 1; i >= r2.col + r2.w - 1; i--) {
-                floorMap[r1.row][i] = DungeonGenerator.EMPTY;
-                floorMap[r1.row + 1][i] = DungeonGenerator.EMPTY;
+                floorMap[r1.row][i] = { ...DungeonGenerator.EMPTY };
+                floorMap[r1.row + 1][i] = { ...DungeonGenerator.EMPTY };
             }
             for (let i = r1.row - 1; i >= r2.row + r2.h; i--) {
-                floorMap[i][r2.col + r2.w - 1] = DungeonGenerator.EMPTY;
-                floorMap[i][r2.col + r2.w - 2] = DungeonGenerator.EMPTY;
+                floorMap[i][r2.col + r2.w - 1] = { ...DungeonGenerator.EMPTY };
+                floorMap[i][r2.col + r2.w - 2] = { ...DungeonGenerator.EMPTY };
             }
         }
     } else if (r1.row > r2.row && r1.col < r2.col) {
         if (flipCoin) {
             for (let i = r1.row - 1; i >= r2.row + r2.h - 1; i--) {
-                floorMap[i][r1.col + r1.w - 1] = DungeonGenerator.EMPTY;
-                floorMap[i][r1.col + r1.w] = DungeonGenerator.EMPTY;
+                floorMap[i][r1.col + r1.w - 1] = { ...DungeonGenerator.EMPTY };
+                floorMap[i][r1.col + r1.w] = { ...DungeonGenerator.EMPTY };
             }
             for (let i = r1.col + r1.w; i < r2.col; i++) {
-                floorMap[r2.row + r2.h - 1][i] = DungeonGenerator.EMPTY;
-                floorMap[r2.row + r2.h - 2][i] = DungeonGenerator.EMPTY;
+                floorMap[r2.row + r2.h - 1][i] = { ...DungeonGenerator.EMPTY };
+                floorMap[r2.row + r2.h - 2][i] = { ...DungeonGenerator.EMPTY };
             }
         } else {
             for (let i = r1.col + r1.w; i <= r2.col; i++) {
-                floorMap[r1.row][i] = DungeonGenerator.EMPTY;
-                floorMap[r1.row + 1][i] = DungeonGenerator.EMPTY;
+                floorMap[r1.row][i] = { ...DungeonGenerator.EMPTY };
+                floorMap[r1.row + 1][i] = { ...DungeonGenerator.EMPTY };
             }
             for (let i = r1.row - 1; i >= r2.row + r2.h; i--) {
-                floorMap[i][r2.col] = DungeonGenerator.EMPTY;
-                floorMap[i][r2.col + 1] = DungeonGenerator.EMPTY;
+                floorMap[i][r2.col] = { ...DungeonGenerator.EMPTY };
+                floorMap[i][r2.col + 1] = { ...DungeonGenerator.EMPTY };
             }
         }
     } else {
@@ -114,7 +152,7 @@ class DungeonGenerator {
     return true;
   }
 
-  private static linkRooms(floorMap: CellType[][], r1: Room, r2: Room) {
+  private static linkRooms(floorMap: Cell[][], r1: Room, r2: Room) {
     if (r1.row >= r2.row && r1.row < r2.row + r2.h) {
       DungeonGenerator.linkStraightH(floorMap, r1, r2);
     } else if (r2.row >= r1.row && r2.row < r1.row + r1.h) {
@@ -136,7 +174,7 @@ class DungeonGenerator {
     return min + Math.floor(randomValue * Math.floor((max - min) / 2 + 1)) * 2;
   }
 
-  private static addRoom(floorMap: CellType[][]): Room | undefined {
+  private static addRoom(floorMap: Cell[][]): Room | undefined {
     const h = DungeonGenerator.randomEvenOdd(DungeonGenerator.MINSIZE, DungeonGenerator.MAXSIZE);
     const w = DungeonGenerator.randomEvenOdd(DungeonGenerator.MINSIZE, DungeonGenerator.MAXSIZE);
     const room: Room = {
@@ -149,7 +187,7 @@ class DungeonGenerator {
     if (DungeonGenerator.isNotOverlapping(floorMap, room)) {
       for (let i = room.row; i < room.row + room.h; i++) {
         for (let j = room.col; j < room.col + room.w; j++) {
-          floorMap[i][j] = DungeonGenerator.EMPTY;
+          floorMap[i][j] = { ...DungeonGenerator.EMPTY };
         }
       }
       return room;
@@ -177,11 +215,11 @@ class DungeonGenerator {
       DungeonGenerator.rng = null;
     }
 
-    const floorMap: CellType[][] = [];
+    const floorMap: Cell[][] = [];
     for (let i = 0; i < DungeonGenerator.ROWS; i++) {
-      const row: CellType[] = [];
+      const row: Cell[] = [];
       for (let j = 0; j < DungeonGenerator.COLS; j++) {
-        row.push(DungeonGenerator.WALL);
+        row.push({ ...DungeonGenerator.WALL });
       }
       floorMap.push(row);
     }
@@ -209,10 +247,12 @@ class DungeonGenerator {
 
     this.rooms = roomsLinked;
 
+    DungeonGenerator.classifyWalls(floorMap);
+  
     return floorMap.map(row =>
       row.map(cell => ({
-        cellType: cell === DungeonGenerator.WALL ? 'wall' : 'empty',
-        floorImage: cell === DungeonGenerator.WALL ? '' : floorImages[Math.floor(Math.random() * floorImages.length)],
+        ...cell,
+        floorImage: cell.cellType === DungeonGenerator.WALL.cellType ? '' : floorImages[Math.floor(Math.random() * floorImages.length)],
       }))
     );
   }

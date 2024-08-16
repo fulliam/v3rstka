@@ -1,7 +1,17 @@
 <template>
   <div class="dungeon-map">
-    <div v-for="(row, rowIndex) in dungeonMap" :key="rowIndex" class="row">
-        <div v-for="(cell, colIndex) in row" :key="colIndex" :class="cell.cellType" :style="getCellStyle(cell)"></div>
+    <div 
+      v-for="(row, rowIndex) in dungeonMap" 
+      :key="rowIndex" 
+      class="row"
+    >
+      <div 
+        v-for="(cell, colIndex) in row" 
+        :key="colIndex" 
+        :class="[cell.cellType, cell.wallType]" 
+        :style="getCellStyle(cell)"
+      >
+      </div>
     </div>
   </div>
 </template>
@@ -13,7 +23,7 @@ import { useDungeonStore } from '../stores/dungeon';
 
 const dungeonStore = useDungeonStore();
 
-type Cell = { cellType: 'wall' | 'empty', floorImage?: string };
+type Cell = { cellType: 'wall' | 'empty', wallType?: string, floorImage?: string };
 const dungeonMap = ref<Cell[][]>([]);
 const spawnPoint = ref<{ x: number, y: number } | undefined>(undefined);
 
@@ -27,8 +37,8 @@ onMounted(() => {
         maxAttempts: 500,
         rooms: 50
     };
-    const seed = 12345;
-    dungeonMap.value = DungeonGenerator.generate(config, seed);
+    // const seed = 12345;
+    dungeonMap.value = DungeonGenerator.generate(config /*, seed*/);
     spawnPoint.value = DungeonGenerator.getSpawnPoint();
     dungeonStore.setDungeon(dungeonMap.value);
     if (spawnPoint.value) {
@@ -46,9 +56,9 @@ const getCellStyle = (cell: Cell) => {
 
 <style scoped>
 .dungeon-map {
-  --cell-size: 20px; /* default cell size */
+  --cell-size: 20px;
   display: grid;
-  grid-template-columns: repeat(51, var(--cell-size)); /* Assuming 51 columns */
+  grid-template-columns: repeat(51, var(--cell-size));
   grid-gap: 0px;
 }
 .row {
@@ -58,10 +68,41 @@ const getCellStyle = (cell: Cell) => {
   background-color: #000;
   width: var(--cell-size);
   height: var(--cell-size);
-  background-image: url('/src/assets/floor69.png');
 }
 .empty {
   width: var(--cell-size);
   height: var(--cell-size);
+}
+
+.topWall {
+  background-color: #8B0000;
+}
+
+.bottomWall {
+  background-color: #FF4500;
+}
+
+.leftWall {
+  background-color: #2E8B57;
+}
+
+.rightWall {
+  background-color: #4682B4;
+}
+
+.cornerTopLeft {
+  background-color: #FF6347;
+}
+
+.cornerTopRight {
+  background-color: #FFD700;
+}
+
+.cornerBottomLeft {
+  background-color: #8A2BE2;
+}
+
+.cornerBottomRight {
+  background-color: #DAA520;
 }
 </style>
