@@ -8,6 +8,7 @@
       <div 
         v-for="(cell, colIndex) in row" 
         :key="colIndex" 
+        class="cell"
         :class="[cell.cellType, cell.wallType]" 
         :style="getCellStyle(cell)"
       >
@@ -31,11 +32,11 @@ onMounted(() => {
     const config = {
         rows: 31,
         cols: 51,
-        maxRoomSize: 20,
+        maxRoomSize: 24,
         minRoomSize: 5,
         padding: 0,
         maxAttempts: 500,
-        rooms: 50
+        rooms: 4
     };
     // const seed = 12345;
     dungeonMap.value = DungeonGenerator.generate(config /*, seed*/);
@@ -48,7 +49,7 @@ onMounted(() => {
 
 const getCellStyle = (cell: Cell) => {
   if (cell.cellType === 'empty') {
-    return { backgroundImage: `url(/src/assets/${cell.floorImage})` };
+    return { backgroundImage: `url(/src/assets/grass/${cell.floorImage})` };
   }
   return {};
 };
@@ -65,7 +66,7 @@ const getCellStyle = (cell: Cell) => {
   display: contents;
 }
 .wall {
-  background-color: #000;
+  background-color: #0e1219;
   width: var(--cell-size);
   height: var(--cell-size);
 }
@@ -73,36 +74,96 @@ const getCellStyle = (cell: Cell) => {
   width: var(--cell-size);
   height: var(--cell-size);
 }
-
+.cell {
+  background-size: cover;
+}
 .topWall {
-  background-color: #8B0000;
+  background-image: url('/src/assets/wall/bottomWall.png');
 }
 
 .bottomWall {
-  background-color: #FF4500;
+  background-image: url('/src/assets/wall/topWall.png');
 }
 
 .leftWall {
-  background-color: #2E8B57;
+  background-image: url('/src/assets/wall/rightWall.png');
 }
 
 .rightWall {
-  background-color: #4682B4;
+  background-image: url('/src/assets/wall/leftWall.png');
+}
+
+.crossWall {
+  background-color: #72751b;
+  background-image: url('/src/assets/wall/crossWall.png');
 }
 
 .cornerTopLeft {
-  background-color: #FF6347;
+  background-color: #72751b;
+  background-image: url('/src/assets/wall/bottomRightCorner.png');
 }
 
 .cornerTopRight {
-  background-color: #FFD700;
+  background-color: #72751b;
+  background-image: url('/src/assets/wall/bottomLeftCorner.png');
 }
 
 .cornerBottomLeft {
-  background-color: #8A2BE2;
+  background-color: #72751b;
+  background-image: url('/src/assets/wall/rightTopCorner.png');
 }
 
 .cornerBottomRight {
-  background-color: #DAA520;
+  background-color: #72751b;
+  background-image: url('/src/assets/wall/leftTopCorner.png');
+}
+
+.horizontalWall {
+  background-image: url('/src/assets/wall/crossVerticalWall.png');
+}
+
+.verticalWall {
+  background-image: url('/src/assets/wall/crossVerticalWall.png');
+  rotate: 90deg;
+}
+
+.horizontalEndTop {
+  background-image: url('/src/assets/wall/crossVerticalEnd.png');
+}
+
+.horizontalEndBottom {
+  background-image: url('/src/assets/wall/crossVerticalEnd.png');
+  rotate: 180deg;
+}
+
+.verticalEndRight {
+  background-image: url('/src/assets/wall/crossVerticalEnd.png');
+  rotate: 90deg;
+}
+
+.verticalEndLeft {
+  background-image: url('/src/assets/wall/crossVerticalEnd.png');
+  rotate: -90deg;
+}
+
+.verticalEndBottom {
+  background-image: url('/src/assets/wall/crossVerticalEnd.png');
+  rotate: -90deg;
+}
+
+.innerCornerTopLeft {
+  background-image: url('/src/assets/wall/innerRightBottomCorner.png');
+}
+
+.innerCornerBottomLeft {
+  background-image: url('/src/assets/wall/rightWall.png');
+}
+
+.innerCornerTopRight {
+  background-image: url('/src/assets/wall/innerLeftBottomCorner.png');
+}
+
+.innerCornerBottomRight {
+  background-image: url('/src/assets/wall/leftWall.png');
 }
 </style>

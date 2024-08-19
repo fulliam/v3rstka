@@ -157,26 +157,26 @@ const handleMovement = () => {
   const speed = props.character.stats.speed[speedType];
 
   if (keys.value.ArrowUp) {
-    const newY = newPosition.y - speed;
+    const newY = newPosition.y - (speed / 3);
     if (dungeonMap[Math.floor(newY / 20)][Math.floor(newPosition.x / 20)].cellType !== 'wall') {
       newPosition.y = newY;
     }
   }
   if (keys.value.ArrowDown) {
-    const newY = newPosition.y + speed;
+    const newY = newPosition.y + (speed / 3);
     if (dungeonMap[Math.floor(newY / 20)][Math.floor(newPosition.x / 20)].cellType !== 'wall') {
       newPosition.y = newY;
     }
   }
   if (keys.value.ArrowLeft) {
-    const newX = newPosition.x - speed;
+    const newX = newPosition.x - (speed / 3);
     if (dungeonMap[Math.floor(newPosition.y / 20)][Math.floor(newX / 20)].cellType !== 'wall') {
       newPosition.x = newX;
       direction = 'left';
     }
   }
   if (keys.value.ArrowRight) {
-    const newX = newPosition.x + speed;
+    const newX = newPosition.x + (speed / 3);
     if (dungeonMap[Math.floor(newPosition.y / 20)][Math.floor(newX / 20)].cellType !== 'wall') {
       newPosition.x = newX;
       direction = 'right';
