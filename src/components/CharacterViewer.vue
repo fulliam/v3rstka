@@ -218,6 +218,7 @@ onUnmounted(() => {
 .character {
   position: absolute;
   display: block;
+  z-index: 1;
 
   &__img {
     width: 50px;
