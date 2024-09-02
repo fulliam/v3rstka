@@ -18,9 +18,9 @@
 
 <script setup lang="ts">
 import { ref, watch, computed, onMounted, onUnmounted } from 'vue';
-import { useSocketStore } from '../stores/socket';
-import animations from '../animations.json';
-import { useDungeonStore } from '../stores/dungeon';
+import { useSocketStore } from '@/stores/socket';
+import animations from '@/animations.json';
+import { useDungeonStore } from '@/stores/dungeon';
 
 const props = defineProps({
   userId: {

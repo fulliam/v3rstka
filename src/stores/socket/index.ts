@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import createWebSocket from '../../plugins/socket';
-import type { Player, Position } from '../../types/types';
+import createWebSocket from '@/plugins/socket';
+import type { Player, Position } from '@/types';
 
 interface User {
   userId: string;

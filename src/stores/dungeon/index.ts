@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
-
-type Cell = { cellType: 'wall' | 'empty' };
+import { Cell } from '@/types';
 
 interface DungeonState {
     dungeon: Cell[][];

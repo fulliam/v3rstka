@@ -1,25 +1,8 @@
 import SeedGenerator from './seedGenerator';
+import { Cell, Room, DungeonGeneratorConfig } from '@/types';
 
-type Cell = { cellType: 'wall' | 'empty', wallType?: string, floorImage?: string };
-
-interface Room {
-  h: number;
-  w: number;
-  row: number;
-  col: number;
-}
-
-interface Config {
-  rows?: number;
-  cols?: number;
-  maxRoomSize?: number;
-  minRoomSize?: number;
-  padding?: number;
-  maxAttempts?: number;
-  rooms?: number;
-}
-
-const floorImages = Array.from({ length: 256 }, (_, i) => `grass${i + 1}.png`);
+const floorImages = Array.from({ length: 4 }, (_, i) => `floor${i + 1}.png`);
+// const floorImages = Array.from({ length: 256 }, (_, i) => `grass${i + 1}.png`);
 
 class DungeonGenerator {
   private static WALL: Cell = { cellType: 'wall' };
@@ -236,7 +219,7 @@ class DungeonGenerator {
     return Math.sqrt(d2);
   }
 
-  public static generate(config: Config = {}, seed?: number): Cell[][] {
+  public static generate(config: DungeonGeneratorConfig = {}, seed?: number): Cell[][] {
     DungeonGenerator.ROWS = config.rows || 31;
     DungeonGenerator.COLS = config.cols || 51;
     DungeonGenerator.MAXSIZE = config.maxRoomSize || 7;

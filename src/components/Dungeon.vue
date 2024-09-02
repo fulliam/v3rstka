@@ -19,12 +19,12 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import DungeonGenerator from '../plugins/dungeonGenerator';
-import { useDungeonStore } from '../stores/dungeon';
+import DungeonGenerator from '@/plugins/dungeonGenerator';
+import { useDungeonStore } from '@/stores/dungeon';
+import { Cell } from '@/types';
 
 const dungeonStore = useDungeonStore();
 
-type Cell = { cellType: 'wall' | 'empty', wallType?: string, floorImage?: string };
 const dungeonMap = ref<Cell[][]>([]);
 const spawnPoint = ref<{ x: number, y: number } | undefined>(undefined);
 
@@ -49,7 +49,7 @@ onMounted(() => {
 
 const getCellStyle = (cell: Cell) => {
   if (cell.cellType === 'empty') {
-    return { backgroundImage: `url(/src/assets/grass/${cell.floorImage})` };
+    return { backgroundImage: `url(/src/assets/floor/${cell.floorImage})` };
   }
   return {};
 };
