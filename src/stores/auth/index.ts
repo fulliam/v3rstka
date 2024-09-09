@@ -1,6 +1,8 @@
+// stores/auth/index.ts
 import { defineStore } from 'pinia';
 import { API } from '@/stores/api';
 import Cookies from 'js-cookie';
+import { useRouter } from 'vue-router';
 
 interface AuthState {
   token: string | null;
@@ -8,6 +10,7 @@ interface AuthState {
   userId: string | null;
   isAuthenticated: boolean;
   authError: string | null;
+  router: any;
 }
 
 export const useAuthStore = defineStore('auth', {
@@ -17,12 +20,13 @@ export const useAuthStore = defineStore('auth', {
     userId: Cookies.get('userId') || null,
     isAuthenticated: !!Cookies.get('token'),
     authError: null,
+    router: useRouter()
   }),
   actions: {
     async register(username: string, password: string) {
       try {
         const response = await API.post('/register', { username, password });
-        if (response.data.message === 'User registered successfully') {
+        if (response.data.status === 201) {
           return true;
         } else {
           this.authError = response.data.message;
@@ -37,7 +41,7 @@ export const useAuthStore = defineStore('auth', {
     async login(username: string, password: string) {
       try {
         const response = await API.post('/login', { username, password });
-        if (response.data.token) {
+        if (response.data.status === 200) {
           this.token = response.data.token;
           this.username = username;
           this.userId = response.data.userId;
@@ -69,6 +73,8 @@ export const useAuthStore = defineStore('auth', {
       Cookies.remove('token');
       Cookies.remove('username');
       Cookies.remove('userId');
+
+      this.router.push('/auth');
     },
   },
 });

@@ -85,8 +85,10 @@ export const useSocketStore = defineStore('socket', {
       };
     },
     disconnect() {
+      console.log('WebSocket disconnected');
       if (this.socket) {
         this.socket.close();
+        this.socket = null;
       }
       this.isConnected = false;
       this.users = [];
@@ -124,8 +126,6 @@ export const useSocketStore = defineStore('socket', {
             direction,
           })
         );
-      } else {
-        console.error('WebSocket is not open or has been closed.');
       }
     },
     updateUserCharacter(userId: string, character: string) {
@@ -137,8 +137,6 @@ export const useSocketStore = defineStore('socket', {
             character,
           })
         );
-      } else {
-        console.error('WebSocket is not open or has been closed.');
       }
     },
     sendMessage(message: string) {

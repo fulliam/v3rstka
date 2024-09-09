@@ -53,14 +53,11 @@ const handleSubmit = () => {
     return;
   }
 
-  // Обработка авторизации или регистрации
   if (isLogin.value) {
-    console.log('Login:', { username: username.value, password: password.value });
     login(username.value, password.value).then(() =>
       router.push('/game')
     ).catch(() => console.log('Failed login'));
   } else {
-    console.log('Register:', { username: username.value, password: password.value });
     register(username.value, password.value).then(() => 
       isLogin.value = true
     ).catch(() => console.log('Failed register'));
