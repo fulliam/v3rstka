@@ -15,7 +15,7 @@ bun run generate-animations
 
 # TODO:
 
-[o] Add global state for characters & users links (backend)  
+[X] Add global state for characters & users links (backend)  
 [o] Add ui folder  
 [o] Add UI imported index for inputs, buttons  
 [o] Add templates folder  
