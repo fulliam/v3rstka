@@ -4,8 +4,8 @@
 
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
-        <label for="email">Email</label>
-        <input v-model="email" type="email" id="email" required />
+        <label for="username">Username</label>
+        <input v-model="username" type="text" id="username" required />
       </div>
 
       <div class="form-group">
@@ -29,15 +29,20 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router';
+
+const { register, login } = useAuthStore();
+const router = useRouter();
 
 const isLogin = ref(true);
-const email = ref('');
+const username = ref('');
 const password = ref('');
 const confirmPassword = ref('');
 
 const toggleMode = () => {
   isLogin.value = !isLogin.value;
-  email.value = '';
+  username.value = '';
   password.value = '';
   confirmPassword.value = '';
 };
@@ -50,9 +55,15 @@ const handleSubmit = () => {
 
   // Обработка авторизации или регистрации
   if (isLogin.value) {
-    console.log('Login:', { email: email.value, password: password.value });
+    console.log('Login:', { username: username.value, password: password.value });
+    login(username.value, password.value).then(() =>
+      router.push('/game')
+    ).catch(() => console.log('Failed login'));
   } else {
-    console.log('Register:', { email: email.value, password: password.value });
+    console.log('Register:', { username: username.value, password: password.value });
+    register(username.value, password.value).then(() => 
+      isLogin.value = true
+    ).catch(() => console.log('Failed register'));
   }
 };
 </script>

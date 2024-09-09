@@ -1,8 +1,7 @@
-const URL = 'ws://192.168.1.126:3000/ws';
+const URL = import.meta.env.VITE_API_WS_URL;
 
-const createWebSocket = (userId: string) => {
-  const socket = new WebSocket(`${URL}/${userId}`);
-
+const createWebSocket = (userId: string, token: string) => {
+  const socket = new WebSocket(`${URL}/${userId}?token=${token}`);
   return socket;
 };
 

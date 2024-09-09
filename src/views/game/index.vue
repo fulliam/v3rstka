@@ -36,7 +36,7 @@
       v-for="user in usersInSameLocation"
       :key="user.userId"
       :user-id="user.userId"
-      :is-own="user.userId === ownUserId"
+      :is-own="user.userId === userId"
       :character="user.character"
     />
   </div>
@@ -50,33 +50,29 @@ import CharacterViewer from '@/components/CharacterViewer.vue';
 import ChatViewer from '@/components/ChatViewer.vue';
 import Dungeon from '@/components/Dungeon.vue';
 import { useSocketStore } from '@/stores/socket';
+import { useAuthStore } from '@/stores/auth'; // may be add userStore for give userId ( now = username )
 import animations from '@/animations.json';
 
-const currentUserId = ref<string>('');
-const determineUserId = () => {
-  const users = ['Kelly', 'Roh'];
-  const randomIndex = Math.floor(Math.random() * users.length);
-  currentUserId.value = users[randomIndex];
-  if (!currentUserId.value) {
-    return users[randomIndex];
-  } else {
-    if (currentUserId.value === 'Kelly') return 'Roh'
-    else return 'Kelly'
-  }
-};
+const authStore = useAuthStore();
 
 const currentTab = ref<'Gameplay' | 'enemy' | 'chat'>('Gameplay');
 const socketStore = useSocketStore();
-const ownUserId = ref<string>(determineUserId());
+const userId = ref<string>('');
 
 const characters = ref(Object.keys((animations as any).char['ally']));
 
 const selectCharacter = (character: string) => {
-  socketStore.updateUserCharacter(currentUserId.value, character);
+  socketStore.updateUserCharacter(userId.value, character);
 };
 
 onMounted(() => {
-  socketStore.connect(ownUserId.value);
+  if (authStore.isAuthenticated && authStore.token && authStore.username) {
+    userId.value = authStore.username;
+    socketStore.connect(userId.value, authStore.token);
+  } else {
+    // socketStore.connect('Roh');
+    console.log('no auth');
+  }
 });
 
 onUnmounted(() => {
@@ -86,7 +82,7 @@ onUnmounted(() => {
 const isConnected = computed(() => socketStore.isConnected);
 
 const usersInSameLocation = computed(() => {
-  const ownUser = socketStore.users.find(user => user.userId === ownUserId.value);
+  const ownUser = socketStore.users.find(user => user.userId === userId.value);
   if (!ownUser) return [];
   const location = ownUser.character.info.location;
   return socketStore.users.filter(user => user.character.info.location === location);

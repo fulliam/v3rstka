@@ -12,3 +12,11 @@ node utils/generateImageList.js
 ```sh
 bun run generate-animations 
 ```
+
+# TODO:
+
+[o] Add global state for characters & users links (backend)  
+[o] Add ui folder  
+[o] Add UI imported index for inputs, buttons  
+[o] Add templates folder  
+[o] Add templates for auth forms  

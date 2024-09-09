@@ -1,3 +1,4 @@
+// stores/socket/index.ts
 import { defineStore } from 'pinia';
 import createWebSocket from '@/plugins/socket';
 import type { Player, Position } from '@/types';
@@ -22,6 +23,7 @@ interface MessageState {
   messages: Message[];
 }
 
+
 export const useSocketStore = defineStore('socket', {
   state: (): SocketState => ({
     socket: null,
@@ -29,24 +31,31 @@ export const useSocketStore = defineStore('socket', {
     users: [],
   }),
   actions: {
-    connect(userId: string) {
+    connect(userId: string, token: string) {
       if (this.socket) {
         this.disconnect();
       }
 
-      this.socket = createWebSocket(userId);
+      this.socket = createWebSocket(userId, token);
 
       this.socket.onopen = () => {
         this.isConnected = true;
+        // console.log(`WebSocket connected as ${userId}`);
       };
 
-      this.socket.onclose = () => {
+      this.socket.onclose = (event) => {
         this.isConnected = false;
         this.users = [];
+        // console.log(`WebSocket closed: ${event.code}, ${event.reason}`);
+      };
+
+      this.socket.onerror = (error) => {
+        console.error('WebSocket error:', error);
       };
 
       this.socket.onmessage = (event: MessageEvent) => {
         const data = JSON.parse(event.data);
+        // console.log('WebSocket message received:', data); 
         if (data.type === 'users') {
           this.users = data.data;
         } else if (data.type === 'messages') {
@@ -106,26 +115,30 @@ export const useSocketStore = defineStore('socket', {
       }
     },
     updateUserPosition(userId: string, position: Position, direction: 'left' | 'right') {
-      if (this.socket) {
-          this.socket.send(
-              JSON.stringify({
-                  type: 'move',
-                  userId,
-                  position,
-                  direction
-              })
-          );
+      if (this.socket && this.isConnected && this.socket.readyState === WebSocket.OPEN) {
+        this.socket.send(
+          JSON.stringify({
+            type: 'move',
+            userId,
+            position,
+            direction,
+          })
+        );
+      } else {
+        console.error('WebSocket is not open or has been closed.');
       }
     },
     updateUserCharacter(userId: string, character: string) {
-      if (this.socket) {
-          this.socket.send(
-              JSON.stringify({
-                  type: 'change_character',
-                  userId,
-                  character,
-              })
-          );
+      if (this.socket && this.isConnected && this.socket.readyState === WebSocket.OPEN) {
+        this.socket.send(
+          JSON.stringify({
+            type: 'change_character',
+            userId,
+            character,
+          })
+        );
+      } else {
+        console.error('WebSocket is not open or has been closed.');
       }
     },
     sendMessage(message: string) {

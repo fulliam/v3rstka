@@ -10,9 +10,11 @@
     "generate-animations": "node utils/generateAnimations.cjs"
   },
   "dependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20.14.11",
     "axios": "^1.7.7",
     "fs-extra": "^11.2.0",
+    "js-cookie": "^3.0.5",
     "pinia": "^2.1.7",
     "sass": "^1.77.8",
     "socket.io-client": "^4.7.5",
