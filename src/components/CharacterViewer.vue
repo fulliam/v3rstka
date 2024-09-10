@@ -13,7 +13,7 @@
     >
     
       <div class="character__health-inner" :style="{width: healthPercentage + '%'}">
-        <!-- <span>{{ props.character.stats.health }}/{{ props.character.stats.maxHealth }}</span> -->
+        <!-- <span>{{ props.character.state.health.max }}/{{ props.character.state.health.current }}</span> -->
       </div>
     </div>
     <img 
@@ -23,13 +23,15 @@
       alt="Character Animation Frame"
     />
   </div>
+  {{props.character}}
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useSocketStore } from '@/stores/socket';
 import { useDungeonStore } from '@/stores/dungeon';
 import useAnimation from '@/composables/animation';
+import useActions from '@/composables/actions';
 
 const props = defineProps({
   userId: {
@@ -53,70 +55,12 @@ const dungeonMap = dungeonStore.dungeon;
 const spawnPoint = dungeonStore.spawnPoint;
 
 const healthPercentage = computed(() => {
-  return Math.floor(props.character.stats.health / props.character.stats.maxHealth * 100);
+  return Math.floor(props.character.state.health.max / props.character.state.health.current * 100);
 });
 
-const startAction = (action: string) => {
-  socketStore.updateUserAction(props.userId, props.character.info.character, action);
-};
+const { keys, addActionMapping } = useActions(props.userId, props.isOwn, props.character);
 
-const stopAction = () => {
-  socketStore.updateUserAction(props.userId, props.character.info.character, 'idle');
-};
-
-const keys = ref<{ [key: string]: boolean }>({
-  ArrowUp: false,
-  ArrowDown: false,
-  ArrowLeft: false,
-  ArrowRight: false,
-  ShiftLeft: false,
-  ShiftRight: false,
-});
-
-const handleKeyDown = (event: KeyboardEvent) => {
-  if (!props.isOwn) return;
-
-  if (keys.value.hasOwnProperty(event.code)) {
-    keys.value[event.code] = true;
-  }
-
-  const actionMap: { [key: string]: string } = {
-    KeyZ: 'attack',
-    KeyX: 'attack2',
-    KeyC: 'attack3', 
-    ArrowRight: 'walk',
-    ArrowLeft: 'walk',
-    ArrowUp: 'walk',
-    ArrowDown: 'walk',
-    Space: 'jump',
-  };
-
-  let action = actionMap[event.code];
-
-  if (action) {
-    if ((keys.value.ShiftLeft || keys.value.ShiftRight) && ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.code)) {
-      action = 'run';
-    }
-    startAction(action);
-  }
-};
-
-const handleKeyUp = (event: KeyboardEvent) => {
-  if (!props.isOwn) return;
-
-  if (keys.value.hasOwnProperty(event.code)) {
-    keys.value[event.code] = false;
-  }
-
-  if (!Object.values(keys.value).some(key => key)) {
-    stopAction();
-  } else {
-    if (keys.value.ArrowUp || keys.value.ArrowDown || keys.value.ArrowLeft || keys.value.ArrowRight) {
-      const action = (keys.value.ShiftLeft || keys.value.ShiftRight) ? 'run' : 'walk';
-      startAction(action);
-    }
-  }
-};
+// addActionMapping('KeyV', 'specialMove'); // Example of adding a new action
 
 const handleMovement = () => {
   if (!props.isOwn) return;
@@ -167,14 +111,7 @@ const setSpawnPoint = () => {
 
 onMounted(() => {
   setSpawnPoint();
-  window.addEventListener('keydown', handleKeyDown);
-  window.addEventListener('keyup', handleKeyUp);
   requestAnimationFrame(handleMovement);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeyDown);
-  window.removeEventListener('keyup', handleKeyUp);
 });
 </script>
 
