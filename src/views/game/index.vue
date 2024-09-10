@@ -32,16 +32,20 @@
   </div>
 
   <div class="viewers" v-if="currentTab === 'Gameplay'">
-    <CharacterViewer
-      v-for="user in usersInSameLocation"
-      :key="user.userId"
-      :user-id="user.userId"
-      :is-own="user.userId === userId"
-      :character="user.character"
-    />
+
   </div>
 
-  <Dungeon />
+  <Dungeon :seed="location">
+    <template #character>
+      <CharacterViewer
+        v-for="user in usersInSameLocation"
+        :key="user.userId"
+        :user-id="user.userId"
+        :is-own="user.userId === userId"
+        :character="user.character"
+      />
+    </template>
+  </Dungeon>
 </template>
 
 <script setup lang="ts">
@@ -80,12 +84,13 @@ onUnmounted(() => {
 });
 
 const isConnected = computed(() => socketStore.isConnected);
+const location = ref('');
 
 const usersInSameLocation = computed(() => {
   const ownUser = socketStore.users.find(user => user.userId === userId.value);
   if (!ownUser) return [];
-  const location = ownUser.character.info.location;
-  return socketStore.users.filter(user => user.character.info.location === location);
+  location.value = ownUser.character.info.location;
+  return socketStore.users.filter(user => user.character.info.location === location.value);
 });
 </script>
 

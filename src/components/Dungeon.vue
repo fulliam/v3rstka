@@ -14,6 +14,8 @@
       >
       </div>
     </div>
+
+    <slot name="character"></slot>
   </div>
 </template>
 
@@ -22,6 +24,13 @@ import { ref, onMounted } from 'vue';
 import DungeonGenerator from '@/plugins/dungeonGenerator';
 import { useDungeonStore } from '@/stores/dungeon';
 import { Cell } from '@/types';
+
+const props = defineProps({
+  seed: {
+    type: String,
+    required: true,
+  }
+});
 
 const dungeonStore = useDungeonStore();
 
@@ -38,8 +47,8 @@ onMounted(() => {
         maxAttempts: 500,
         rooms: 4
     };
-    // const seed = 12345;
-    dungeonMap.value = DungeonGenerator.generate(config /*, seed*/);
+
+    dungeonMap.value = DungeonGenerator.generate(config, +props.seed);
     spawnPoint.value = DungeonGenerator.getSpawnPoint();
     dungeonStore.setDungeon(dungeonMap.value);
     if (spawnPoint.value) {
@@ -61,6 +70,10 @@ const getCellStyle = (cell: Cell) => {
   display: grid;
   grid-template-columns: repeat(51, var(--cell-size));
   grid-gap: 0px;
+  padding: 0; /* Ensure no padding */
+  margin: 0;  /* Ensure no margin */
+  border: none; /* Ensure no border */
+  position: relative; /* Map is a reference point */
 }
 .row {
   display: contents;

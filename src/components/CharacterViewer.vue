@@ -2,9 +2,9 @@
   <div 
     class="character" 
     :style="{
-      position: 'relative', 
+      position: 'absolute', 
       left: `${props.character.state.position.x - 25}px`, 
-      top: `${props.character.state.position.y + 10}px`,
+      top: `${props.character.state.position.y - 50}px`,
     }"
   >
     <img 
@@ -156,6 +156,9 @@ const handleMovement = () => {
   const speedType = (keys.value.ShiftLeft || keys.value.ShiftRight) ? 'running' : 'walking';
   const speed = props.character.stats.speed[speedType];
 
+  const xOffset = 25;
+  const yOffset = 10;
+
   if (keys.value.ArrowUp) {
     const newY = newPosition.y - (speed / 3);
     if (dungeonMap[Math.floor(newY / 20)][Math.floor(newPosition.x / 20)].cellType !== 'wall') {
@@ -188,6 +191,12 @@ const handleMovement = () => {
   requestAnimationFrame(handleMovement);
 };
 
+const setSpawnPoint = () => {
+  if (!props.character.state.position || (props.character.state.position.x === 0 && props.character.state.position.y === 0)) {
+    socketStore.updateUserPosition(props.userId, spawnPoint, 'right');
+  }
+};
+
 watch(() => props.character.info.character, () => {
   updateFrames();
 });
@@ -197,7 +206,7 @@ watch(() => props.character.state.action, () => {
 });
 
 onMounted(() => {
-  socketStore.updateUserPosition(props.userId, spawnPoint, 'right');
+  setSpawnPoint();
   updateFrames();
   startAnimation();
   window.addEventListener('keydown', handleKeyDown);
@@ -218,7 +227,7 @@ onUnmounted(() => {
 .character {
   position: absolute;
   display: block;
-  z-index: 1;
+  z-index: 999;
 
   &__img {
     width: 50px;

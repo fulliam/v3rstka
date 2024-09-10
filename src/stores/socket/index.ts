@@ -1,4 +1,3 @@
-// stores/socket/index.ts
 import { defineStore } from 'pinia';
 import createWebSocket from '@/plugins/socket';
 import type { Player, Position } from '@/types';
@@ -23,7 +22,6 @@ interface MessageState {
   messages: Message[];
 }
 
-
 export const useSocketStore = defineStore('socket', {
   state: (): SocketState => ({
     socket: null,
@@ -40,22 +38,23 @@ export const useSocketStore = defineStore('socket', {
 
       this.socket.onopen = () => {
         this.isConnected = true;
-        // console.log(`WebSocket connected as ${userId}`);
+        // console.log(`WebSocket подключен как ${userId}`);
       };
 
       this.socket.onclose = (event) => {
         this.isConnected = false;
-        this.users = [];
-        // console.log(`WebSocket closed: ${event.code}, ${event.reason}`);
+        // this.users = [];
+        setTimeout(() => this.connect(userId, token), 5000);
+        // console.log(`WebSocket закрыт: ${event.code}, ${event.reason}`);
       };
 
       this.socket.onerror = (error) => {
-        console.error('WebSocket error:', error);
+        console.error('Ошибка WebSocket:', error);
       };
 
       this.socket.onmessage = (event: MessageEvent) => {
         const data = JSON.parse(event.data);
-        // console.log('WebSocket message received:', data); 
+        // console.log('Сообщение WebSocket получено:', data); 
         if (data.type === 'users') {
           this.users = data.data;
         } else if (data.type === 'messages') {
@@ -85,7 +84,7 @@ export const useSocketStore = defineStore('socket', {
       };
     },
     disconnect() {
-      console.log('WebSocket disconnected');
+      console.log('WebSocket отключен');
       if (this.socket) {
         this.socket.close();
         this.socket = null;
