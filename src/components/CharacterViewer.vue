@@ -23,11 +23,10 @@
       alt="Character Animation Frame"
     />
   </div>
-  {{props.character}}
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, nextTick } from 'vue';
 import { useSocketStore } from '@/stores/socket';
 import { useDungeonStore } from '@/stores/dungeon';
 import useAnimation from '@/composables/animation';
@@ -104,15 +103,19 @@ const handleMovement = () => {
 };
 
 const setSpawnPoint = () => {
-  if (!props.character.state.position || (props.character.state.position.x === 0 && props.character.state.position.y === 0)) {
+  if (props.character.state.position.x === 0 && props.character.state.position.y === 0) {
     socketStore.updateUserPosition(props.userId, spawnPoint, 'right');
   }
 };
 
-onMounted(() => {
-  setSpawnPoint();
+onMounted(async () => {
+  setTimeout(() => {
+    setSpawnPoint();
+  }, 100);
+
   requestAnimationFrame(handleMovement);
 });
+
 </script>
 
 <style scoped lang="scss">
@@ -149,6 +152,14 @@ onMounted(() => {
       text-align: left;
       position: relative;
       top: -1px;
+      display: flex;
+
+      span {
+        margin-left: 2px;
+        font-size: 4px;
+        position: relative;
+        top: -0.7px;
+      }
     }
   }
 }

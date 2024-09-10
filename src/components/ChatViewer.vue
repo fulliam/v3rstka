@@ -11,13 +11,14 @@
   
   <script setup lang="ts">
   import { ref, computed, onUpdated } from 'vue';
-  import { useMessageStore, useSocketStore } from '@/stores/socket';
+  import { useSocketStore } from '@/stores/socket';
+  import { useChatStore } from '@/stores/chat';
   
   const socketStore = useSocketStore();
-  const messageStore = useMessageStore();
+  const chatStore = useChatStore();
   const newMessage = ref<string>("");
   
-  const messages = computed(() => messageStore.messages);
+  const messages = computed(() => chatStore.messages);
   const messagesContainer = ref<HTMLElement | null>(null);
   
   const scrollToBottom = () => {
@@ -32,7 +33,7 @@
   
   const sendMessage = () => {
     if (newMessage.value.trim()) {
-      socketStore.sendMessage(newMessage.value);
+      socketStore.sendUpdate('message', {content: newMessage.value});
       newMessage.value = "";
       scrollToBottom();
     }

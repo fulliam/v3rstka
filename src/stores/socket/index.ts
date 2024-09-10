@@ -1,15 +1,11 @@
 import { defineStore } from 'pinia';
 import createWebSocket from '@/plugins/socket';
 import type { Player, Position } from '@/types';
+import { useChatStore } from '@/stores/chat';
 
 interface User {
   userId: string;
   character: Player;
-}
-
-interface Message {
-  userId: string;
-  content: string;
 }
 
 interface SocketState {
@@ -18,8 +14,11 @@ interface SocketState {
   users: User[];
 }
 
-interface MessageState {
-  messages: Message[];
+interface WebSocketMessage {
+  type: 'users' | 'messages' | 'action' | 'move' | 'change_character' | 'location';
+  data?: any;
+  update?: any;
+  userId?: string;
 }
 
 export const useSocketStore = defineStore('socket', {
@@ -29,6 +28,47 @@ export const useSocketStore = defineStore('socket', {
     users: [],
   }),
   actions: {
+    findUserById(userId: string): User | undefined {
+      return this.users.find(user => user.userId === userId);
+    },
+
+    handleUsersUpdate(data: any) {
+      this.users = data;
+    },
+
+    handleMessagesUpdate(data: any) {
+      useChatStore().setMessages(data);
+    },
+
+    handleActionUpdate(update: any) {
+      const user = this.findUserById(update.userId);
+      if (user) {
+        user.character.state.action = update.action;
+      }
+    },
+
+    handleMoveUpdate(update: any) {
+      const user = this.findUserById(update.userId);
+      if (user) {
+        user.character.state.position = update.coords;
+        user.character.state.direction = update.direction;
+      }
+    },
+
+    handleCharacterChange(update: any) {
+      const user = this.findUserById(update.userId);
+      if (user) {
+        user.character.info.character = update.character;
+      }
+    },
+
+    handleLocationUpdate(data: any) {
+      const user = this.findUserById(data.userId);
+      if (user) {
+        user.character.info.location = data.location;
+      }
+    },
+
     connect(userId: string, token: string) {
       if (this.socket) {
         this.disconnect();
@@ -43,7 +83,6 @@ export const useSocketStore = defineStore('socket', {
 
       this.socket.onclose = (event) => {
         this.isConnected = false;
-        // this.users = [];
         setTimeout(() => this.connect(userId, token), 5000);
         // console.log(`WebSocket закрыт: ${event.code}, ${event.reason}`);
       };
@@ -53,36 +92,30 @@ export const useSocketStore = defineStore('socket', {
       };
 
       this.socket.onmessage = (event: MessageEvent) => {
-        const data = JSON.parse(event.data);
-        // console.log('Сообщение WebSocket получено:', data); 
-        if (data.type === 'users') {
-          this.users = data.data;
-        } else if (data.type === 'messages') {
-          useMessageStore().setMessages(data.data);
-        } else if (data.type === 'action') {
-          const userIndex = this.users.findIndex(user => user.userId === data.update.userId);
-          if (userIndex !== -1) {
-            this.users[userIndex].character.state.action = data.update.action;
+        try {
+          const data: WebSocketMessage = JSON.parse(event.data);
+
+          const actionMap: Record<WebSocketMessage['type'], Function> = {
+            'users': this.handleUsersUpdate,
+            'messages': this.handleMessagesUpdate,
+            'action': this.handleActionUpdate,
+            'move': this.handleMoveUpdate,
+            'change_character': this.handleCharacterChange,
+            'location': this.handleLocationUpdate,
+          };
+
+          const handler = actionMap[data.type];
+          if (handler) {
+            handler.call(this, data.update || data.data || data);
+          } else {
+            // console.warn(`Неизвестный тип сообщения: ${data.type}`);
           }
-        } else if (data.type === 'move') {
-          const userIndex = this.users.findIndex(user => user.userId === data.update.userId);
-          if (userIndex !== -1) {
-            this.users[userIndex].character.state.position = data.update.coords;
-            this.users[userIndex].character.state.direction = data.update.direction;
-          }
-        } else if (data.type === 'change_character') {
-          const userIndex = this.users.findIndex(user => user.userId === data.update.userId);
-          if (userIndex !== -1) {
-            this.users[userIndex].character.info.character = data.update.character;
-          }
-        } else if (data.type === 'location') {
-          const userIndex = this.users.findIndex(user => user.userId === data.userId);
-          if (userIndex !== -1) {
-            this.users[userIndex].character.info.location = data.location;
-          }
+        } catch (error) {
+          console.error('Ошибка обработки сообщения WebSocket:', error);
         }
       };
     },
+
     disconnect() {
       console.log('WebSocket отключен');
       if (this.socket) {
@@ -92,70 +125,27 @@ export const useSocketStore = defineStore('socket', {
       this.isConnected = false;
       this.users = [];
     },
-    updateUserAction(userId: string, character: string, action: string) {
-      if (this.socket) {
-        this.socket.send(
-          JSON.stringify({
-            type: 'action',
-            userId,
-            character,
-            action,
-          })
-        );
-      }
-    },
-    updateUserLocation(userId: string, location: string) {
-      if (this.socket) {
-        this.socket.send(
-          JSON.stringify({
-            type: 'location',
-            userId,
-            location,
-          })
-        );
-      }
-    },
-    updateUserPosition(userId: string, position: Position, direction: 'left' | 'right') {
-      if (this.socket && this.isConnected && this.socket.readyState === WebSocket.OPEN) {
-        this.socket.send(
-          JSON.stringify({
-            type: 'move',
-            userId,
-            position,
-            direction,
-          })
-        );
-      }
-    },
-    updateUserCharacter(userId: string, character: string) {
-      if (this.socket && this.isConnected && this.socket.readyState === WebSocket.OPEN) {
-        this.socket.send(
-          JSON.stringify({
-            type: 'change_character',
-            userId,
-            character,
-          })
-        );
-      }
-    },
-    sendMessage(message: string) {
-      if (this.socket && this.isConnected) {
-        this.socket.send(JSON.stringify({ type: "message", content: message }));
-      }
-    },
-  },
-});
 
-export const useMessageStore = defineStore('message', {
-  state: (): MessageState => ({
-    messages: [],
-  }),
-  actions: {
-    setMessages(messages: Message[]) {
-      this.messages = messages;
+    sendUpdate(type: string, data: any) {
+      if (this.socket && this.isConnected && this.socket.readyState === WebSocket.OPEN) {
+        this.socket.send(JSON.stringify({ type, ...data }));
+      }
     },
-    addMessage(message: Message) {
-      this.messages.push(message);
+
+    updateUserAction(userId: string, character: string, action: string) {
+      this.sendUpdate('action', { userId, character, action });
     },
+
+    updateUserLocation(userId: string, location: string) {
+      this.sendUpdate('location', { userId, location });
+    },
+
+    updateUserPosition(userId: string, position: Position, direction: 'left' | 'right') {
+      this.sendUpdate('move', { userId, position, direction });
+    },
+
+    updateUserCharacter(userId: string, character: string) {
+      this.sendUpdate('change_character', { userId, character });
+    }
   },
 });

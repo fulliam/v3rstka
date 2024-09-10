@@ -1,5 +1,5 @@
 <template>
-  <div v-if="true">
+  <div v-if="false">
     <p>Connected: {{ isConnected }}</p>
     <div class="tabs">
       <button :class="{ active: currentTab === 'Gameplay' }" @click="currentTab = 'Gameplay'">Gameplay</button>
