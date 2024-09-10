@@ -1,7 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
 :root {
-  font-family: Pixelify Sans, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family:
+    Pixelify Sans,
+    Inter,
+    system-ui,
+    Avenir,
+    Helvetica,
+    Arial,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -17,8 +24,9 @@
   user-select: none;
 }
 
-
-html, body, #app {
+html,
+body,
+#app {
   margin: 0;
   padding: 0;
 }

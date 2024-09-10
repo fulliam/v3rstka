@@ -15,14 +15,23 @@
 
       <div v-if="!isLogin" class="form-group">
         <label for="confirmPassword">Confirm Password</label>
-        <input v-model="confirmPassword" type="password" id="confirmPassword" required />
+        <input
+          v-model="confirmPassword"
+          type="password"
+          id="confirmPassword"
+          required
+        />
       </div>
 
       <button type="submit">{{ isLogin ? 'Login' : 'Register' }}</button>
     </form>
 
     <p class="switch-mode" @click="toggleMode">
-      {{ isLogin ? 'Don’t have an account? Register' : 'Already have an account? Login' }}
+      {{
+        isLogin
+          ? 'Don’t have an account? Register'
+          : 'Already have an account? Login'
+      }}
     </p>
   </div>
 </template>
@@ -54,13 +63,13 @@ const handleSubmit = () => {
   }
 
   if (isLogin.value) {
-    login(username.value, password.value).then(() =>
-      router.push('/game')
-    ).catch(() => console.log('Failed login'));
+    login(username.value, password.value)
+      .then(() => router.push('/game'))
+      .catch(() => console.log('Failed login'));
   } else {
-    register(username.value, password.value).then(() => 
-      isLogin.value = true
-    ).catch(() => console.log('Failed register'));
+    register(username.value, password.value)
+      .then(() => (isLogin.value = true))
+      .catch(() => console.log('Failed register'));
   }
 };
 </script>
@@ -84,7 +93,7 @@ const handleSubmit = () => {
     margin-bottom: 15px;
     display: flex;
     flex-direction: column;
-    
+
     label {
       display: block;
       margin-bottom: 5px;

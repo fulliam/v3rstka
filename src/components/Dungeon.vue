@@ -1,18 +1,13 @@
 <template>
   <div class="dungeon-map">
-    <div 
-      v-for="(row, rowIndex) in dungeonMap" 
-      :key="rowIndex" 
-      class="row"
-    >
-      <div 
-        v-for="(cell, colIndex) in row" 
-        :key="colIndex" 
+    <div v-for="(row, rowIndex) in dungeonMap" :key="rowIndex" class="row">
+      <div
+        v-for="(cell, colIndex) in row"
+        :key="colIndex"
         class="cell"
-        :class="[cell.cellType, cell.wallType]" 
+        :class="[cell.cellType, cell.wallType]"
         :style="getCellStyle(cell)"
-      >
-      </div>
+      ></div>
     </div>
 
     <slot name="characters"></slot>
@@ -29,31 +24,31 @@ const props = defineProps({
   seed: {
     type: String,
     required: true,
-  }
+  },
 });
 
 const dungeonStore = useDungeonStore();
 
 const dungeonMap = ref<Cell[][]>([]);
-const spawnPoint = ref<{ x: number, y: number } | undefined>(undefined);
+const spawnPoint = ref<{ x: number; y: number } | undefined>(undefined);
 
 onMounted(() => {
-    const config = {
-        rows: 31,
-        cols: 51,
-        maxRoomSize: 24,
-        minRoomSize: 5,
-        padding: 0,
-        maxAttempts: 500,
-        rooms: 4
-    };
+  const config = {
+    rows: 31,
+    cols: 51,
+    maxRoomSize: 24,
+    minRoomSize: 5,
+    padding: 0,
+    maxAttempts: 500,
+    rooms: 4,
+  };
 
-    dungeonMap.value = DungeonGenerator.generate(config, +props.seed);
-    spawnPoint.value = DungeonGenerator.getSpawnPoint();
-    dungeonStore.setDungeon(dungeonMap.value);
-    if (spawnPoint.value) {
-      dungeonStore.setSpawnPoint(spawnPoint.value);
-    }
+  dungeonMap.value = DungeonGenerator.generate(config, +props.seed);
+  spawnPoint.value = DungeonGenerator.getSpawnPoint();
+  dungeonStore.setDungeon(dungeonMap.value);
+  if (spawnPoint.value) {
+    dungeonStore.setSpawnPoint(spawnPoint.value);
+  }
 });
 
 const getCellStyle = (cell: Cell) => {
@@ -71,7 +66,7 @@ const getCellStyle = (cell: Cell) => {
   grid-template-columns: repeat(51, var(--cell-size));
   grid-gap: 0px;
   padding: 0; /* Ensure no padding */
-  margin: 0;  /* Ensure no margin */
+  margin: 0; /* Ensure no margin */
   border: none; /* Ensure no border */
   position: relative; /* Map is a reference point */
 }

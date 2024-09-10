@@ -15,7 +15,13 @@ interface SocketState {
 }
 
 interface WebSocketMessage {
-  type: 'users' | 'messages' | 'action' | 'move' | 'change_character' | 'location';
+  type:
+    | 'users'
+    | 'messages'
+    | 'action'
+    | 'move'
+    | 'change_character'
+    | 'location';
   data?: any;
   update?: any;
   userId?: string;
@@ -29,7 +35,7 @@ export const useSocketStore = defineStore('socket', {
   }),
   actions: {
     findUserById(userId: string): User | undefined {
-      return this.users.find(user => user.userId === userId);
+      return this.users.find((user) => user.userId === userId);
     },
 
     handleUsersUpdate(data: any) {
@@ -96,12 +102,12 @@ export const useSocketStore = defineStore('socket', {
           const data: WebSocketMessage = JSON.parse(event.data);
 
           const actionMap: Record<WebSocketMessage['type'], Function> = {
-            'users': this.handleUsersUpdate,
-            'messages': this.handleMessagesUpdate,
-            'action': this.handleActionUpdate,
-            'move': this.handleMoveUpdate,
-            'change_character': this.handleCharacterChange,
-            'location': this.handleLocationUpdate,
+            users: this.handleUsersUpdate,
+            messages: this.handleMessagesUpdate,
+            action: this.handleActionUpdate,
+            move: this.handleMoveUpdate,
+            change_character: this.handleCharacterChange,
+            location: this.handleLocationUpdate,
           };
 
           const handler = actionMap[data.type];
@@ -127,7 +133,11 @@ export const useSocketStore = defineStore('socket', {
     },
 
     sendUpdate(type: string, data: any) {
-      if (this.socket && this.isConnected && this.socket.readyState === WebSocket.OPEN) {
+      if (
+        this.socket &&
+        this.isConnected &&
+        this.socket.readyState === WebSocket.OPEN
+      ) {
         this.socket.send(JSON.stringify({ type, ...data }));
       }
     },
@@ -140,12 +150,16 @@ export const useSocketStore = defineStore('socket', {
       this.sendUpdate('location', { userId, location });
     },
 
-    updateUserPosition(userId: string, position: Position, direction: 'left' | 'right') {
+    updateUserPosition(
+      userId: string,
+      position: Position,
+      direction: 'left' | 'right'
+    ) {
       this.sendUpdate('move', { userId, position, direction });
     },
 
     updateUserCharacter(userId: string, character: string) {
       this.sendUpdate('change_character', { userId, character });
-    }
+    },
   },
 });

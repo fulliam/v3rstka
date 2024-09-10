@@ -7,19 +7,19 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/auth',
     name: 'Auth',
-    component: Auth
+    component: Auth,
   },
   {
     path: '/game',
     name: 'Game',
     component: Game,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 });
 
 router.beforeEach(authGuard);

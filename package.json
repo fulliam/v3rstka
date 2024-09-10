@@ -7,18 +7,31 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
-    "generate-animations": "node utils/generateAnimations.cjs"
+    "generate-animations": "node utils/generateAnimations.cjs",
+    "lint": "eslint \"src/**/*.{js,ts,vue}\" --fix",
+    "lint:fix": "eslint \"src/**/*.{js,ts,vue}\" --fix",
+    "format": "prettier --write \"src/**/*.{js,ts,vue,json,css,scss,md}\""
   },
   "dependencies": {
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20.14.11",
+    "@typescript-eslint/eslint-plugin": "^8.5.0",
+    "@typescript-eslint/parser": "^8.5.0",
+    "@vue/eslint-config-typescript": "^13.0.0",
     "axios": "^1.7.7",
+    "eslint": "^9.10.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-define-config": "^2.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-vue": "^9.28.0",
     "fs-extra": "^11.2.0",
     "js-cookie": "^3.0.5",
     "pinia": "^2.1.7",
+    "prettier": "^3.3.3",
     "sass": "^1.77.8",
     "socket.io-client": "^4.7.5",
     "vue": "^3.4.31",
+    "vue-eslint-parser": "^9.4.3",
     "vue-router": "^4.4.3"
   },
   "devDependencies": {

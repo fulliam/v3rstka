@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('auth', {
     userId: Cookies.get('userId') || null,
     isAuthenticated: !!Cookies.get('token'),
     authError: null,
-    router: useRouter()
+    router: useRouter(),
   }),
   actions: {
     async register(username: string, password: string) {

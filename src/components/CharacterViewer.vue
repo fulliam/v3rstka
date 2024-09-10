@@ -1,24 +1,23 @@
 <template>
-  <div 
-    class="character" 
+  <div
+    class="character"
     :style="{
-      position: 'absolute', 
-      left: `${props.character.state.position.x - 25}px`, 
+      position: 'absolute',
+      left: `${props.character.state.position.x - 25}px`,
       top: `${props.character.state.position.y - 50}px`,
     }"
   >
-    <div
-      class="character__health"
-      :style="{}"
-    >
-    
-      <div class="character__health-inner" :style="{width: healthPercentage + '%'}">
+    <div class="character__health" :style="{}">
+      <div
+        class="character__health-inner"
+        :style="{ width: healthPercentage + '%' }"
+      >
         <!-- <span>{{ props.character.state.health.max }}/{{ props.character.state.health.current }}</span> -->
       </div>
     </div>
-    <img 
+    <img
       class="character__img"
-      :src="currentFrame" 
+      :src="currentFrame"
       :style="direction ? 'transform: scaleX(-1)' : ''"
       alt="Character Animation Frame"
     />
@@ -54,10 +53,17 @@ const dungeonMap = dungeonStore.dungeon;
 const spawnPoint = dungeonStore.spawnPoint;
 
 const healthPercentage = computed(() => {
-  return Math.floor(props.character.state.health.max / props.character.state.health.current * 100);
+  return Math.floor(
+    (props.character.state.health.max / props.character.state.health.current) *
+      100
+  );
 });
 
-const { keys, addActionMapping } = useActions(props.userId, props.isOwn, props.character);
+const { keys, addActionMapping } = useActions(
+  props.userId,
+  props.isOwn,
+  props.character
+);
 
 // addActionMapping('KeyV', 'specialMove'); // Example of adding a new action
 
@@ -67,31 +73,44 @@ const handleMovement = () => {
   let newPosition = { ...props.character.state.position };
   let direction: 'left' | 'right' = props.character.state.direction;
 
-  const speedType = (keys.value.ShiftLeft || keys.value.ShiftRight) ? 'running' : 'walking';
+  const speedType =
+    keys.value.ShiftLeft || keys.value.ShiftRight ? 'running' : 'walking';
   const speed = props.character.stats.speed[speedType];
 
   if (keys.value.ArrowUp) {
-    const newY = newPosition.y - (speed / 3);
-    if (dungeonMap[Math.floor(newY / 20)][Math.floor(newPosition.x / 20)].cellType !== 'wall') {
+    const newY = newPosition.y - speed / 3;
+    if (
+      dungeonMap[Math.floor(newY / 20)][Math.floor(newPosition.x / 20)]
+        .cellType !== 'wall'
+    ) {
       newPosition.y = newY;
     }
   }
   if (keys.value.ArrowDown) {
-    const newY = newPosition.y + (speed / 3);
-    if (dungeonMap[Math.floor(newY / 20)][Math.floor(newPosition.x / 20)].cellType !== 'wall') {
+    const newY = newPosition.y + speed / 3;
+    if (
+      dungeonMap[Math.floor(newY / 20)][Math.floor(newPosition.x / 20)]
+        .cellType !== 'wall'
+    ) {
       newPosition.y = newY;
     }
   }
   if (keys.value.ArrowLeft) {
-    const newX = newPosition.x - (speed / 3);
-    if (dungeonMap[Math.floor(newPosition.y / 20)][Math.floor(newX / 20)].cellType !== 'wall') {
+    const newX = newPosition.x - speed / 3;
+    if (
+      dungeonMap[Math.floor(newPosition.y / 20)][Math.floor(newX / 20)]
+        .cellType !== 'wall'
+    ) {
       newPosition.x = newX;
       direction = 'left';
     }
   }
   if (keys.value.ArrowRight) {
-    const newX = newPosition.x + (speed / 3);
-    if (dungeonMap[Math.floor(newPosition.y / 20)][Math.floor(newX / 20)].cellType !== 'wall') {
+    const newX = newPosition.x + speed / 3;
+    if (
+      dungeonMap[Math.floor(newPosition.y / 20)][Math.floor(newX / 20)]
+        .cellType !== 'wall'
+    ) {
       newPosition.x = newX;
       direction = 'right';
     }
@@ -103,7 +122,10 @@ const handleMovement = () => {
 };
 
 const setSpawnPoint = () => {
-  if (props.character.state.position.x === 0 && props.character.state.position.y === 0) {
+  if (
+    props.character.state.position.x === 0 &&
+    props.character.state.position.y === 0
+  ) {
     socketStore.updateUserPosition(props.userId, spawnPoint, 'right');
   }
 };
@@ -115,7 +137,6 @@ onMounted(async () => {
 
   requestAnimationFrame(handleMovement);
 });
-
 </script>
 
 <style scoped lang="scss">
@@ -135,8 +156,11 @@ onMounted(async () => {
     left: 20%;
     width: 60%;
     height: 5px;
-    background: linear-gradient(to bottom,
-        rgba(82, 5, 5, 0.55) 18%, rgba(240, 0, 0, 0.55) 100%);
+    background: linear-gradient(
+      to bottom,
+      rgba(82, 5, 5, 0.55) 18%,
+      rgba(240, 0, 0, 0.55) 100%
+    );
     border: 1px solid black;
     border-radius: 7px;
     overflow: hidden;
@@ -147,8 +171,11 @@ onMounted(async () => {
       border-radius: 7px;
       border: 1px solid black;
       border-left: none;
-      background: linear-gradient(to bottom,
-          rgb(60, 92, 56) 18%, rgb(2, 189, 2) 100%);
+      background: linear-gradient(
+        to bottom,
+        rgb(60, 92, 56) 18%,
+        rgb(2, 189, 2) 100%
+      );
       text-align: left;
       position: relative;
       top: -1px;

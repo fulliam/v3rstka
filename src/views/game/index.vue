@@ -2,14 +2,33 @@
   <div v-if="false">
     <p>Connected: {{ isConnected }}</p>
     <div class="tabs">
-      <button :class="{ active: currentTab === 'Gameplay' }" @click="currentTab = 'Gameplay'">Gameplay</button>
-      <button :class="{ active: currentTab === 'enemy' }" @click="currentTab = 'enemy'">Enemy</button>
-      <button :class="{ active: currentTab === 'chat' }" @click="currentTab = 'chat'">Chat</button>
+      <button
+        :class="{ active: currentTab === 'Gameplay' }"
+        @click="currentTab = 'Gameplay'"
+      >
+        Gameplay
+      </button>
+      <button
+        :class="{ active: currentTab === 'enemy' }"
+        @click="currentTab = 'enemy'"
+      >
+        Enemy
+      </button>
+      <button
+        :class="{ active: currentTab === 'chat' }"
+        @click="currentTab = 'chat'"
+      >
+        Chat
+      </button>
     </div>
 
     <div class="chat-wrapper" v-if="currentTab === 'chat'">
       <div class="user-list">
-        <div v-for="user in usersInSameLocation" :key="user.userId" class="user-card">
+        <div
+          v-for="user in usersInSameLocation"
+          :key="user.userId"
+          class="user-card"
+        >
           <div class="user-chat-image"></div>
           <p>{{ user.userId }}</p>
           <p><strong>Character:</strong> {{ user.character.info.character }}</p>
@@ -31,9 +50,7 @@
     </div>
   </div>
 
-  <div class="viewers" v-if="currentTab === 'Gameplay'">
-
-  </div>
+  <div class="viewers" v-if="currentTab === 'Gameplay'"></div>
 
   <Dungeon :seed="location">
     <template #characters>
@@ -87,10 +104,14 @@ const isConnected = computed(() => socketStore.isConnected);
 const location = ref('');
 
 const usersInSameLocation = computed(() => {
-  const ownUser = socketStore.users.find(user => user.userId === userId.value);
+  const ownUser = socketStore.users.find(
+    (user) => user.userId === userId.value
+  );
   if (!ownUser) return [];
   location.value = ownUser.character.info.location;
-  return socketStore.users.filter(user => user.character.info.location === location.value);
+  return socketStore.users.filter(
+    (user) => user.character.info.location === location.value
+  );
 });
 </script>
 
@@ -172,5 +193,4 @@ const usersInSameLocation = computed(() => {
 .actions button {
   margin: 0 5px;
 }
-
 </style>

@@ -10,7 +10,7 @@ export default function useAnimation(character: Record<string, any>) {
   const direction = computed(() => character.state.direction === 'left');
 
   const preloadImages = (frameList: string[]) => {
-    const promises = frameList.map(src => {
+    const promises = frameList.map((src) => {
       return new Promise<void>((resolve, reject) => {
         const img = new Image();
         img.src = src;
@@ -18,12 +18,16 @@ export default function useAnimation(character: Record<string, any>) {
         img.onerror = () => reject(new Error(`Failed to load image ${src}`));
       });
     });
-  
+
     return Promise.all(promises);
   };
-  
+
   const updateFrames = async () => {
-    frames.value = Object.values((animations as any).char[character.info.category][character.info.character][character.state.action]);
+    frames.value = Object.values(
+      (animations as any).char[character.info.category][
+        character.info.character
+      ][character.state.action]
+    );
     await preloadImages(frames.value);
     currentFrame.value = frames.value[0];
     frameIndex = 0;

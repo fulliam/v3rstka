@@ -1,7 +1,11 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useSocketStore } from '@/stores/socket';
 
-export default function useActions(userId: string, isOwn: boolean, character: any) {
+export default function useActions(
+  userId: string,
+  isOwn: boolean,
+  character: any
+) {
   const socketStore = useSocketStore();
 
   const keys = ref<{ [key: string]: boolean }>({
@@ -42,7 +46,10 @@ export default function useActions(userId: string, isOwn: boolean, character: an
     let action = actionMap[event.code];
 
     if (action) {
-      if ((keys.value.ShiftLeft || keys.value.ShiftRight) && ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.code)) {
+      if (
+        (keys.value.ShiftLeft || keys.value.ShiftRight) &&
+        ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.code)
+      ) {
         action = 'run';
       }
       startAction(action);
@@ -56,11 +63,17 @@ export default function useActions(userId: string, isOwn: boolean, character: an
       keys.value[event.code] = false;
     }
 
-    if (!Object.values(keys.value).some(key => key)) {
+    if (!Object.values(keys.value).some((key) => key)) {
       stopAction();
     } else {
-      if (keys.value.ArrowUp || keys.value.ArrowDown || keys.value.ArrowLeft || keys.value.ArrowRight) {
-        const action = (keys.value.ShiftLeft || keys.value.ShiftRight) ? 'run' : 'walk';
+      if (
+        keys.value.ArrowUp ||
+        keys.value.ArrowDown ||
+        keys.value.ArrowLeft ||
+        keys.value.ArrowRight
+      ) {
+        const action =
+          keys.value.ShiftLeft || keys.value.ShiftRight ? 'run' : 'walk';
         startAction(action);
       }
     }

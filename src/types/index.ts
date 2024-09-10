@@ -104,10 +104,10 @@ export interface Player {
   inventory: CharacterInventory;
 }
 
-export type Cell = { 
-  cellType: 'wall' | 'empty', 
-  wallType?: string, 
-  floorImage?: string
+export type Cell = {
+  cellType: 'wall' | 'empty';
+  wallType?: string;
+  floorImage?: string;
 };
 
 export interface Room {
