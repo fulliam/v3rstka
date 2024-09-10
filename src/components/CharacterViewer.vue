@@ -7,6 +7,15 @@
       top: `${props.character.state.position.y - 50}px`,
     }"
   >
+    <div
+      class="character__health"
+      :style="{}"
+    >
+    
+      <div class="character__health-inner" :style="{width: healthPercentage + '%'}">
+        <!-- <span>{{ props.character.stats.health }}/{{ props.character.stats.maxHealth }}</span> -->
+      </div>
+    </div>
     <img 
       class="character__img"
       :src="currentFrame" 
@@ -17,10 +26,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useSocketStore } from '@/stores/socket';
-import animations from '@/animations.json';
 import { useDungeonStore } from '@/stores/dungeon';
+import useAnimation from '@/composables/animation';
 
 const props = defineProps({
   userId: {
@@ -37,49 +46,15 @@ const props = defineProps({
   },
 });
 
+const { currentFrame, direction } = useAnimation(props.character);
 const socketStore = useSocketStore();
 const dungeonStore = useDungeonStore();
 const dungeonMap = dungeonStore.dungeon;
 const spawnPoint = dungeonStore.spawnPoint;
 
-const frames = ref<string[]>([]);
-const currentFrame = ref<string>('');
-let frameIndex = 0;
-let animationFrameId: number | null = null;
-
-const preloadImages = (frameList: string[]) => {
-  const promises = frameList.map(src => {
-    return new Promise<void>((resolve, reject) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => resolve();
-      img.onerror = () => reject(new Error(`Failed to load image ${src}`));
-    });
-  });
-
-  return Promise.all(promises);
-};
-
-const updateFrames = async () => {
-  frames.value = Object.values((animations as any).char[props.character.info.category][props.character.info.character][props.character.state.action]);
-  await preloadImages(frames.value);
-  currentFrame.value = frames.value[0];
-  frameIndex = 0;
-};
-
-const startAnimation = () => {
-  const frameDuration = 1000 / 10; // 10 fps
-
-  const animate = () => {
-    frameIndex = (frameIndex + 1) % frames.value.length;
-    currentFrame.value = frames.value[frameIndex];
-    setTimeout(() => {
-      animationFrameId = requestAnimationFrame(animate);
-    }, frameDuration);
-  };
-
-  animationFrameId = requestAnimationFrame(animate);
-};
+const healthPercentage = computed(() => {
+  return Math.floor(props.character.stats.health / props.character.stats.maxHealth * 100);
+});
 
 const startAction = (action: string) => {
   socketStore.updateUserAction(props.userId, props.character.info.character, action);
@@ -88,10 +63,6 @@ const startAction = (action: string) => {
 const stopAction = () => {
   socketStore.updateUserAction(props.userId, props.character.info.character, 'idle');
 };
-
-const direction = computed(() => {
-  return props.character.state.direction === 'left';
-});
 
 const keys = ref<{ [key: string]: boolean }>({
   ArrowUp: false,
@@ -156,9 +127,6 @@ const handleMovement = () => {
   const speedType = (keys.value.ShiftLeft || keys.value.ShiftRight) ? 'running' : 'walking';
   const speed = props.character.stats.speed[speedType];
 
-  const xOffset = 25;
-  const yOffset = 10;
-
   if (keys.value.ArrowUp) {
     const newY = newPosition.y - (speed / 3);
     if (dungeonMap[Math.floor(newY / 20)][Math.floor(newPosition.x / 20)].cellType !== 'wall') {
@@ -197,27 +165,14 @@ const setSpawnPoint = () => {
   }
 };
 
-watch(() => props.character.info.character, () => {
-  updateFrames();
-});
-
-watch(() => props.character.state.action, () => {
-  updateFrames();
-});
-
 onMounted(() => {
   setSpawnPoint();
-  updateFrames();
-  startAnimation();
   window.addEventListener('keydown', handleKeyDown);
   window.addEventListener('keyup', handleKeyUp);
   requestAnimationFrame(handleMovement);
 });
 
 onUnmounted(() => {
-  if (animationFrameId) {
-    cancelAnimationFrame(animationFrameId);
-  }
   window.removeEventListener('keydown', handleKeyDown);
   window.removeEventListener('keyup', handleKeyUp);
 });
@@ -232,6 +187,32 @@ onUnmounted(() => {
   &__img {
     width: 50px;
     height: auto;
+  }
+
+  &__health {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 5px;
+    background: linear-gradient(to bottom,
+        rgba(82, 5, 5, 0.55) 18%, rgba(240, 0, 0, 0.55) 100%);
+    border: 1px solid black;
+    border-radius: 7px;
+    overflow: hidden;
+
+    &-inner {
+      height: 100%;
+      width: 100%;
+      border-radius: 7px;
+      border: 1px solid black;
+      border-left: none;
+      background: linear-gradient(to bottom,
+          rgb(60, 92, 56) 18%, rgb(2, 189, 2) 100%);
+      text-align: left;
+      position: relative;
+      top: -1px;
+    }
   }
 }
 </style>

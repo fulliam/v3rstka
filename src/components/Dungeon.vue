@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <slot name="character"></slot>
+    <slot name="characters"></slot>
   </div>
 </template>
 
@@ -107,27 +107,27 @@ const getCellStyle = (cell: Cell) => {
 }
 
 .crossWall {
-  background-color: #72751b;
+  background-color: #544751;
   background-image: url('/src/assets/wall/crossWall.png');
 }
 
 .cornerTopLeft {
-  background-color: #72751b;
+  background-color: #544751;
   background-image: url('/src/assets/wall/bottomRightCorner.png');
 }
 
 .cornerTopRight {
-  background-color: #72751b;
+  background-color: #544751;
   background-image: url('/src/assets/wall/bottomLeftCorner.png');
 }
 
 .cornerBottomLeft {
-  background-color: #72751b;
+  background-color: #544751;
   background-image: url('/src/assets/wall/rightTopCorner.png');
 }
 
 .cornerBottomRight {
-  background-color: #72751b;
+  background-color: #544751;
   background-image: url('/src/assets/wall/leftTopCorner.png');
 }
 

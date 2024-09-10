@@ -1,5 +1,5 @@
 <template>
-  <div v-if="false">
+  <div v-if="true">
     <p>Connected: {{ isConnected }}</p>
     <div class="tabs">
       <button :class="{ active: currentTab === 'Gameplay' }" @click="currentTab = 'Gameplay'">Gameplay</button>
@@ -36,7 +36,7 @@
   </div>
 
   <Dungeon :seed="location">
-    <template #character>
+    <template #characters>
       <CharacterViewer
         v-for="user in usersInSameLocation"
         :key="user.userId"
