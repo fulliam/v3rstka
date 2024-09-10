@@ -33,6 +33,7 @@ export const useAuthStore = defineStore('auth', {
           return false;
         }
       } catch (error) {
+        console.error(error);
         this.authError = 'Registration failed';
         return false;
       }
@@ -58,6 +59,7 @@ export const useAuthStore = defineStore('auth', {
           return false;
         }
       } catch (error) {
+        console.error(error);
         this.authError = 'Login failed';
         return false;
       }

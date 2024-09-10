@@ -90,7 +90,7 @@ export const useSocketStore = defineStore('socket', {
       this.socket.onclose = (event) => {
         this.isConnected = false;
         setTimeout(() => this.connect(userId, token), 5000);
-        // console.log(`WebSocket закрыт: ${event.code}, ${event.reason}`);
+        console.log(`WebSocket закрыт: ${event.code}, ${event.reason}`);
       };
 
       this.socket.onerror = (error) => {

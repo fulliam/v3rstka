@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, nextTick } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useSocketStore } from '@/stores/socket';
 import { useDungeonStore } from '@/stores/dungeon';
 import useAnimation from '@/composables/animation';
@@ -59,7 +59,7 @@ const healthPercentage = computed(() => {
   );
 });
 
-const { keys, addActionMapping } = useActions(
+const { keys /*, addActionMapping */ } = useActions(
   props.userId,
   props.isOwn,
   props.character
