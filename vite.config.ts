@@ -43,4 +43,11 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@import "@/assets/styles/index.scss";'
+      }
+    }
+  },
 })

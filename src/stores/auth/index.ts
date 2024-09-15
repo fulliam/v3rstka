@@ -1,4 +1,3 @@
-// stores/auth/index.ts
 import { defineStore } from 'pinia';
 import { API } from '@/stores/api';
 import Cookies from 'js-cookie';
@@ -26,42 +25,101 @@ export const useAuthStore = defineStore('auth', {
     async register(username: string, password: string) {
       try {
         const response = await API.post('/register', { username, password });
+
         if (response.data.status === 201) {
-          return true;
+          return { status: 201, message: response.data.message };
         } else {
           this.authError = response.data.message;
-          return false;
+          return {
+            status: response.data.status,
+            message: response.data.message,
+          };
         }
-      } catch (error) {
-        console.error(error);
-        this.authError = 'Registration failed';
-        return false;
+      } catch (error: any) {
+        if (error.response) {
+          this.authError = error.response.data.detail || 'Ошибка регистрации';
+          return {
+            status: error.response.status,
+            message: this.authError,
+          };
+        } else {
+          this.authError = 'Неизвестная ошибка';
+          return { status: 500, message: 'Неизвестная ошибка' };
+        }
       }
     },
 
     async login(username: string, password: string) {
       try {
         const response = await API.post('/login', { username, password });
+
         if (response.data.status === 200) {
           this.token = response.data.token;
           this.username = username;
           this.userId = response.data.userId;
           this.isAuthenticated = true;
+
           API.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
 
           Cookies.set('token', String(this.token), { expires: 7 });
           Cookies.set('username', this.username, { expires: 7 });
           Cookies.set('userId', String(this.userId), { expires: 7 });
 
-          return true;
+          return { status: 200, message: response.data.message };
         } else {
           this.authError = response.data.message;
-          return false;
+          return {
+            status: response.data.status,
+            message: response.data.message,
+          };
         }
-      } catch (error) {
-        console.error(error);
-        this.authError = 'Login failed';
-        return false;
+      } catch (error: any) {
+        if (error.response) {
+          this.authError = error.response.data.detail || 'Ошибка авторизации';
+          return {
+            status: error.response.status,
+            message: this.authError,
+          };
+        } else {
+          this.authError = 'Неизвестная ошибка';
+          return { status: 500, message: 'Неизвестная ошибка' };
+        }
+      }
+    },
+
+    async googleLogin() {
+      try {
+        const response = await API.post('/google-login', {
+          token: 'googleToken??',
+        });
+        if (response.data.status === 200) {
+          this.token = response.data.token;
+          this.username = response.data.username;
+          this.userId = response.data.userId;
+          this.isAuthenticated = true;
+          API.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
+          Cookies.set('token', String(this.token), { expires: 7 });
+          Cookies.set('username', String(this.username), { expires: 7 });
+          Cookies.set('userId', String(this.userId), { expires: 7 });
+          return { status: 200, message: response.data.message };
+        } else {
+          this.authError = response.data.message;
+          return {
+            status: response.data.status,
+            message: response.data.message,
+          };
+        }
+      } catch (error: any) {
+        if (error.response) {
+          this.authError = error.response.data.detail || 'Ошибка авторизации';
+          return {
+            status: error.response.status,
+            message: this.authError,
+          };
+        } else {
+          this.authError = 'Неизвестная ошибка';
+          return { status: 500, message: 'Неизвестная ошибка' };
+        }
       }
     },
 
@@ -70,6 +128,7 @@ export const useAuthStore = defineStore('auth', {
       this.username = null;
       this.userId = null;
       this.isAuthenticated = false;
+
       delete API.defaults.headers.common['Authorization'];
 
       Cookies.remove('token');

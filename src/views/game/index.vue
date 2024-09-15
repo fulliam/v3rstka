@@ -63,6 +63,18 @@
       />
     </template>
   </Dungeon>
+
+  <div v-if="false" class="character-state">
+    <h3>Состояние персонажа</h3>
+    <ul>
+      <li>Направление: {{ socketStore.users.find((u) => u.userId === userId)?.character.state.direction }}</li>
+      <li>Действие: {{ socketStore.users.find((u) => u.userId === userId)?.character.state.action }}</li>
+      <li>Здоровье: {{ socketStore.users.find((u) => u.userId === userId)?.character.state.health.current }} / {{ socketStore.users.find((u) => u.userId === userId)?.character.state.health.max }}</li>
+      <li>Мана: {{ socketStore.users.find((u) => u.userId === userId)?.character.state.mana.current }} / {{ socketStore.users.find((u) => u.userId === userId)?.character.state.mana.max }}</li>
+      <li>Выносливость: {{ socketStore.users.find((u) => u.userId === userId)?.character.state.stamina.current }} / {{ socketStore.users.find((u) => u.userId === userId)?.character.state.stamina.max }}</li>
+      <li>Броня: {{ socketStore.users.find((u) => u.userId === userId)?.character.state.armor }}</li>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -86,10 +98,12 @@ const selectCharacter = (character: string) => {
   socketStore.updateUserCharacter(userId.value, character);
 };
 
-onMounted(() => {
+const currentUser = ref();
+
+onMounted( async() => {
   if (authStore.isAuthenticated && authStore.token && authStore.username) {
     userId.value = authStore.username;
-    socketStore.connect(userId.value, authStore.token);
+    await socketStore.connect(userId.value, authStore.token);
   } else {
     // socketStore.connect('Roh');
     console.log('no auth');
@@ -192,5 +206,25 @@ const usersInSameLocation = computed(() => {
 
 .actions button {
   margin: 0 5px;
+}
+
+.character-state {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.character-state h3 {
+  margin-bottom: 10px;
+}
+
+.character-state ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.character-state li {
+  margin-bottom: 5px;
+  font-size: 14px;
 }
 </style>

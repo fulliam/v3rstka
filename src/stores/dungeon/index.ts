@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
-import { Cell } from '@/types';
+import { Cell, Position } from '@/types';
 
 interface DungeonState {
   dungeon: Cell[][];
-  spawnPoint: { x: number; y: number };
+  spawnPoint: Position;
 }
 
 export const useDungeonStore = defineStore('dungeon', {
@@ -15,7 +15,7 @@ export const useDungeonStore = defineStore('dungeon', {
     setDungeon(map: Cell[][]) {
       this.dungeon = map;
     },
-    setSpawnPoint(coords: { x: number; y: number }) {
+    setSpawnPoint(coords: Position) {
       this.spawnPoint = coords;
     },
   },

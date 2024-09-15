@@ -75,7 +75,7 @@ export const useSocketStore = defineStore('socket', {
       }
     },
 
-    connect(userId: string, token: string) {
+    async connect(userId: string, token: string) {
       if (this.socket) {
         this.disconnect();
       }
@@ -122,7 +122,7 @@ export const useSocketStore = defineStore('socket', {
       };
     },
 
-    disconnect() {
+    async disconnect() {
       console.log('WebSocket отключен');
       if (this.socket) {
         this.socket.close();
@@ -132,7 +132,7 @@ export const useSocketStore = defineStore('socket', {
       this.users = [];
     },
 
-    sendUpdate(type: string, data: any) {
+    async sendUpdate(type: string, data: any) {
       if (
         this.socket &&
         this.isConnected &&
@@ -142,24 +142,24 @@ export const useSocketStore = defineStore('socket', {
       }
     },
 
-    updateUserAction(userId: string, character: string, action: string) {
-      this.sendUpdate('action', { userId, character, action });
+    async updateUserAction(userId: string, character: string, action: string) {
+      await this.sendUpdate('action', { userId, character, action });
     },
 
-    updateUserLocation(userId: string, location: string) {
-      this.sendUpdate('location', { userId, location });
+    async updateUserLocation(userId: string, location: string) {
+      await this.sendUpdate('location', { userId, location });
     },
 
-    updateUserPosition(
+    async updateUserPosition(
       userId: string,
       position: Position,
       direction: 'left' | 'right'
     ) {
-      this.sendUpdate('move', { userId, position, direction });
+      await this.sendUpdate('move', { userId, position, direction });
     },
 
-    updateUserCharacter(userId: string, character: string) {
-      this.sendUpdate('change_character', { userId, character });
+    async updateUserCharacter(userId: string, character: string) {
+      await this.sendUpdate('change_character', { userId, character });
     },
   },
 });

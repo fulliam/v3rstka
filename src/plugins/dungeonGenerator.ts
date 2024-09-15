@@ -2,7 +2,6 @@ import SeedGenerator from './seedGenerator';
 import { Cell, Room, DungeonGeneratorConfig } from '@/types';
 
 const floorImages = Array.from({ length: 4 }, (_, i) => `floor${i + 1}.png`);
-// const floorImages = Array.from({ length: 256 }, (_, i) => `grass${i + 1}.png`);
 
 class DungeonGenerator {
   private static WALL: Cell = { cellType: 'wall' };

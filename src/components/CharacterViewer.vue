@@ -15,6 +15,7 @@
         <!-- <span>{{ props.character.state.health.max }}/{{ props.character.state.health.current }}</span> -->
       </div>
     </div>
+    
     <img
       class="character__img"
       :src="currentFrame"
@@ -25,11 +26,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { ref, watch, computed, onMounted, onUnmounted } from 'vue';
 import { useSocketStore } from '@/stores/socket';
 import { useDungeonStore } from '@/stores/dungeon';
-import useAnimation from '@/composables/animation';
 import useActions from '@/composables/actions';
+import animations from '@/animations.json';
 
 const props = defineProps({
   userId: {
@@ -46,11 +47,54 @@ const props = defineProps({
   },
 });
 
-const { currentFrame, direction } = useAnimation(props.character);
 const socketStore = useSocketStore();
 const dungeonStore = useDungeonStore();
 const dungeonMap = dungeonStore.dungeon;
 const spawnPoint = dungeonStore.spawnPoint;
+const frames = ref<string[]>([]);
+const currentFrame = ref<string>('');
+let animationFrameId: number | null = null;
+let frameIndex = 0;
+
+
+const preloadImages = (frameList: string[]) => {
+  const promises = frameList.map((src) => {
+    return new Promise<void>((resolve, reject) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => resolve();
+      img.onerror = () => reject(new Error(`Failed to load image ${src}`));
+    });
+  });
+
+  return Promise.all(promises);
+};
+
+const updateFrames = async () => {
+  frames.value = Object.values(
+    (animations as any).char[props.character.info.category][
+      props.character.info.character
+    ][props.character.state.action]
+  );
+  await preloadImages(frames.value);
+  currentFrame.value = frames.value[0];
+  frameIndex = 0;
+};
+
+const startAnimation = () => {
+  const frameDuration = 1000 / 10;
+  const animate = () => {
+    frameIndex = (frameIndex + 1) % frames.value.length;
+    currentFrame.value = frames.value[frameIndex];
+    setTimeout(() => {
+      animationFrameId = requestAnimationFrame(animate);
+    }, frameDuration);
+  };
+
+  animationFrameId = requestAnimationFrame(animate);
+};
+
+const direction = computed(() => props.character.state.direction === 'left');
 
 const healthPercentage = computed(() => {
   return Math.floor(
@@ -117,7 +161,6 @@ const handleMovement = () => {
   }
 
   socketStore.updateUserPosition(props.userId, newPosition, direction);
-
   requestAnimationFrame(handleMovement);
 };
 
@@ -130,12 +173,32 @@ const setSpawnPoint = () => {
   }
 };
 
+watch(
+  () => props.character.info.character,
+  updateFrames,
+  { deep: true }
+);
+
+watch(
+  () => props.character.state.action,
+  updateFrames,
+  { deep: true }
+);
+
 onMounted(async () => {
   setTimeout(() => {
     setSpawnPoint();
-  }, 100);
+  }, 150);
 
+  updateFrames();
+  startAnimation();
   requestAnimationFrame(handleMovement);
+});
+
+onUnmounted(() => {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+  }
 });
 </script>
 

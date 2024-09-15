@@ -126,3 +126,11 @@ export interface DungeonGeneratorConfig {
   maxAttempts?: number;
   rooms?: number;
 }
+
+export interface Toast {
+  id: number;
+  message: string;
+  type: 'info' | 'success' | 'warning' | 'error';
+  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  visible: boolean;
+}

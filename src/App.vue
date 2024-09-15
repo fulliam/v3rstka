@@ -9,8 +9,10 @@
       </li>
     </ul>
 
-    <button class="logout" @click="logout">Logout</button>
+    <Button type="primary" class="logout" label="Logout" :action="logout" />
   </nav>
+
+  <Toast />
 
   <RouterView />
 </template>
