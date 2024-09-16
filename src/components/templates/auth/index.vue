@@ -30,23 +30,25 @@
       />
     </div>
 
-    <Button
-      type="secondary"
-      :label="isLogin ? 'Login' : 'Register'"
-      :action="handleSubmit"
-      :disabled="
-        isLogin
-          ? !username || !password
-          : !username || !password || !confirmPassword
-      "
-    />
+    <div class="auth-footer">
+      <Button
+        type="secondary"
+        :label="isLogin ? 'Login' : 'Register'"
+        :action="handleSubmit"
+        :disabled="
+          isLogin
+            ? !username || !password
+            : !username || !password || !confirmPassword
+        "
+      />
 
-    <Button type="secondary" label="Google" :action="handleGoogleLogin" />
+      <Button type="primary" label="Google" :action="handleGoogleLogin" />
+    </div>
 
     <p class="switch-mode" @click="toggleMode">
       {{
         isLogin
-          ? 'Don’t have an account? Register'
+          ? 'Don`t have an account? Register'
           : 'Already have an account? Login'
       }}
     </p>
@@ -146,12 +148,7 @@ const handleSubmit = async () => {
         router.push('/game');
       } else {
         isLogin.value = true;
-        addToast(
-          'Регистрация прошла успешно!',
-          'success',
-          'top-right',
-          3000
-        );
+        addToast('Регистрация прошла успешно!', 'success', 'top-right', 3000);
 
         response = await login(username.value, password.value);
 
@@ -230,6 +227,11 @@ const handleErrorResponse = (message: string) => {
     text-decoration: underline;
     animation: fadeIn 1s ease-in-out;
   }
+}
+
+.auth-footer {
+  display: flex;
+  gap: 10px;
 }
 
 @keyframes fadeIn {

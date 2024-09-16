@@ -27,8 +27,6 @@ const emit = defineEmits<{
 }>();
 
 const isLoading = ref(false);
-const buttonWidth = ref(0);
-const buttonHeight = ref(0);
 
 const handleClick = async () => {
   isLoading.value = true;

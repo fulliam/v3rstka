@@ -334,15 +334,52 @@ class DungeonGenerator {
     );
   }
 
-  public static getSpawnPoint(): { x: number; y: number } | undefined {
-    if (this.rooms.length > 0) {
-      const room = this.rooms[0];
-      return {
-        x: (room.col + Math.floor(room.w / 2)) * 20,
-        y: (room.row + Math.floor(room.h / 2)) * 20,
-      };
+  public static getRandomPoints(
+    floorMap: Cell[][],
+    count: number,
+    cellSize: number
+  ): { x: number; y: number }[] {
+    const points: { x: number; y: number }[] = [];
+    const emptyCells: { x: number; y: number }[] = [];
+
+    const wallOffset = 1;
+
+    for (let i = 0; i < floorMap.length; i++) {
+      for (let j = 0; j < floorMap[i].length; j++) {
+        if (floorMap[i][j].cellType === 'empty') {
+          let isFarFromWall = true;
+
+          for (
+            let x = Math.max(0, i - wallOffset);
+            x <= Math.min(floorMap.length - 1, i + wallOffset);
+            x++
+          ) {
+            for (
+              let y = Math.max(0, j - wallOffset);
+              y <= Math.min(floorMap[i].length - 1, j + wallOffset);
+              y++
+            ) {
+              if (floorMap[x][y].cellType === 'wall') {
+                isFarFromWall = false;
+                break;
+              }
+            }
+            if (!isFarFromWall) break;
+          }
+
+          if (isFarFromWall) {
+            emptyCells.push({ x: j * cellSize, y: i * cellSize });
+          }
+        }
+      }
     }
-    return undefined;
+
+    while (points.length < count && emptyCells.length > 0) {
+      const index = Math.floor(Math.random() * emptyCells.length);
+      points.push(emptyCells.splice(index, 1)[0]);
+    }
+
+    return points;
   }
 }
 

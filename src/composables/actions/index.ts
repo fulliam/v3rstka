@@ -52,6 +52,7 @@ export default function useActions(
       ) {
         action = 'run';
       }
+
       startAction(action);
     }
   };

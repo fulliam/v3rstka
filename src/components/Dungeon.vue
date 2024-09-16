@@ -11,6 +11,7 @@
     </div>
 
     <slot name="characters"></slot>
+    <slot name="enemies"></slot>
   </div>
 </template>
 
@@ -28,9 +29,9 @@ const props = defineProps({
 });
 
 const dungeonStore = useDungeonStore();
-
 const dungeonMap = ref<Cell[][]>([]);
 const spawnPoint = ref<{ x: number; y: number } | undefined>(undefined);
+const randomPoints = ref<{ x: number; y: number }[] | undefined>(undefined);
 
 onMounted(() => {
   const config = {
@@ -44,10 +45,26 @@ onMounted(() => {
   };
 
   dungeonMap.value = DungeonGenerator.generate(config, +props.seed);
-  spawnPoint.value = DungeonGenerator.getSpawnPoint();
+  spawnPoint.value = DungeonGenerator.getRandomPoints(dungeonMap.value, 1, dungeonStore.cellSize)[0];
+  randomPoints.value = DungeonGenerator.getRandomPoints(dungeonMap.value, 20, dungeonStore.cellSize);
+
   dungeonStore.setDungeon(dungeonMap.value);
+  
   if (spawnPoint.value) {
     dungeonStore.setSpawnPoint(spawnPoint.value);
+  }
+
+  if (randomPoints.value.length > 0) {
+    dungeonStore.setRandomPoints(randomPoints.value);
+  }
+
+  const dungeonMapEl = document.querySelector('.dungeon-map') as HTMLElement;
+  if (dungeonMapEl) {
+    dungeonMapEl.style.setProperty('--cell-size', `${dungeonStore.cellSize}px`);
+    dungeonMapEl.style.setProperty(
+      'grid-template-columns',
+      `repeat(${config.cols}, ${dungeonStore.cellSize}px)`
+    );
   }
 });
 
@@ -63,12 +80,11 @@ const getCellStyle = (cell: Cell) => {
 .dungeon-map {
   --cell-size: 20px;
   display: grid;
-  grid-template-columns: repeat(51, var(--cell-size));
   grid-gap: 0px;
-  padding: 0; /* Ensure no padding */
-  margin: 0; /* Ensure no margin */
-  border: none; /* Ensure no border */
-  position: relative; /* Map is a reference point */
+  padding: 0;
+  margin: 0;
+  border: none;
+  position: relative;
 }
 .row {
   display: contents;

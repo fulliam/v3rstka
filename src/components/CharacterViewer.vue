@@ -12,10 +12,14 @@
         class="character__health-inner"
         :style="{ width: healthPercentage + '%' }"
       >
-        <!-- <span>{{ props.character.state.health.max }}/{{ props.character.state.health.current }}</span> -->
+        <span
+          >{{ props.character.state.health.current }}/{{
+            props.character.state.health.max
+          }}</span
+        >
       </div>
     </div>
-    
+
     <img
       class="character__img"
       :src="currentFrame"
@@ -56,6 +60,8 @@ const currentFrame = ref<string>('');
 let animationFrameId: number | null = null;
 let frameIndex = 0;
 
+const attackAnimationFrames = ref<string[]>([]);
+const isAttacking = ref(false);
 
 const preloadImages = (frameList: string[]) => {
   const promises = frameList.map((src) => {
@@ -77,15 +83,52 @@ const updateFrames = async () => {
     ][props.character.state.action]
   );
   await preloadImages(frames.value);
+
+  if (props.character.state.action === 'dead') {
+    frameIndex = frames.value.length - 1;
+    currentFrame.value = frames.value[frameIndex];
+    return;
+  }
+
   currentFrame.value = frames.value[0];
   frameIndex = 0;
+
+  if (
+    props.isOwn &&
+    ['attack', 'attack2', 'attack3'].includes(props.character.state.action)
+  ) {
+    attackAnimationFrames.value = frames.value;
+  }
 };
 
 const startAnimation = () => {
   const frameDuration = 1000 / 10;
   const animate = () => {
+    if (props.character.state.action === 'dead') {
+      frameIndex = frames.value.length - 1;
+      currentFrame.value = frames.value[frameIndex];
+      return;
+    }
+
     frameIndex = (frameIndex + 1) % frames.value.length;
     currentFrame.value = frames.value[frameIndex];
+
+    if (
+      props.isOwn &&
+      ['attack', 'attack2', 'attack3'].includes(props.character.state.action) &&
+      frameIndex === attackAnimationFrames.value.length - 1
+    ) {
+      if (!isAttacking.value) {
+        isAttacking.value = true;
+        socketStore.updateUserAttack(
+          props.userId,
+          props.character.stats.attacks[`${props.character.state.action}`]
+        );
+      }
+    } else {
+      isAttacking.value = false;
+    }
+
     setTimeout(() => {
       animationFrameId = requestAnimationFrame(animate);
     }, frameDuration);
@@ -98,7 +141,7 @@ const direction = computed(() => props.character.state.direction === 'left');
 
 const healthPercentage = computed(() => {
   return Math.floor(
-    (props.character.state.health.max / props.character.state.health.current) *
+    (props.character.state.health.current / props.character.state.health.max) *
       100
   );
 });
@@ -113,52 +156,36 @@ const { keys /*, addActionMapping */ } = useActions(
 
 const handleMovement = () => {
   if (!props.isOwn) return;
+  if (props.character.state.action === 'dead') return;
 
   let newPosition = { ...props.character.state.position };
   let direction: 'left' | 'right' = props.character.state.direction;
 
   const speedType =
     keys.value.ShiftLeft || keys.value.ShiftRight ? 'running' : 'walking';
-  const speed = props.character.stats.speed[speedType];
+  const speed = props.character.stats.speed[speedType] / 3;
 
-  if (keys.value.ArrowUp) {
-    const newY = newPosition.y - speed / 3;
-    if (
-      dungeonMap[Math.floor(newY / 20)][Math.floor(newPosition.x / 20)]
-        .cellType !== 'wall'
-    ) {
-      newPosition.y = newY;
+  const getCellType = (x: number, y: number) =>
+    dungeonMap[Math.floor(y / dungeonStore.cellSize)][Math.floor(x / dungeonStore.cellSize)].cellType;
+
+  const updatePosition = (
+    deltaX: number,
+    deltaY: number,
+    newDirection: 'left' | 'right'
+  ) => {
+    const newX = newPosition.x + deltaX;
+    const newY = newPosition.y + deltaY;
+
+    if (getCellType(newX, newY) !== 'wall') {
+      newPosition = { x: newX, y: newY };
+      direction = newDirection;
     }
-  }
-  if (keys.value.ArrowDown) {
-    const newY = newPosition.y + speed / 3;
-    if (
-      dungeonMap[Math.floor(newY / 20)][Math.floor(newPosition.x / 20)]
-        .cellType !== 'wall'
-    ) {
-      newPosition.y = newY;
-    }
-  }
-  if (keys.value.ArrowLeft) {
-    const newX = newPosition.x - speed / 3;
-    if (
-      dungeonMap[Math.floor(newPosition.y / 20)][Math.floor(newX / 20)]
-        .cellType !== 'wall'
-    ) {
-      newPosition.x = newX;
-      direction = 'left';
-    }
-  }
-  if (keys.value.ArrowRight) {
-    const newX = newPosition.x + speed / 3;
-    if (
-      dungeonMap[Math.floor(newPosition.y / 20)][Math.floor(newX / 20)]
-        .cellType !== 'wall'
-    ) {
-      newPosition.x = newX;
-      direction = 'right';
-    }
-  }
+  };
+
+  if (keys.value.ArrowUp) updatePosition(0, -speed, direction);
+  if (keys.value.ArrowDown) updatePosition(0, speed, direction);
+  if (keys.value.ArrowLeft) updatePosition(-speed, 0, 'left');
+  if (keys.value.ArrowRight) updatePosition(speed, 0, 'right');
 
   socketStore.updateUserPosition(props.userId, newPosition, direction);
   requestAnimationFrame(handleMovement);
@@ -173,17 +200,9 @@ const setSpawnPoint = () => {
   }
 };
 
-watch(
-  () => props.character.info.character,
-  updateFrames,
-  { deep: true }
-);
+watch(() => props.character.info.character, updateFrames, { deep: true });
 
-watch(
-  () => props.character.state.action,
-  updateFrames,
-  { deep: true }
-);
+watch(() => props.character.state.action, updateFrames, { deep: true });
 
 onMounted(async () => {
   setTimeout(() => {

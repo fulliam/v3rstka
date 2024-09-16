@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import createWebSocket from '@/plugins/socket';
-import type { Player, Position } from '@/types';
+import type { Player, Position, Attack } from '@/types';
 import { useChatStore } from '@/stores/chat';
+import { useDungeonStore } from '@/stores/dungeon';
 
 interface User {
   userId: string;
@@ -12,6 +13,7 @@ interface SocketState {
   socket: WebSocket | null;
   isConnected: boolean;
   users: User[];
+  enemies: any[];
 }
 
 interface WebSocketMessage {
@@ -21,7 +23,10 @@ interface WebSocketMessage {
     | 'action'
     | 'move'
     | 'change_character'
-    | 'location';
+    | 'location'
+    | 'attack'
+    | 'health_recovery'
+    | 'initial_enemies';
   data?: any;
   update?: any;
   userId?: string;
@@ -32,6 +37,7 @@ export const useSocketStore = defineStore('socket', {
     socket: null,
     isConnected: false,
     users: [],
+    enemies: [],
   }),
   actions: {
     findUserById(userId: string): User | undefined {
@@ -50,6 +56,25 @@ export const useSocketStore = defineStore('socket', {
       const user = this.findUserById(update.userId);
       if (user) {
         user.character.state.action = update.action;
+      }
+    },
+
+    handleAttackUpdate(update: any) {
+      update.affectedUsers.forEach(
+        (affectedUser: { userId: string; health: number }) => {
+          const user = this.findUserById(affectedUser.userId);
+          if (user) {
+            user.character.state.health.current = affectedUser.health;
+          }
+        }
+      );
+    },
+
+    handleHealthUpdate(update: any) {
+      const user = this.findUserById(update.userId);
+      if (user) {
+        user.character.state.health.current = update.health.current;
+        user.character.state.health.max = update.health.max;
       }
     },
 
@@ -73,6 +98,24 @@ export const useSocketStore = defineStore('socket', {
       if (user) {
         user.character.info.location = data.location;
       }
+    },
+
+    handleEnemiesUpdate(data: any) {
+      this.enemies = data.enemies;
+      console.log(this.enemies);
+
+      const dungeonStore = useDungeonStore();
+      const points = dungeonStore.randomPoints.slice();
+
+      this.enemies.forEach((enemy: any) => {
+        if (points.length > 0) {
+          const randomIndex = Math.floor(Math.random() * points.length);
+          const randomPoint = points.splice(randomIndex, 1)[0];
+          enemy.state.position = randomPoint;
+        } else {
+          enemy.state.position = { x: 0, y: 0 };
+        }
+      });
     },
 
     async connect(userId: string, token: string) {
@@ -108,6 +151,10 @@ export const useSocketStore = defineStore('socket', {
             move: this.handleMoveUpdate,
             change_character: this.handleCharacterChange,
             location: this.handleLocationUpdate,
+            attack: this.handleAttackUpdate,
+            health_recovery: this.handleHealthUpdate,
+
+            initial_enemies: this.handleEnemiesUpdate,
           };
 
           const handler = actionMap[data.type];
@@ -136,10 +183,15 @@ export const useSocketStore = defineStore('socket', {
       if (
         this.socket &&
         this.isConnected &&
-        this.socket.readyState === WebSocket.OPEN
+        this.socket.readyState === WebSocket.OPEN &&
+        this.findUserById(data.userId)?.character.state.action !== 'dead'
       ) {
         this.socket.send(JSON.stringify({ type, ...data }));
       }
+    },
+
+    async updateUserAttack(userId: string, attack: Attack) {
+      this.sendUpdate('attack', { userId, attack });
     },
 
     async updateUserAction(userId: string, character: string, action: string) {

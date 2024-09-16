@@ -62,24 +62,20 @@
         :character="user.character"
       />
     </template>
+    <template #enemies>
+      <BotViewer
+        v-for="enemy in enemiesInLocation"
+        :key="enemy.id"
+        :enemy="enemy"
+      />
+    </template>
   </Dungeon>
-
-  <div v-if="false" class="character-state">
-    <h3>Состояние персонажа</h3>
-    <ul>
-      <li>Направление: {{ socketStore.users.find((u) => u.userId === userId)?.character.state.direction }}</li>
-      <li>Действие: {{ socketStore.users.find((u) => u.userId === userId)?.character.state.action }}</li>
-      <li>Здоровье: {{ socketStore.users.find((u) => u.userId === userId)?.character.state.health.current }} / {{ socketStore.users.find((u) => u.userId === userId)?.character.state.health.max }}</li>
-      <li>Мана: {{ socketStore.users.find((u) => u.userId === userId)?.character.state.mana.current }} / {{ socketStore.users.find((u) => u.userId === userId)?.character.state.mana.max }}</li>
-      <li>Выносливость: {{ socketStore.users.find((u) => u.userId === userId)?.character.state.stamina.current }} / {{ socketStore.users.find((u) => u.userId === userId)?.character.state.stamina.max }}</li>
-      <li>Броня: {{ socketStore.users.find((u) => u.userId === userId)?.character.state.armor }}</li>
-    </ul>
-  </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 import CharacterViewer from '@/components/CharacterViewer.vue';
+import BotViewer from '@/components/BotViewer.vue';
 import ChatViewer from '@/components/ChatViewer.vue';
 import Dungeon from '@/components/Dungeon.vue';
 import { useSocketStore } from '@/stores/socket';
@@ -98,14 +94,11 @@ const selectCharacter = (character: string) => {
   socketStore.updateUserCharacter(userId.value, character);
 };
 
-const currentUser = ref();
-
-onMounted( async() => {
+onMounted(async () => {
   if (authStore.isAuthenticated && authStore.token && authStore.username) {
     userId.value = authStore.username;
     await socketStore.connect(userId.value, authStore.token);
   } else {
-    // socketStore.connect('Roh');
     console.log('no auth');
   }
 });
@@ -125,6 +118,12 @@ const usersInSameLocation = computed(() => {
   location.value = ownUser.character.info.location;
   return socketStore.users.filter(
     (user) => user.character.info.location === location.value
+  );
+});
+
+const enemiesInLocation = computed(() => {
+  return socketStore.enemies.filter(
+    (enemy) => enemy.info.location === location.value
   );
 });
 </script>
