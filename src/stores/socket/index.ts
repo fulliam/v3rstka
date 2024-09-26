@@ -102,7 +102,6 @@ export const useSocketStore = defineStore('socket', {
 
     handleEnemiesUpdate(data: any) {
       this.enemies = data.enemies;
-      console.log(this.enemies);
 
       const dungeonStore = useDungeonStore();
       const points = dungeonStore.randomPoints.slice();

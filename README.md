@@ -29,3 +29,5 @@ bun run generate-animations
 [o] Add skills
 [o] Add character menu (inventory, skills, stats, money)
 [o] Add store
+[o] Add guilds
+[o] Add keyboard info page

@@ -6,7 +6,10 @@
     @click="handleClick"
   >
     <span v-if="isLoading" class="loader"></span>
-    <span :style="isLoading ? 'opacity: 0' : ''">{{ label }}</span>
+    <span :style="isLoading ? 'opacity: 0' : ''">
+      <slot name="icon" />
+      {{ label }}
+    </span>
   </button>
 </template>
 
@@ -14,8 +17,8 @@
 import { ref } from 'vue';
 
 interface Button {
-  label: string;
-  type?: 'primary' | 'secondary' | 'danger';
+  label?: string;
+  type?: 'primary' | 'secondary' | 'danger' | 'base';
   action: () => Promise<void>;
   disabled?: boolean;
 }
@@ -41,6 +44,8 @@ const handleClick = async () => {
 
 <style scoped lang="scss">
 $primary-color: #3498db;
+$base-color: #cd6e3f;
+$base-text-color: #fff;
 $primary-text-color: #fff;
 $secondary-color: #2ecc71;
 $secondary-text-color: #fff;
@@ -106,14 +111,14 @@ $loader-border-color: rgba(255, 255, 255, 0.2);
       $background-color: $danger-color
     );
   }
-}
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
+  &--base {
+    color: $base-text-color;
+    @include pixel-box(
+      $corner-size: 2,
+      $border-size: 2px,
+      $background-color: $base-color
+    );
   }
 }
 </style>

@@ -5,23 +5,15 @@ export interface Position {
   y: number;
 }
 
-export interface Health {
+export interface Resource {
   max: number;
   current: number;
   recovery: number;
 }
 
-export interface Mana {
-  max: number;
-  current: number;
-  recovery: number;
-}
-
-export interface Stamina {
-  max: number;
-  current: number;
-  recovery: number;
-}
+export interface Health extends Resource {}
+export interface Mana extends Resource {}
+export interface Stamina extends Resource {}
 
 export interface Crit {
   chance: number;

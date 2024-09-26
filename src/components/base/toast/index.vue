@@ -132,48 +132,4 @@ const toastTypeClass = (type: Toast['type']) => {
     animation: slide-in-bottom-right 0.3s ease forwards;
   }
 }
-
-@keyframes slide-in-top-left {
-  0% {
-    opacity: 0;
-    transform: translate(-100%, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-}
-
-@keyframes slide-in-top-right {
-  0% {
-    opacity: 0;
-    transform: translate(100%, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-}
-
-@keyframes slide-in-bottom-left {
-  0% {
-    opacity: 0;
-    transform: translate(0, 100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-}
-
-@keyframes slide-in-bottom-right {
-  0% {
-    opacity: 0;
-    transform: translate(0, 100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-}
 </style>

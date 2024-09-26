@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import DungeonGenerator from '@/plugins/dungeonGenerator';
+import DungeonGenerator from '@/plugins/generators/dungeon';
 import { useDungeonStore } from '@/stores/dungeon';
 import { Cell } from '@/types';
 
@@ -45,11 +45,19 @@ onMounted(() => {
   };
 
   dungeonMap.value = DungeonGenerator.generate(config, +props.seed);
-  spawnPoint.value = DungeonGenerator.getRandomPoints(dungeonMap.value, 1, dungeonStore.cellSize)[0];
-  randomPoints.value = DungeonGenerator.getRandomPoints(dungeonMap.value, 20, dungeonStore.cellSize);
+  spawnPoint.value = DungeonGenerator.getRandomPoints(
+    dungeonMap.value,
+    1,
+    dungeonStore.cellSize
+  )[0];
+  randomPoints.value = DungeonGenerator.getRandomPoints(
+    dungeonMap.value,
+    20,
+    dungeonStore.cellSize
+  );
 
   dungeonStore.setDungeon(dungeonMap.value);
-  
+
   if (spawnPoint.value) {
     dungeonStore.setSpawnPoint(spawnPoint.value);
   }

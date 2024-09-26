@@ -1,4 +1,4 @@
-import SeedGenerator from './seedGenerator';
+import SeedGenerator from './seed';
 import { Cell, Room, DungeonGeneratorConfig } from '@/types';
 
 const floorImages = Array.from({ length: 4 }, (_, i) => `floor${i + 1}.png`);

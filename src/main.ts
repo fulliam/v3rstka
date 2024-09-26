@@ -12,5 +12,7 @@ app.use(router);
 app.component('Input', Base.Input);
 app.component('Toast', Base.Toast);
 app.component('Button', Base.Button);
+app.component('Tooltip', Base.Tooltip);
+app.component('Modal', Base.Modal);
 
 app.mount('#app');

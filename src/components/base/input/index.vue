@@ -4,9 +4,13 @@
     :class="{ dark, error, disabled, big, full, colored, small }"
   >
     <div v-if="label || hint" class="text">
-      <label v-if="label" :class="{ required }" :for="inputId">{{
-        label
-      }}</label>
+      <label
+        v-if="label"
+        :class="{ required }"
+        :style="labelStyle"
+        :for="inputId"
+        >{{ label }}</label
+      >
       <p v-if="hint">{{ hint }}</p>
     </div>
     <div class="input__container">
@@ -22,14 +26,17 @@
         :max="`'${max}'`"
         :id="inputId"
       />
+      <button class="dice-icon" v-if="dice" @click="clickDice">
+        <Icon.Dice />
+      </button>
       <button
         class="password-icon"
         :disabled="!currentInput"
-        v-if="type === 'password'"
+        v-if="type === 'password' && !dice"
         @click="toggleHide"
       >
         <Icon.Eye v-if="!isHide" class="" />
-        <Icon.Cross v-else class="" />
+        <Icon.CrossEye v-else class="" />
       </button>
     </div>
   </div>
@@ -62,6 +69,9 @@ interface IInput {
   type?: string;
   value?: any;
   maska?: string;
+  dice?: Boolean;
+  clickDice?: () => Promise<void>;
+  labelStyle?: any;
 }
 
 const props = defineProps<IInput>();
@@ -136,16 +146,16 @@ $box-shadow-color: rgba(0, 0, 0, 0.5);
     border-radius: 8px;
     text-overflow: ellipsis;
     // box-shadow: 0px 0px 40px 0px $box-shadow-color;
+    font-weight: 400;
+    font-size: 14px;
+    color: $color-input-text;
+    line-height: 120%;
+
     @include pixel-borders(
       $corner-size: 2,
       $border-size: 2px,
       $border-color: $color-input-border
     );
-
-    font-weight: 400;
-    font-size: 14px;
-    color: $color-input-text;
-    line-height: 120%;
 
     &::placeholder {
       color: $color-placeholder;
@@ -187,6 +197,30 @@ $box-shadow-color: rgba(0, 0, 0, 0.5);
         opacity: 0.35;
       }
     }
+
+    .dice-icon {
+      width: 42px;
+      height: 42px;
+
+      position: absolute;
+      right: 20px;
+
+      background: none;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0.5;
+      transition: opacity 0.5s;
+
+      svg {
+        cursor: pointer;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
   }
 
   &.dark {
@@ -196,7 +230,12 @@ $box-shadow-color: rgba(0, 0, 0, 0.5);
   &.error {
     // --input-border: 1px solid #{$color-input-bg-error};
     input {
-      border: 1px solid $color-input-bg-error;
+      // border: 1px solid $color-input-bg-error;
+      @include pixel-borders(
+        $corner-size: 2,
+        $border-size: 2px,
+        $border-color: $color-input-bg-error
+      );
     }
   }
 

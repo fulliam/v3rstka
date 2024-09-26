@@ -1,4 +1,4 @@
-// Generate SVG image for pixelated corners
+// Генерация изображения для углов
 @function pixel-borders-image($corner-size, $color) {
   $svg: '';
   $svg-path: '';
@@ -16,8 +16,7 @@
   @return $svg;
 }
 
-
-// String replace function - replace `$search` with `$replace` in `$string`
+// Замена строки - заменяем `$search` на `$replace` в `$string`
 @function str-replace($string, $search, $replace: '') {
   $index: str-index($string, $search);
 
@@ -28,14 +27,8 @@
   @return $string;
 }
 
-
-// Pixel border
+// Границы пикселей
 @mixin pixel-borders($corner-size: 1, $border-size: 4px, $border-color: #000, $border-inset-color: false) {
-
-  @supports (border-image-source: none) {
-    border-radius: ($border-size * ($corner-size + 2)) + ($corner-size * 2);
-  }
-
   border-style: solid;
   border-width: $border-size;
   border-color: $border-color;
@@ -46,16 +39,25 @@
 
   border-image-source: url(pixel-borders-image($corner-size, $border-color));
 
+  @supports (border-image-source: none) {
+    & {
+      border-radius: ($border-size * ($corner-size + 2)) + ($corner-size * 2);
+    }
+  }
+
   @if $border-inset-color {
     @include pixel-inset-border($border-size, $border-inset-color);
   }
 }
 
-
-// Pixel inset border
-@mixin pixel-inset-border($border-inset-size: 4px, $border-inset-color: #ddd, $border-inset-sides: 'bottom-right', $border-inset-color-br: false, $border-inset-color-tl: false) {
-
-  $box-shadow: '';
+// Внутренние границы пикселей
+@mixin pixel-inset-border(
+  $border-inset-size: 4px,
+  $border-inset-color: #ddd,
+  $border-inset-sides: 'bottom-right',
+  $border-inset-color-br: false,
+  $border-inset-color-tl: false
+) {
   @if not($border-inset-color-br) {
     $border-inset-color-br: $border-inset-color;
   }
@@ -64,7 +66,24 @@
     $border-inset-color-tl: $border-inset-color;
   }
 
-  position: relative;
+  & {
+    position: relative;
+  }
+
+  $box-shadow: '';
+
+  @if $border-inset-sides == 'bottom-right' or $border-inset-sides == false {
+    $box-shadow: inset -#{$border-inset-size} -#{$border-inset-size} $border-inset-color-br;
+  }
+
+  @if $border-inset-sides == 'top-left' {
+    $box-shadow: inset $border-inset-size $border-inset-size $border-inset-color-tl;
+  }
+
+  @if $border-inset-sides == 'all' {
+    $box-shadow: inset -#{$border-inset-size} -#{$border-inset-size} $border-inset-color-br,
+                inset $border-inset-size $border-inset-size $border-inset-color-tl;
+  }
 
   &::after {
     content: '';
@@ -74,57 +93,65 @@
     right: 0;
     width: 100%;
     height: 100%;
-
-    @if $border-inset-sides == 'bottom-right' or $border-inset-sides == false {
-      $box-shadow: inset -#{$border-inset-size} -#{$border-inset-size} $border-inset-color-br;
-    }
-
-    @if $border-inset-sides == 'top-left' {
-      $box-shadow: inset $border-inset-size $border-inset-size $border-inset-color-tl;
-    }
-
-    @if $border-inset-sides == 'all' {
-      $box-shadow: inset -#{$border-inset-size} -#{$border-inset-size} $border-inset-color-br, inset $border-inset-size $border-inset-size $border-inset-color-tl;
-    }
-
     box-shadow: $box-shadow;
   }
 }
 
+// Pixel box - цвета для границ и вставок вычисляются с использованием $background-color, если $border-color не указано
+@mixin pixel-box(
+  $corner-size,
+  $border-size,
+  $background-color,
+  $border-color: false,
+  $border-inset: true,
+  $border-inset-size: false,
+  $border-inset-color: false,
+  $border-inset-sides: false,
+  $border-inset-color-br: false,
+  $border-inset-color-tl: false,
+  $background-color-hover: false
+) {
+  background-color: $background-color;
 
-
-// Pixel box - Colours for border and inset are calculated using $background-color unless $border-color is passed
-@mixin pixel-box($corner-size, $border-size, $background-color, $border-color: false, $border-inset: true, $border-inset-size: false, $border-inset-color: false, $border-inset-sides: false, $border-inset-color-br: false, $border-inset-color-tl: false) {
-  
-  $background-color-hover: darken($background-color, 15);
+  @if not($background-color-hover) {
+    $background-color-hover: darken($background-color, 15%);
+  }
 
   @if not($border-color) {
-    $border-color: darken($background-color, 20);
+    $border-color: darken($background-color, 20%);
   }
 
-  @include pixel-borders($corner-size: $corner-size, $border-size: $border-size, $border-color: $border-color);
+  @include pixel-borders(
+    $corner-size: $corner-size,
+    $border-size: $border-size,
+    $border-color: $border-color
+  );
 
   @if $border-inset-sides == 'all' and not($border-inset-color) {
-    $border-inset-color-br: darken($background-color, 10);
-    $border-inset-color-tl: lighten($background-color, 15);
+    $border-inset-color-br: darken($background-color, 10%);
+    $border-inset-color-tl: lighten($background-color, 15%);
   }
 
-  @if not($border-inset-color) { 
+  @if not($border-inset-color) {
     $border-inset-color: transparent;
   }
 
   @if $border-inset-sides == 'top-left' {
-    $border-inset-color: lighten($background-color, 15);
+    $border-inset-color: lighten($background-color, 15%);
   }
 
-
-  @if $border-inset { 
-    @include pixel-inset-border($border-inset-size: $border-size, $border-inset-color: $border-inset-color, $border-inset-sides: $border-inset-sides, $border-inset-color-br: $border-inset-color-br, $border-inset-color-tl: $border-inset-color-tl);
+  @if $border-inset {
+    @include pixel-inset-border(
+      $border-inset-size: $border-size,
+      $border-inset-color: $border-inset-color,
+      $border-inset-sides: $border-inset-sides,
+      $border-inset-color-br: $border-inset-color-br,
+      $border-inset-color-tl: $border-inset-color-tl
+    );
   }
 
-  background-color: $background-color;
-
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background-color: $background-color-hover;
   }
 }

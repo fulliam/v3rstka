@@ -7,7 +7,7 @@
       top: `${props.character.state.position.y - 50}px`,
     }"
   >
-    <div class="character__health" :style="{}">
+    <div class="character__health">
       <div
         class="character__health-inner"
         :style="{ width: healthPercentage + '%' }"
@@ -166,7 +166,9 @@ const handleMovement = () => {
   const speed = props.character.stats.speed[speedType] / 3;
 
   const getCellType = (x: number, y: number) =>
-    dungeonMap[Math.floor(y / dungeonStore.cellSize)][Math.floor(x / dungeonStore.cellSize)].cellType;
+    dungeonMap[Math.floor(y / dungeonStore.cellSize)][
+      Math.floor(x / dungeonStore.cellSize)
+    ].cellType;
 
   const updatePosition = (
     deltaX: number,

@@ -82,10 +82,10 @@ import { useSocketStore } from '@/stores/socket';
 import { useAuthStore } from '@/stores/auth'; // may be add userStore for give userId ( now = username )
 import animations from '@/animations.json';
 
+const socketStore = useSocketStore();
 const authStore = useAuthStore();
 
 const currentTab = ref<'Gameplay' | 'enemy' | 'chat'>('Gameplay');
-const socketStore = useSocketStore();
 const userId = ref<string>('');
 
 const characters = ref(Object.keys((animations as any).char['ally']));

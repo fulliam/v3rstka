@@ -5,6 +5,12 @@
         <RouterLink to="/auth">Auth</RouterLink>
       </li>
       <li>
+        <RouterLink to="/create_char">Create char</RouterLink>
+      </li>
+      <li>
+        <RouterLink to="/tmp">Tmp</RouterLink>
+      </li>
+      <li>
         <RouterLink to="/game">Game</RouterLink>
       </li>
     </ul>
@@ -19,6 +25,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth';
+import '@/utils/eve';
 
 const { logout } = useAuthStore();
 </script>
@@ -36,6 +43,7 @@ nav {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  z-index: 999;
 
   ul {
     list-style: none;

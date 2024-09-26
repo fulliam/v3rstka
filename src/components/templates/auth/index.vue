@@ -1,8 +1,8 @@
 <template>
   <div class="auth-container">
-    <h2>{{ isLogin ? 'Login' : 'Register' }}</h2>
+    <div :key="authKey" class="form" @submit.prevent="handleSubmit">
+      <h2>{{ isLogin ? 'Login' : 'Register' }}</h2>
 
-    <div class="form" @submit.prevent="handleSubmit">
       <Input
         v-model="username"
         placeholder="Username"
@@ -30,7 +30,7 @@
       />
     </div>
 
-    <div class="auth-footer">
+    <div :key="authKey" class="auth-footer">
       <Button
         type="secondary"
         :label="isLogin ? 'Login' : 'Register'"
@@ -42,16 +42,21 @@
         "
       />
 
-      <Button type="primary" label="Google" :action="handleGoogleLogin" />
+      <p class="switch-mode" @click="toggleMode">
+        {{
+          isLogin
+            ? 'Don`t have an account? Register'
+            : 'Already have an account? Login'
+        }}
+      </p>
     </div>
 
-    <p class="switch-mode" @click="toggleMode">
-      {{
-        isLogin
-          ? 'Don`t have an account? Register'
-          : 'Already have an account? Login'
-      }}
-    </p>
+    <img
+      :key="authKey"
+      src="@/assets/bg/castle/dragon.png"
+      alt="dragon"
+      class="dragon"
+    />
   </div>
 </template>
 
@@ -61,10 +66,11 @@ import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
 import { useToastStore } from '@/stores/toast';
 
-const { register, login, googleLogin } = useAuthStore();
+const { register, login } = useAuthStore();
 const { addToast } = useToastStore();
 const router = useRouter();
 
+const authKey = ref(0);
 const isLogin = ref(true);
 const username = ref('');
 const password = ref('');
@@ -83,6 +89,7 @@ const toggleMode = () => {
   password.value = '';
   confirmPassword.value = '';
   clearAllErrors();
+  authKey.value += 1;
 };
 
 const clearError = (field: string) => {
@@ -153,7 +160,7 @@ const handleSubmit = async () => {
         response = await login(username.value, password.value);
 
         if (response.status === 200 || response.status === 201) {
-          router.push('/game');
+          router.push('/create_char');
         }
       }
     } else {
@@ -164,20 +171,7 @@ const handleSubmit = async () => {
       ? 'Не удалось войти. Проверьте данные.'
       : 'Не удалось зарегистрироваться. Проверьте данные.';
     addToast(message, 'error', 'top-right', 5000);
-  }
-};
-
-const handleGoogleLogin = async () => {
-  try {
-    await googleLogin();
-    router.push('/game');
-  } catch (error) {
-    addToast(
-      'Не удалось войти через Google. Попробуйте еще раз.',
-      'error',
-      'top-right',
-      5000
-    );
+    console.error(error);
   }
 };
 
@@ -201,45 +195,57 @@ const handleErrorResponse = (message: string) => {
 .auth-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  padding: 0 20px;
+  position: relative;
   animation: fadeIn 1s ease-in-out;
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+  background: #0000005c;
+  width: 360px;
+  height: 460px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+
+  .dragon {
+    position: absolute;
+    left: -60%;
+    bottom: 0;
+    height: 100%;
+    z-index: -1;
+    animation: fadeIn 1s ease-in-out;
+  }
 
   .form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     min-width: 300px;
+    animation: fadeIn 1s ease-in-out;
   }
 
   h2 {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 42px;
-    animation: fadeIn 1s ease-in-out;
+    font-size: 58px;
+    color: #cd6e3f;
   }
 
   p.switch-mode {
     text-align: center;
     margin-top: 15px;
-    color: #007bff;
+    color: #60adff;
     cursor: pointer;
     text-decoration: underline;
-    animation: fadeIn 1s ease-in-out;
   }
 }
 
 .auth-footer {
   display: flex;
+  flex-direction: column;
   gap: 10px;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  width: 83%;
+  animation: fadeIn 1s ease-in-out;
 }
 </style>
