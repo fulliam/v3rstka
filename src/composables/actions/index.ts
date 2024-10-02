@@ -1,12 +1,20 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useSocketStore } from '@/stores/socket';
+import { usePlayerStore } from '@/stores/player';
 
 export default function useActions(
-  userId: string,
-  isOwn: boolean,
-  character: any
+  online: boolean,
+  character?: any,
+  userId?: string,
+  isOwn?: boolean
 ) {
-  const socketStore = useSocketStore();
+  let socketStore: any;
+  let playerStore: any;
+  if (online) {
+    socketStore = useSocketStore();
+  } else {
+    playerStore = usePlayerStore();
+  }
 
   const keys = ref<{ [key: string]: boolean }>({
     ArrowUp: false,
@@ -29,15 +37,23 @@ export default function useActions(
   };
 
   const startAction = (action: string) => {
-    socketStore.updateUserAction(userId, character.info.character, action);
+    if (online) {
+      socketStore.updateUserAction(userId, character.info.character, action);
+    } else {
+      playerStore.updatePlayerAction(action);
+    }
   };
 
   const stopAction = () => {
-    socketStore.updateUserAction(userId, character.info.character, 'idle');
+    if (online) {
+      socketStore.updateUserAction(userId, character.info.character, 'idle');
+    } else {
+      playerStore.updatePlayerAction('idle');
+    }
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
-    if (!isOwn) return;
+    if (online && !isOwn) return;
 
     if (keys.value.hasOwnProperty(event.code)) {
       keys.value[event.code] = true;
@@ -58,7 +74,7 @@ export default function useActions(
   };
 
   const handleKeyUp = (event: KeyboardEvent) => {
-    if (!isOwn) return;
+    if (online && !isOwn) return;
 
     if (keys.value.hasOwnProperty(event.code)) {
       keys.value[event.code] = false;
@@ -90,7 +106,7 @@ export default function useActions(
     window.removeEventListener('keyup', handleKeyUp);
   };
 
-  // Function to extend or modify action mapping
+  // Функция для расширения или изменения карты действий
   const addActionMapping = (key: string, action: string) => {
     actionMap[key] = action;
   };

@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeUnmount } from 'vue';
+import { ref, onBeforeUnmount, onMounted } from 'vue';
 import { debounce } from '@/lib/helpers/debounce';
 import TextScramble from '@/components/partials/animations/scramble/index.vue';
 
@@ -61,8 +61,14 @@ const generateNickname = () => {
 
 const debounceGenerateNickname = debounce(generateNickname, 1000);
 
+onMounted(() => {
+  generateNickname();
+});
+
 onBeforeUnmount(() => {
-    
+  if (scrambleInterval) {
+    clearTimeout(scrambleInterval);
+  }
 });
 </script>
 
@@ -72,5 +78,6 @@ onBeforeUnmount(() => {
   align-self: center;
   justify-content: center;
   position: relative;
+  top: -30px;
 }
 </style>

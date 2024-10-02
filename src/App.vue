@@ -33,10 +33,10 @@ const { logout } = useAuthStore();
 <style lang="scss">
 nav {
   position: fixed;
-  top: 0;
   left: 0;
+  bottom: 0;
   padding: 10px;
-  background: #1e1e1e;
+  background: #50b0952b;
   backdrop-filter: blur(2px);
   width: 100%;
   display: flex;

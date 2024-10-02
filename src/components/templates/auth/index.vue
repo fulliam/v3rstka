@@ -13,7 +13,7 @@
 
       <Input
         v-model="password"
-        :type="isLogin ? 'password' : 'text'"
+        :type="'password'"
         placeholder="Password"
         :error="passwordError"
         @input="clearError('password')"
@@ -23,6 +23,7 @@
       <Input
         v-if="!isLogin"
         v-model="confirmPassword"
+        :type="'password'"
         placeholder="Confirm Password"
         :error="confirmPasswordError"
         @input="clearError('confirmPassword')"
@@ -202,7 +203,7 @@ const handleErrorResponse = (message: string) => {
   animation: fadeIn 1s ease-in-out;
   overflow: hidden;
   backdrop-filter: blur(2px);
-  background: #0000005c;
+  background: #50b0952b;
   width: 360px;
   height: 460px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);

@@ -3,6 +3,7 @@ import Toast from './toast/index.vue';
 import Button from './button/index.vue';
 import Tooltip from './tooltip/index.vue';
 import Modal from './modal/index.vue';
+import JsonView from './jsonview/index.vue';
 
 export const Base = {
   Input,
@@ -10,4 +11,5 @@ export const Base = {
   Button,
   Tooltip,
   Modal,
+  JsonView,
 } as const;

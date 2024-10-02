@@ -14,5 +14,6 @@ app.component('Toast', Base.Toast);
 app.component('Button', Base.Button);
 app.component('Tooltip', Base.Tooltip);
 app.component('Modal', Base.Modal);
+app.component('JsonView', Base.JsonView);
 
 app.mount('#app');

@@ -40,6 +40,13 @@ export interface Params {
   luck: number;
 }
 
+export type StatKeys =
+  | 'strength'
+  | 'agility'
+  | 'intelligence'
+  | 'stamina'
+  | 'luck';
+
 export interface Skill {
   damage: number;
   type: string;

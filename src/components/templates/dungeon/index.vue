@@ -12,6 +12,7 @@
 
     <slot name="characters"></slot>
     <slot name="enemies"></slot>
+    <slot name="overlay"></slot>
   </div>
 </template>
 
@@ -33,18 +34,38 @@ const dungeonMap = ref<Cell[][]>([]);
 const spawnPoint = ref<{ x: number; y: number } | undefined>(undefined);
 const randomPoints = ref<{ x: number; y: number }[] | undefined>(undefined);
 
-onMounted(() => {
-  const config = {
-    rows: 31,
-    cols: 51,
-    maxRoomSize: 24,
-    minRoomSize: 5,
-    padding: 0,
-    maxAttempts: 500,
-    rooms: 4,
-  };
+const config = {
+  rows: 31,
+  cols: 51,
+  maxRoomSize: 4,
+  minRoomSize: 1,
+  padding: 0,
+  maxAttempts: 500,
+  rooms: 4,
+};
 
-  dungeonMap.value = DungeonGenerator.generate(config, +props.seed);
+const updateCellSize = () => {
+  const dungeonMapEl = document.querySelector('.dungeon-map') as HTMLElement;
+  if (dungeonMapEl) {
+    const { innerWidth, innerHeight } = window;
+    const cellWidth = innerWidth / config.cols;
+    const cellHeight = innerHeight / config.rows;
+
+    const cellSize = Math.min(cellWidth, cellHeight);
+    dungeonStore.cellSize = cellSize;
+
+    dungeonMapEl.style.setProperty('--cell-size', `${cellSize}px`);
+    dungeonMapEl.style.setProperty(
+      'grid-template-columns',
+      `repeat(${config.cols}, ${cellSize}px)`
+    );
+  }
+};
+
+onMounted(() => {
+  updateCellSize();
+
+dungeonMap.value = DungeonGenerator.generate(config, /* +props.seed */);
   spawnPoint.value = DungeonGenerator.getRandomPoints(
     dungeonMap.value,
     1,
@@ -66,14 +87,6 @@ onMounted(() => {
     dungeonStore.setRandomPoints(randomPoints.value);
   }
 
-  const dungeonMapEl = document.querySelector('.dungeon-map') as HTMLElement;
-  if (dungeonMapEl) {
-    dungeonMapEl.style.setProperty('--cell-size', `${dungeonStore.cellSize}px`);
-    dungeonMapEl.style.setProperty(
-      'grid-template-columns',
-      `repeat(${config.cols}, ${dungeonStore.cellSize}px)`
-    );
-  }
 });
 
 const getCellStyle = (cell: Cell) => {
@@ -88,11 +101,16 @@ const getCellStyle = (cell: Cell) => {
 .dungeon-map {
   --cell-size: 20px;
   display: grid;
+  grid-template-rows: repeat(auto-fill, var(--cell-size));
+  grid-template-columns: repeat(auto-fill, var(--cell-size));
   grid-gap: 0px;
   padding: 0;
   margin: 0;
   border: none;
   position: relative;
+  width: 100%;
+  height: 100vh;
+  align-self: center;
 }
 .row {
   display: contents;

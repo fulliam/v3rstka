@@ -1,20 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
 
 :root {
-  font-family:
-    "Jersey 10",
-    Inter,
-    system-ui,
-    Avenir,
-    Helvetica,
-    Arial,
+  font-family: 'Jersey 10', Inter, system-ui, Avenir, Helvetica, Arial,
     sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #0e1219;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -32,9 +26,9 @@ body,
 }
 
 body {
-  display: flex;
-  place-items: center;
-  justify-content: center;
-  min-width: 320px;
-  min-height: 100vh;
+  // display: flex;
+  // place-items: center;
+  // justify-content: center;
+  // min-width: 320px;
+  // min-height: 100vh;
 }

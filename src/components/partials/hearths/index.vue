@@ -43,7 +43,7 @@ $transition-timing-function: forwards;
   text-align: center;
   display: flex;
   gap: 10px;
-  transform: scale(0.4);
+  transform: scale(0.6);
 }
 
 .heart {

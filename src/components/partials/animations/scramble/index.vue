@@ -12,7 +12,7 @@ const props = defineProps<{
   enableReturnValue?: boolean;
 }>();
 
-const emits = defineEmits(['output']);
+const emit = defineEmits(['output']);
 
 class TextScramble {
   el: HTMLElement;
@@ -70,7 +70,7 @@ class TextScramble {
         }
         output += `<span class="dud">${char}</span>`;
         if (props.enableReturnValue) {
-          emits('output', textEl.value?.innerText);
+          emit('output', textEl.value?.innerText);
         }
       } else {
         output += from;

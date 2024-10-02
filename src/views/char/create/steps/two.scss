@@ -1,0 +1,196 @@
+.buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.step-two {
+  display: flex;
+  justify-content: space-around;
+  color: #fff;
+  animation: fadeIn 1s ease-in-out;
+
+  table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    font-size: 24px;
+    table-layout: fixed;
+
+    thead {
+      tr {
+        background: #32705e2b;
+      }
+    }
+
+    tbody {
+      background-color: #50b0952b;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      width: 33%;
+    }
+
+    h2 {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 48px;
+      color: #cd6e3f;
+      margin: 0;
+    }
+
+    .title {
+      font-size: 48px;
+      text-transform: uppercase;
+      background: linear-gradient(
+        to right,
+        #dddddd 10%,
+        #929292 50%,
+        #dddddd 60%
+      );
+      background-size: auto auto;
+      background-clip: border-box;
+      background-size: 200% auto;
+      color: #fff;
+      background-clip: text;
+      text-fill-color: transparent;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textclip 3s linear infinite;
+      display: inline-block;
+    }
+  }
+
+  .points {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+
+    p {
+      font-size: 34px;
+      margin: 0;
+    }
+  }
+
+  .attacks-wrapper {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 10px;
+
+    .attack {
+      width: 80px;
+      height: 80px;
+      transition:
+        transform,
+        opacity,
+        filter 0.4s ease-in-out;
+      animation: scaleIn 0.3s ease-in-out;
+      position: relative;
+      overflow: hidden;
+      filter: brightness(1.2);
+
+      @include pixel-box(
+        $corner-size: 2,
+        $border-size: 2px,
+        $background-color: #cd6e3f
+      );
+
+      &:hover {
+        filter: brightness(1.4);
+      }
+
+      &-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .sparkles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+  }
+
+  .stats {
+    padding: 0 40px;
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        gap: 10px;
+
+        .stat-name {
+          width: 100%;
+          text-align: start;
+          padding-left: 10px;
+
+          @include pixel-box(
+            $corner-size: 2,
+            $border-size: 2px,
+            $background-color: #5bcbac2b,
+            $background-color-hover: #5bcbac2b,
+            $border-color: #5bcbac2b
+          );
+        }
+
+        div {
+          display: flex;
+          gap: 10px;
+
+          span {
+            width: 40px;
+            height: 40px;
+          }
+
+          .stat-value {
+            font-size: 34px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+
+        button {
+          color: #fff;
+          font-weight: 900;
+          padding: 5px 10px;
+          cursor: pointer;
+          width: 40px;
+          height: 40px;
+
+          @include pixel-box(
+            $corner-size: 2,
+            $border-size: 2px,
+            $background-color: #cd6e3f
+          );
+
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+
+  .continue-button {
+    margin: 20px auto;
+  }
+}

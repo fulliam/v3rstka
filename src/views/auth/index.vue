@@ -11,10 +11,13 @@ import Firefly from '@/components/templates/firefly/index.vue';
 </script>
 
 <style scoped lang="scss">
-.auth {
+section {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow: hidden;
+  height: 100vh;
 }
 </style>

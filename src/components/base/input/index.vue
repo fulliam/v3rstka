@@ -102,13 +102,13 @@ watch(currentInput, () => {
 </script>
 
 <style lang="scss" scoped>
-$color-input-bg: #121212;
-$color-input-border: #444444;
+$color-input-bg: #5bcbac2b;
+$color-input-border: #5bcbac2b;
 $color-input-bg-error: rgb(255, 102, 102);
 $color-label-default: #b0b0b0;
 $color-label-dark: #ffffff;
 $color-input-text: #ffffff;
-$color-placeholder: #757575;
+$color-placeholder-text: #ffffff;
 $box-shadow-color: rgba(0, 0, 0, 0.5);
 
 .input {
@@ -133,7 +133,7 @@ $box-shadow-color: rgba(0, 0, 0, 0.5);
     p {
       font-weight: 400;
       font-size: 12px;
-      color: $color-placeholder;
+      color: $color-placeholder-text;
     }
   }
 
@@ -158,7 +158,7 @@ $box-shadow-color: rgba(0, 0, 0, 0.5);
     );
 
     &::placeholder {
-      color: $color-placeholder;
+      color: $color-placeholder-text;
     }
 
     &:focus {
@@ -210,15 +210,16 @@ $box-shadow-color: rgba(0, 0, 0, 0.5);
       display: flex;
       justify-content: center;
       align-items: center;
-      opacity: 0.5;
+      opacity: 0.8;
       transition: opacity 0.5s;
+      overflow: hidden;
 
       svg {
         cursor: pointer;
       }
 
       &:hover {
-        opacity: 0.8;
+        opacity: 1;
       }
     }
   }

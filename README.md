@@ -31,3 +31,4 @@ bun run generate-animations
 [o] Add store
 [o] Add guilds
 [o] Add keyboard info page
+

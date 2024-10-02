@@ -12,14 +12,14 @@ export const attacks = {
       image: 'skill2.png',
       description: 'Description for character 1 skill 2',
       action: 'attack2',
-      damage: [{ fill: 100 }, { fill: 50 }, { fill: 0 }],
+      damage: [{ fill: 50 }, { fill: 100 }, { fill: 0 }],
     },
     {
       name: 'Skill 3',
       image: 'skill3.png',
       description: 'Description for character 1 skill 3',
       action: 'attack3',
-      damage: [{ fill: 100 }, { fill: 100 }, { fill: 50 }],
+      damage: [{ fill: 50 }, { fill: 100 }, { fill: 100 }],
     },
   ],
   swordsman: [

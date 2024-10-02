@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { authGuard } from '@/middlewares';
 import Auth from '@/views/auth/index.vue';
-import Game from '@/views/game/index.vue';
+import Game from '@/views/game/online/index.vue';
 import CreateChar from '@/views/char/create/index.vue';
 import Tmp from '@/views/char/tmp/index.vue';
+import OfflineGame from '@/views/game/offline/index.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -22,6 +23,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Game',
     component: Game,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '/offline_game',
+    name: 'OfflineGame',
+    component: OfflineGame,
   },
   {
     path: '/tmp',

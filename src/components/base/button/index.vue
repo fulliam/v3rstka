@@ -1,8 +1,8 @@
 <template>
   <button
     :disabled="isLoading || disabled"
-    class="btn pixel-border"
-    :class="`btn--${type}`"
+    class="btn"
+    :class="`btn--${type} ${disabled ? 'loading' : ''}`"
     @click="handleClick"
   >
     <span v-if="isLoading" class="loader"></span>
@@ -19,7 +19,7 @@ import { ref } from 'vue';
 interface Button {
   label?: string;
   type?: 'primary' | 'secondary' | 'danger' | 'base';
-  action: () => Promise<void>;
+  action?: () => Promise<void>;
   disabled?: boolean;
 }
 
@@ -32,12 +32,16 @@ const emit = defineEmits<{
 const isLoading = ref(false);
 
 const handleClick = async () => {
-  isLoading.value = true;
-  try {
-    await props.action();
-    emit('action-complete');
-  } finally {
-    isLoading.value = false;
+  if (props.disabled || isLoading.value) return;
+
+  if (props.action) {
+    isLoading.value = true;
+    try {
+      await props.action();
+      emit('action-complete');
+    } finally {
+      isLoading.value = false;
+    }
   }
 };
 </script>
@@ -64,7 +68,8 @@ $loader-border-color: rgba(255, 255, 255, 0.2);
   transition: background-color 0.3s ease;
   position: relative;
 
-  &:disabled {
+  &:disabled,
+  &.disabled {
     cursor: not-allowed;
     opacity: 0.7;
   }

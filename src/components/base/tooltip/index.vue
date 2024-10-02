@@ -48,7 +48,6 @@ const adjustTooltipPosition = () => {
   const spaceLeft = triggerRect.left;
   const spaceRight = viewportWidth - triggerRect.right;
 
-  // Определяем основную позицию тултипа
   if (spaceBelow >= tooltipRect.height) {
     position.value = 'bottom';
   } else if (spaceAbove >= tooltipRect.height) {
@@ -61,7 +60,6 @@ const adjustTooltipPosition = () => {
     position.value = 'bottom';
   }
 
-  // Проверяем выход тултипа за экран по горизонтали для верхней и нижней позиций
   if (position.value === 'top' || position.value === 'bottom') {
     const tooltipLeft =
       triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2;
@@ -73,11 +71,10 @@ const adjustTooltipPosition = () => {
       const overflow = tooltipRight - viewportWidth;
       tooltip.value!.style.transform = `translate(calc(-${overflow}px - 50%), 0)`;
     } else {
-      tooltip.value!.style.transform = 'translateX(-50%)'; // Стандартное выравнивание
+      tooltip.value!.style.transform = 'translateX(-50%)';
     }
   }
 
-  // Проверяем выход тултипа за экран по вертикали для левой и правой позиций
   if (position.value === 'left' || position.value === 'right') {
     const tooltipTop =
       triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2;
@@ -89,7 +86,7 @@ const adjustTooltipPosition = () => {
       const overflow = tooltipBottom - viewportHeight;
       tooltip.value!.style.transform = `translateY(-${overflow}px)`;
     } else {
-      tooltip.value!.style.transform = 'translateY(-50%)'; // Стандартное выравнивание
+      tooltip.value!.style.transform = 'translateY(-50%)';
     }
   }
 };
@@ -107,6 +104,7 @@ onUnmounted(() => {
 .tooltip-wrapper {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 
 .tooltip {

@@ -74,10 +74,10 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue';
-import CharacterViewer from '@/components/CharacterViewer.vue';
-import BotViewer from '@/components/BotViewer.vue';
-import ChatViewer from '@/components/ChatViewer.vue';
-import Dungeon from '@/components/Dungeon.vue';
+import CharacterViewer from '@/views/game/online/CharacterViewer.vue';
+import BotViewer from '@/views/game/online/BotViewer.vue';
+import ChatViewer from '@/views/game/online/ChatViewer.vue';
+import Dungeon from '@/components/templates/dungeon/index.vue';
 import { useSocketStore } from '@/stores/socket';
 import { useAuthStore } from '@/stores/auth'; // may be add userStore for give userId ( now = username )
 import animations from '@/animations.json';

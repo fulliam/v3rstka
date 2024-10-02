@@ -147,9 +147,10 @@ const healthPercentage = computed(() => {
 });
 
 const { keys /*, addActionMapping */ } = useActions(
+  true, // is online
+  props.character,
   props.userId,
-  props.isOwn,
-  props.character
+  props.isOwn
 );
 
 // addActionMapping('KeyV', 'specialMove'); // Example of adding a new action

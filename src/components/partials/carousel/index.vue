@@ -28,7 +28,7 @@ defineProps<{
   cards: Card[];
 }>();
 
-const emits = defineEmits(['change']);
+const emit = defineEmits(['change']);
 
 const currentIndex = ref(2);
 // const lastScrollTime = ref(0);
@@ -92,12 +92,12 @@ const getCardStyle = (index: number) => {
 
 const onCardClick = (index: number) => {
   currentIndex.value = index;
-  emits('change', index);
+  emit('change', index);
 };
 
 onMounted(() => {
   //   window.addEventListener('wheel', onScroll);
-  emits('change', currentIndex.value);
+  emit('change', currentIndex.value);
 });
 </script>
 
@@ -139,7 +139,7 @@ onMounted(() => {
   border-radius: 10px;
   cursor: pointer;
   border: 4px solid transparent;
-  background-color: #000000c5;
+  background-color: #50b0952b;
 }
 
 .focused {

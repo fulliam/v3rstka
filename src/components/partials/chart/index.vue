@@ -49,7 +49,7 @@ const drawRadarChart = (progress: number = 1) => {
   for (let i = min; i <= max; i += step) {
     ctx.beginPath();
     ctx.arc(width / 2, height / 2, step * spacing * i, 0, 2 * Math.PI);
-    ctx.strokeStyle = '#cd6e3f';
+    ctx.strokeStyle = '#e96424';
     ctx.fillStyle = '#fff';
     ctx.stroke();
 
@@ -99,13 +99,13 @@ const drawRadarChart = (progress: number = 1) => {
   keys.forEach((key, i) => {
     ctx.fillStyle = '#fff';
     ctx.strokeStyle = 'yellow';
-    ctx.font = 'bold 12px Verdana';
+    ctx.font = 'bold 16px Verdana';
     const val = values[key];
     const angle = (Math.PI * 2 * i) / sizeKeys;
     // const x = width / 2 + Math.cos(angle) * spacing * val;
     // const y = height / 2 + Math.sin(angle) * spacing * val;
-    const textX = width / 2 + Math.cos(angle) * spacing * val * 1.5;
-    const textY = height / 2 + Math.sin(angle) * spacing * val * 1.5;
+    const textX = width / 2 + Math.cos(angle) * spacing * val * 1.2;
+    const textY = height / 2 + Math.sin(angle) * spacing * val * 1.2;
 
     ctx.textAlign = textX < width / 2 ? 'end' : 'start';
     ctx.fillText(key, textX, textY);
