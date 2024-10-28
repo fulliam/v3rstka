@@ -3,6 +3,7 @@
     <Bat />
   </div>
   <SpeedLines />
+  <Keyboards />
   <section>
     <div>
       <button @click="openNewModal">Открыть модальное окно</button>
@@ -39,7 +40,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import SkillTree from '@/components/partials/skilltree/index.vue';
+import SkillTree from '@/components/templates/modals/skilltree/index.vue';
 import Animation from '@/components/templates/animation/index.vue';
 import { useModalStore } from '@/stores/modal';
 import { tree } from './treeData';
@@ -47,6 +48,7 @@ import animations from '@/animations.json';
 import StarShine from '@/components/partials/animations/starshine/index.vue';
 import SpeedLines from '@/components/partials/animations/speedlines/index.vue';
 import Bat from '@/components/partials/animations/bat/index.vue';
+import Keyboards from '@/components/partials/keyboards/index.vue';
 
 const modalStore = useModalStore();
 const modalCount = ref(0);

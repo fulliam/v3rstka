@@ -7,7 +7,9 @@ import {
   calculateCrit,
   calculateDamage,
 } from '@/plugins/generators/character/params';
-import type { Player, Position } from '@/types';
+import type { Player, Position, Direction } from '@/types';
+
+const STORAGE_KEY = 'playerData';
 
 export const usePlayerStore = defineStore('player', {
   state: () => ({
@@ -26,6 +28,24 @@ export const usePlayerStore = defineStore('player', {
   },
 
   actions: {
+    initializePlayer() {
+      const storedPlayer = localStorage.getItem(STORAGE_KEY);
+      if (storedPlayer) {
+        this.player = JSON.parse(storedPlayer);
+      } else {
+        this.createPlayer('wizard');
+      }
+    },
+
+    resetPlayer() {
+      this.player = {} as Player;
+      this.savePlayer();
+    },
+
+    savePlayer() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.player));
+    },
+
     createPlayer(characterType: string) {
       this.player = createDefaultPlayer(characterType);
       this.updateDerivedAttributes();
@@ -38,15 +58,18 @@ export const usePlayerStore = defineStore('player', {
 
     addItemToInventory(item: any) {
       this.player.inventory.inventory.push(item);
+      this.savePlayer();
     },
 
-    updatePlayerPosition(newPosition: Position, direction: 'left' | 'right') {
+    updatePlayerPosition(newPosition: Position, direction: Direction) {
       this.player.state.position = { ...newPosition };
       this.player.state.direction = direction;
+      this.savePlayer();
     },
 
     updatePlayerAction(newAction: string) {
       this.player.state.action = newAction;
+      this.savePlayer();
     },
 
     updatePlayerStats(
@@ -79,10 +102,8 @@ export const usePlayerStore = defineStore('player', {
           attack
         );
       });
-    },
 
-    resetPlayer() {
-      this.player = {} as Player;
+      this.savePlayer();
     },
   },
 });

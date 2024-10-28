@@ -118,6 +118,7 @@
   $corner-size,
   $border-size,
   $background-color,
+  $background: false,
   $border-color: false,
   $border-inset: true,
   $border-inset-size: false,
@@ -128,6 +129,7 @@
   $background-color-hover: false
 ) {
   background-color: $background-color;
+  background: $background;
 
   @if not($background-color-hover) {
     $background-color-hover: darken($background-color, 15%);

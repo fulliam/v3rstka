@@ -5,6 +5,8 @@ export interface Position {
   y: number;
 }
 
+export type Direction = 'left' | 'right' | 'up' | 'down';
+
 export interface Resource {
   max: number;
   current: number;
@@ -62,6 +64,7 @@ export interface Skills {
 
 export interface CharacterInfo {
   category: string;
+  group?: string;
   character: string;
   location: string;
   level: number;
@@ -71,7 +74,7 @@ export interface CharacterInfo {
 
 export interface CharacterState {
   position: Position;
-  direction: 'left' | 'right';
+  direction: Direction;
   action: string;
   health: Health;
   mana: Mana;

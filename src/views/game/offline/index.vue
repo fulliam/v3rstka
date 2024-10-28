@@ -1,53 +1,120 @@
 <template>
-
-  <Dungeon :seed="location">
+  <Dungeon :seed="location" :shake="shakeDungeon">
+    <!-- :center-x="player.state.position.x / 2"
+    :center-y="player.state.position.y / 2" -->
     <template #characters>
-      <Character
+      <Player
         :character="player.info.character"
         :action="player.state.action"
         :style="{
           position: 'absolute',
-          left: `${player.state.position.x - (characterSize / 2)}px`,
+          zIndex: Math.floor(player.state.position.y),
+          left: `${player.state.position.x - characterSize / 2}px`,
           top: `${player.state.position.y - characterSize}px`,
           width: `${characterSize}px`,
           height: `${characterSize}px`,
-          transform: direction ? 'scaleX(-1)' : ''
+          transform: direction ? 'scaleX(-1)' : '',
         }"
       />
     </template>
 
-    <template #overlay>
-        <Overlay
-        :position="{x: player.state.position.x, y: player.state.position.y}"
-    />
+    <template #enemies>
+      <Enemy
+        v-for="(enemy, index) in enemies"
+        :key="index"
+        :character="enemy.info.character"
+        :group="enemy.info.group"
+        :action="enemy.state.action"
+        :style="{
+          position: 'absolute',
+          zIndex: Math.floor(enemy.state.position.y),
+          left: `${enemy.state.position.x - characterSize / 2}px`,
+          top: `${enemy.state.position.y - characterSize}px`,
+          width: `${characterSize}px`,
+          height: `${characterSize}px`,
+          transform: enemy.state.direction === 'left' ? 'scaleX(-1)' : '',
+        }"
+      />
     </template>
+
+    <!-- <template #overlay>
+      <Overlay
+        :position="{ x: player.state.position.x, y: player.state.position.y }"
+        style="z-index: 99999"
+      />
+    </template> -->
+
+    <!-- <template #skills>
+      <SkillBar />
+    </template> -->
   </Dungeon>
 </template>
 
 <script setup lang="ts">
-import { computed, watch, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed, watch } from 'vue';
 import Dungeon from '@/components/templates/dungeon/index.vue';
-import Character from '@/components/templates/character/offline/index.vue';
+import Player from '@/components/templates/character/offline/ally/index.vue';
+import Enemy from '@/components/templates/character/offline/enemy/index.vue';
+// import Overlay from '@/components/partials/overlay/index.vue';
+// import SkillBar from '@/components/templates/skillbar/index.vue';
+import { usePlayerMovement } from '@/composables/offline/ally/movement';
+import { useEnemyAI } from '@/composables/offline/enemy';
 import { useDungeonStore } from '@/stores/dungeon';
 import { usePlayerStore } from '@/stores/player';
+import { useEnemyStore } from '@/stores/enemy';
 import { Position, Cell } from '@/types';
-import useActions from '@/composables/actions';
-import Overlay from '@/components/partials/overlay/index.vue';
+
+let characterSize: number = 50;
 
 const dungeonStore = useDungeonStore();
-let characterSize: number = 50;
-let dungeonMap: Cell[][] = [];
+let dungeonMap: Cell[][];
+const shakeDungeon = ref<boolean>(false);
 
 const playerStore = usePlayerStore();
+playerStore.initializePlayer();
 const player = computed(() => playerStore.getPlayer);
+const direction = computed(() => player.value?.state.direction === 'left');
+
+const enemyStore = useEnemyStore();
+const enemies = computed(() => enemyStore.getEnemies);
 const location = player.value?.info.location || '';
+
+usePlayerMovement();
+useEnemyAI();
+
+const generateEnemies = (enemyCount: number) => {
+  enemyStore.clearEnemies();
+  const randomPoints = dungeonStore.randomPoints;
+
+  const maxEnemies = Math.min(enemyCount, randomPoints.length);
+
+  const randomIndices = new Set<number>();
+
+  while (randomIndices.size < maxEnemies) {
+    const randomIndex = Math.floor(Math.random() * randomPoints.length);
+    randomIndices.add(randomIndex);
+  }
+
+  randomIndices.forEach((index) => {
+    const position = randomPoints[index];
+    // enemyStore.createEnemy('slimes', 'green');
+    enemyStore.createEnemy();
+    const enemyId = enemyStore.enemies[enemyStore.enemies.length - 1].id;
+    enemyStore.updateEnemyPosition(enemyId, position);
+  });
+};
 
 watch(
   () => dungeonStore.spawnPoint,
   (newSpawnPoint: Position) => {
-    if (newSpawnPoint) {
+    if (
+      newSpawnPoint &&
+      player.value.state.position.x === 0 &&
+      player.value.state.position.y === 0
+    ) {
       playerStore.updatePlayerPosition(newSpawnPoint, 'right');
     }
+    generateEnemies(3);
   },
   { immediate: true }
 );
@@ -56,7 +123,7 @@ watch(
   () => dungeonStore.dungeon,
   (newDungeon) => {
     if (newDungeon) {
-        dungeonMap = newDungeon;
+      dungeonMap = newDungeon;
     }
   },
   { immediate: true }
@@ -66,87 +133,9 @@ watch(
   () => dungeonStore.cellSize,
   (newCellSize) => {
     if (newCellSize) {
-        characterSize = newCellSize * 2.25;
+      characterSize = newCellSize * 2.25;
     }
   },
   { immediate: true }
 );
-
-const { keys } = useActions(false /* is offline */);
-const direction = computed(() => player.value?.state.direction === 'left');
-let animationFrame: number | null = null;
-
-const handleMovement = () => {
-  if (player.value.state.action === 'dead') return;
-
-  let newPosition = { ...player.value.state.position };
-  let direction: 'left' | 'right' = player.value.state.direction;
-
-  const speedType = keys.value.ShiftLeft || keys.value.ShiftRight ? 'running' : 'walking';
-  const speed = player.value.stats.speed[speedType] / 3;
-
-  const getCellType = (x: number, y: number) =>
-    dungeonMap[Math.floor(y / dungeonStore.cellSize)][
-      Math.floor(x / dungeonStore.cellSize)
-    ].cellType;
-
-  const updatePosition = (
-    deltaX: number,
-    deltaY: number,
-    newDirection: 'left' | 'right'
-  ) => {
-    const newX = newPosition.x + deltaX;
-    const newY = newPosition.y + deltaY;
-
-    if (getCellType(newX, newY) !== 'wall') {
-      newPosition = { x: newX, y: newY };
-      direction = newDirection;
-    }
-  };
-
-  if (keys.value.ArrowUp) updatePosition(0, -speed, direction);
-  if (keys.value.ArrowDown) updatePosition(0, speed, direction);
-  if (keys.value.ArrowLeft) updatePosition(-speed, 0, 'left');
-  if (keys.value.ArrowRight) updatePosition(speed, 0, 'right');
-
-  playerStore.updatePlayerPosition(newPosition, direction);
-
-  animationFrame = requestAnimationFrame(handleMovement);
-};
-
-const startMovement = () => {
-  if (!animationFrame) {
-    handleMovement();
-  }
-};
-
-const stopMovement = () => {
-  if (animationFrame) {
-    cancelAnimationFrame(animationFrame);
-    animationFrame = null;
-  }
-};
-
-watch(
-  () => keys.value,
-  (newKeys) => {
-    if (
-      newKeys.ArrowUp ||
-      newKeys.ArrowDown ||
-      newKeys.ArrowLeft ||
-      newKeys.ArrowRight
-    ) {
-      startMovement();
-    } else {
-      stopMovement();
-    }
-  },
-  { deep: true }
-);
-
-onMounted(() => {
-  onBeforeUnmount(() => {
-    if (animationFrame) cancelAnimationFrame(animationFrame);
-  });
-});
 </script>

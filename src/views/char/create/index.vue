@@ -9,8 +9,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Firefly from '@/components/templates/firefly/index.vue';
-import StepOne from './steps/one.vue';
-import StepTwo from './steps/two.vue';
+import StepOne from './steps/one/index.vue';
+import StepTwo from './steps/two/index.vue';
 
 const currentStep = ref(1);
 

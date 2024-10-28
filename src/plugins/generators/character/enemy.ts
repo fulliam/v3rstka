@@ -16,61 +16,81 @@ import {
   CharacterInventory,
 } from '@/types/index';
 
-export function createDefaultPlayer(characterType: string): Player {
+const groups = {
+  orcs: ['warrior', 'berserk', 'shaman'],
+  slimes: ['red', 'green', 'blue'],
+};
+
+const noGroupCharacters = ['warrior', 'paladin', 'warmor', 'spirit'];
+const groupChance = 0.5;
+
+function getRandomElement<T>(array: T[]): T {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+export function createRandomEnemy(
+  group?: keyof typeof groups,
+  name?: string
+): Player {
+  let randomGroup: keyof typeof groups | undefined = group;
+  let randomCharacter: string | undefined = name;
+
+  if (!group && Math.random() < groupChance) {
+    randomGroup = getRandomElement(
+      Object.keys(groups) as Array<keyof typeof groups>
+    );
+    randomCharacter = getRandomElement(groups[randomGroup]);
+  } else if (!name) {
+    randomCharacter = getRandomElement(noGroupCharacters);
+  }
+
   const defaultPosition: Position = { x: 0, y: 0 };
-
   const defaultHealth: Health = {
-    max: 100,
-    current: 100,
+    max: 10,
+    current: 10,
     recovery: 1.0,
   };
-
   const defaultMana: Mana = {
-    max: 100,
-    current: 100,
-    recovery: 1.0,
+    max: 0,
+    current: 0,
+    recovery: 0,
   };
-
   const defaultStamina: Stamina = {
     max: 100,
     current: 100,
     recovery: 1.0,
   };
-
   const defaultCrit: Crit = {
     chance: 0.1,
     factor: 2.0,
   };
-
   const defaultAttack: Attack = {
     damage: 10,
     type: 'physic',
     range: 100,
     level: 1,
   };
-
   const defaultMoney: Money = {
     coins: { silver: 0, gold: 0, red: 0 },
     gems: { blue: 0, yellow: 0, green: 0, grey: 0, red: 0 },
   };
-
   const defaultParams: Params = {
-    strength: 5,
-    agility: 5,
-    intelligence: 5,
-    stamina: 5,
-    luck: 5,
+    strength: 1,
+    agility: 1,
+    intelligence: 1,
+    stamina: 1,
+    luck: 1,
   };
-
   const defaultSkills: Skills = {
-    fireshtorm: <Skill>{ damage: 10, type: 'magic', range: 500, level: 1 },
-    lighting: <Skill>{ damage: 10, type: 'magic', range: 500, level: 1 },
-    poisonshtorm: <Skill>{ damage: 10, type: 'magic', range: 500, level: 1 },
+    fireshtorm: <Skill>{ damage: 5, type: 'magic', range: 500, level: 1 },
+    lighting: <Skill>{ damage: 5, type: 'magic', range: 500, level: 1 },
+    poisonshtorm: <Skill>{ damage: 5, type: 'magic', range: 500, level: 1 },
   };
 
   const defaultInfo: CharacterInfo = {
-    category: 'ally',
-    character: characterType,
+    category: 'enemy',
+    group: randomGroup,
+    character: String(randomCharacter),
     location: '12345',
     level: 1,
     experience: 0,
@@ -88,11 +108,11 @@ export function createDefaultPlayer(characterType: string): Player {
   };
 
   const defaultStats: CharacterStats = {
-    speed: { walking: 5, running: 10 },
+    speed: { walking: 1, running: 3 },
     params: defaultParams,
     skills: defaultSkills,
-    skillPoints: 5,
-    statPoints: 5,
+    skillPoints: 0,
+    statPoints: 0,
     damage: { physic: 10, magic: 5 },
     attacks: {
       attack: defaultAttack,
@@ -102,20 +122,6 @@ export function createDefaultPlayer(characterType: string): Player {
     attackSpeed: 1,
     crit: defaultCrit,
   };
-
-  if (characterType === 'archer') {
-    defaultStats.params.agility += 3;
-    defaultStats.attackSpeed += 0.2;
-  } else if (characterType === 'wizard') {
-    defaultStats.params.intelligence += 3;
-    defaultState.mana = { ...defaultMana, max: 150 };
-  } else if (characterType === 'skeleton') {
-    defaultStats.params.strength += 3;
-    defaultState.armor += 10;
-  } else if (characterType === 'swordsman') {
-    defaultStats.params.strength += 3;
-    defaultStats.damage.physic += 5;
-  }
 
   const defaultInventory: CharacterInventory = {
     money: defaultMoney,

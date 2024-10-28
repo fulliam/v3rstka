@@ -160,8 +160,9 @@ const handleSubmit = async () => {
 
         response = await login(username.value, password.value);
 
+        // TODO: add check current character
         if (response.status === 200 || response.status === 201) {
-          router.push('/create_char');
+          router.push('/create_character');
         }
       }
     } else {

@@ -1,33 +1,45 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { authGuard } from '@/middlewares';
-import Auth from '@/views/auth/index.vue';
-import Game from '@/views/game/online/index.vue';
-import CreateChar from '@/views/char/create/index.vue';
-import Tmp from '@/views/char/tmp/index.vue';
+import { authGuard } from '@/router/middlewares';
+import MainMenu from '@/views/main/index.vue';
+import CreateCharacter from '@/views/char/create/index.vue';
 import OfflineGame from '@/views/game/offline/index.vue';
+import Auth from '@/views/auth/index.vue';
+import OnlineGame from '@/views/game/online/index.vue';
+import Tmp from '@/views/tmp/index.vue';
+import Items from '@/views/items/index.vue';
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    name: 'MainMenu',
+    component: MainMenu,
+  },
+  {
+    path: '/create_character',
+    name: 'CreateCharacter',
+    component: CreateCharacter,
+    // meta: { requiresAuth: true },
+  },
+  {
+    path: '/offline_game',
+    name: 'OfflineGame',
+    component: OfflineGame,
+  },
+  {
+    path: '/online_game',
+    name: 'OnlineGame',
+    component: OnlineGame,
+    meta: { requiresAuth: true },
+  },
   {
     path: '/auth',
     name: 'Auth',
     component: Auth,
   },
   {
-    path: '/create_char',
-    name: 'CreateChar',
-    component: CreateChar,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: '/game',
-    name: 'Game',
-    component: Game,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: '/offline_game',
-    name: 'OfflineGame',
-    component: OfflineGame,
+    path: '/items',
+    name: 'Items',
+    component: Items,
   },
   {
     path: '/tmp',

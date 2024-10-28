@@ -13,7 +13,7 @@ export const useDungeonStore = defineStore('dungeon', {
     dungeon: [],
     spawnPoint: { x: 0, y: 0 },
     randomPoints: [],
-    cellSize: 20,
+    cellSize: 50,
   }),
   actions: {
     setDungeon(map: Cell[][]) {
@@ -27,5 +27,15 @@ export const useDungeonStore = defineStore('dungeon', {
     setSpawnPoint(coords: Position) {
       this.spawnPoint = coords;
     },
+  },
+
+  getters: {
+    getCellType:
+      (state) =>
+      (x: number, y: number): string => {
+        return state.dungeon[Math.floor(y / state.cellSize)][
+          Math.floor(x / state.cellSize)
+        ].cellType;
+      },
   },
 });

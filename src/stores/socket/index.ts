@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import createWebSocket from '@/plugins/socket';
-import type { Player, Position, Attack } from '@/types';
+import type { Player, Position, Attack, Direction } from '@/types';
 import { useChatStore } from '@/stores/chat';
 import { useDungeonStore } from '@/stores/dungeon';
 
@@ -204,7 +204,7 @@ export const useSocketStore = defineStore('socket', {
     async updateUserPosition(
       userId: string,
       position: Position,
-      direction: 'left' | 'right'
+      direction: Direction
     ) {
       await this.sendUpdate('move', { userId, position, direction });
     },

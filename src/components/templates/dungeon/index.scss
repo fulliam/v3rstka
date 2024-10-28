@@ -1,0 +1,132 @@
+.dungeon-map {
+  --cell-size: 20px;
+  display: grid;
+  grid-template-rows: repeat(auto-fill, var(--cell-size));
+  grid-template-columns: repeat(auto-fill, var(--cell-size));
+  grid-gap: 0px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  align-self: center;
+  z-index: 899;
+  transform: translate(var(--translate-x), var(--translate-y));
+  // zoom: 3;
+  // scale: 3;
+
+  &.shake {
+    animation: shake 0.5s;
+  }
+}
+
+.row {
+  display: contents;
+}
+
+.wall {
+  background-color: #0e1219;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  // background-image: url('/src/assets/water/water1.png');
+}
+
+.empty {
+  width: var(--cell-size);
+  height: var(--cell-size);
+}
+
+.cell {
+  background-size: cover;
+}
+
+.topWall {
+  background-image: url('/src/assets/wall/bottomWall.png');
+}
+
+.bottomWall {
+  background-image: url('/src/assets/wall/topWall.png');
+}
+
+.leftWall {
+  background-image: url('/src/assets/wall/rightWall.png');
+}
+
+.rightWall {
+  background-image: url('/src/assets/wall/leftWall.png');
+}
+
+.crossWall {
+  background-color: #544751;
+  background-image: url('/src/assets/wall/crossWall.png');
+}
+
+.cornerTopLeft {
+  background-color: #544751;
+  background-image: url('/src/assets/wall/bottomRightCorner.png');
+}
+
+.cornerTopRight {
+  background-color: #544751;
+  background-image: url('/src/assets/wall/bottomLeftCorner.png');
+}
+
+.cornerBottomLeft {
+  background-color: #544751;
+  background-image: url('/src/assets/wall/rightTopCorner.png');
+}
+
+.cornerBottomRight {
+  background-color: #544751;
+  background-image: url('/src/assets/wall/leftTopCorner.png');
+}
+
+.horizontalWall {
+  background-image: url('/src/assets/wall/crossVerticalWall.png');
+}
+
+.verticalWall {
+  background-image: url('/src/assets/wall/crossVerticalWall.png');
+  rotate: 90deg;
+}
+
+.horizontalEndTop {
+  background-image: url('/src/assets/wall/crossVerticalEnd.png');
+}
+
+.horizontalEndBottom {
+  background-image: url('/src/assets/wall/crossVerticalEnd.png');
+  rotate: 180deg;
+}
+
+.verticalEndRight {
+  background-image: url('/src/assets/wall/crossVerticalEnd.png');
+  rotate: 90deg;
+}
+
+.verticalEndLeft {
+  background-image: url('/src/assets/wall/crossVerticalEnd.png');
+  rotate: -90deg;
+}
+
+.verticalEndBottom {
+  background-image: url('/src/assets/wall/crossVerticalEnd.png');
+  rotate: -90deg;
+}
+
+.innerCornerTopLeft {
+  background-image: url('/src/assets/wall/innerRightBottomCorner.png');
+}
+
+.innerCornerBottomLeft {
+  background-image: url('/src/assets/wall/rightWall.png');
+}
+
+.innerCornerTopRight {
+  background-image: url('/src/assets/wall/innerLeftBottomCorner.png');
+}
+
+.innerCornerBottomRight {
+  background-image: url('/src/assets/wall/leftWall.png');
+}

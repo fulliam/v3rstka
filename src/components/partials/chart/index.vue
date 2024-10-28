@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, defineProps, onUnmounted } from 'vue';
+import { ref, onMounted, watch, onUnmounted } from 'vue';
 
 interface RadarChartProps {
   size: [number, number];

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="false">
+  <!-- <div v-if="false">
     <p>Connected: {{ isConnected }}</p>
     <div class="tabs">
       <button
@@ -50,11 +50,11 @@
     </div>
   </div>
 
-  <div class="viewers" v-if="currentTab === 'Gameplay'"></div>
+  <div class="viewers" v-if="currentTab === 'Gameplay'"></div> -->
 
   <Dungeon :seed="location">
     <template #characters>
-      <CharacterViewer
+      <Character
         v-for="user in usersInSameLocation"
         :key="user.userId"
         :user-id="user.userId"
@@ -74,25 +74,26 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue';
-import CharacterViewer from '@/views/game/online/CharacterViewer.vue';
-import BotViewer from '@/views/game/online/BotViewer.vue';
-import ChatViewer from '@/views/game/online/ChatViewer.vue';
+import Character from '@/components/templates/character/online/index.vue';
+import BotViewer from '@/views/game/online/tmp/BotViewer.vue';
+// import ChatViewer from '@/views/game/online/tmp/ChatViewer.vue';
 import Dungeon from '@/components/templates/dungeon/index.vue';
 import { useSocketStore } from '@/stores/socket';
 import { useAuthStore } from '@/stores/auth'; // may be add userStore for give userId ( now = username )
-import animations from '@/animations.json';
+// import animations from '@/animations.json';
 
 const socketStore = useSocketStore();
 const authStore = useAuthStore();
 
-const currentTab = ref<'Gameplay' | 'enemy' | 'chat'>('Gameplay');
+// const currentTab = ref<'Gameplay' | 'enemy' | 'chat'>('Gameplay');
 const userId = ref<string>('');
+// const isConnected = computed(() => socketStore.isConnected);
 
-const characters = ref(Object.keys((animations as any).char['ally']));
+// const characters = ref(Object.keys((animations as any).char['ally']));
 
-const selectCharacter = (character: string) => {
-  socketStore.updateUserCharacter(userId.value, character);
-};
+// const selectCharacter = (character: string) => {
+//   socketStore.updateUserCharacter(userId.value, character);
+// };
 
 onMounted(async () => {
   if (authStore.isAuthenticated && authStore.token && authStore.username) {
@@ -107,7 +108,6 @@ onUnmounted(() => {
   socketStore.disconnect();
 });
 
-const isConnected = computed(() => socketStore.isConnected);
 const location = ref('');
 
 const usersInSameLocation = computed(() => {

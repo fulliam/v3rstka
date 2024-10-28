@@ -1,10 +1,10 @@
 <template>
   <div class="json-viewer">
     <ul>
-      <li v-for="(value, key) in jsonData" :key="key">
+      <li v-for="(value, key) in data" :key="key">
         <strong>{{ key }}:</strong>
         <div v-if="isObject(value)">
-          <JsonView :jsonData="value" />
+          <JsonView :data="value" />
         </div>
         <div v-else>
           <span>{{ value }}</span>
@@ -15,10 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
-
 defineProps({
-  jsonData: {
+  data: {
     type: Object,
     required: true,
   },

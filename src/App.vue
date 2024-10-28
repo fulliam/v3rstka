@@ -1,21 +1,31 @@
 <template>
-  <nav>
+  <nav class="nav">
     <ul>
       <li>
-        <RouterLink to="/auth">Auth</RouterLink>
+        <RouterLink to="/">Main menu</RouterLink>
       </li>
       <li>
-        <RouterLink to="/create_char">Create char</RouterLink>
+        <RouterLink to="/create_character">Create character</RouterLink>
+      </li>
+      <li>
+        <RouterLink to="/offline_game">Offline</RouterLink>
       </li>
       <li>
         <RouterLink to="/tmp">Tmp</RouterLink>
       </li>
       <li>
-        <RouterLink to="/game">Game</RouterLink>
+        <RouterLink to="/items">Items</RouterLink>
+      </li>
+      <li>
+        <RouterLink to="/auth">Auth</RouterLink>
+      </li>
+      <li>
+        <RouterLink to="/online_game">Onlinee</RouterLink>
       </li>
     </ul>
 
-    <Button type="primary" class="logout" label="Logout" :action="logout" />
+    <Button type="danger" class="logout" label="Logout" :action="logout" />
+    <!-- <Button type="primary" class="logout" label="Respawn" :action="setSpawnPoint" /> -->
   </nav>
 
   <Toast />
@@ -25,13 +35,15 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth';
-import '@/utils/eve';
+// import { useDungeonStore } from './stores/dungeon';
+import '@/declares/eve';
 
+// const { setSpawnPoint } = useDungeonStore();
 const { logout } = useAuthStore();
 </script>
 
 <style lang="scss">
-nav {
+.nav {
   position: fixed;
   left: 0;
   bottom: 0;
@@ -43,7 +55,7 @@ nav {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  z-index: 999;
+  z-index: 9999;
 
   ul {
     list-style: none;

@@ -15,11 +15,18 @@ const props = defineProps({
     required: false,
     default: true,
   },
+  index: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
 });
 
 const images = Object.values(props.path);
 const currentImageIndex = ref(0);
-const currentImage = computed(() => images[currentImageIndex.value]);
+const currentImage = computed(
+  () => images[props.index ? props.index : currentImageIndex.value]
+);
 const animationSpeed = 100;
 let animationIntervalId: NodeJS.Timeout | null = null;
 

@@ -11,8 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
-
 defineProps<{
   position: { x: number; y: number };
 }>();
@@ -37,6 +35,8 @@ defineProps<{
   height: 300px;
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0);
-  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7), inset 0 0 10px 20px rgba(0, 0, 0, 0.7);
+  box-shadow:
+    0 0 0 9999px rgba(0, 0, 0, 0.7),
+    inset 0 0 10px 20px rgba(0, 0, 0, 0.7);
 }
 </style>

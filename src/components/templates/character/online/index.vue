@@ -155,6 +155,7 @@ const { keys /*, addActionMapping */ } = useActions(
 
 // addActionMapping('KeyV', 'specialMove'); // Example of adding a new action
 
+// TODO: decompose this function (example from offline/movement composable (REUSED))
 const handleMovement = () => {
   if (!props.isOwn) return;
   if (props.character.state.action === 'dead') return;
