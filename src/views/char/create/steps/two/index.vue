@@ -188,5 +188,5 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-@import './two.scss';
+@import './index.scss';
 </style>
