@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { Cell, Position } from '@/types';
+import DungeonGenerator from '@/plugins/generators/dungeon';
 
 interface DungeonState {
   dungeon: Cell[][];
@@ -16,20 +17,28 @@ export const useDungeonStore = defineStore('dungeon', {
     cellSize: 50,
   }),
   actions: {
-    setDungeon(map: Cell[][]) {
-      this.dungeon = map;
+    updateRandomPoints(points: Position[]) {
+      this.randomPoints.push(...points);
     },
 
-    setRandomPoints(points: Position[]) {
-      this.randomPoints = points;
-    },
-
-    setSpawnPoint(coords: Position) {
-      this.spawnPoint = coords;
+    generateDungeon(config: any, seed?: number) {
+      this.dungeon = DungeonGenerator.generate(config, seed);
+      this.spawnPoint = DungeonGenerator.getRandomPoints(
+        this.dungeon,
+        1,
+        this.cellSize
+      )[0];
+      this.randomPoints = DungeonGenerator.getRandomPoints(
+        this.dungeon,
+        100,
+        this.cellSize
+      );
+      console.log('Dungeon generated');
     },
   },
 
   getters: {
+    getDungeon: (state) => state.dungeon,
     getCellType:
       (state) =>
       (x: number, y: number): string => {

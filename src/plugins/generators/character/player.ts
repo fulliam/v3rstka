@@ -88,7 +88,7 @@ export function createDefaultPlayer(characterType: string): Player {
   };
 
   const defaultStats: CharacterStats = {
-    speed: { walking: 5, running: 10 },
+    speed: { walking: 50, running: 10 },
     params: defaultParams,
     skills: defaultSkills,
     skillPoints: 5,

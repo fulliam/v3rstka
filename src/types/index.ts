@@ -110,6 +110,8 @@ export type Cell = {
   cellType: 'wall' | 'empty';
   wallType?: string;
   floorImage?: string;
+  x?: number;
+  y?: number;
 };
 
 export interface Room {

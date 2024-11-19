@@ -7,7 +7,7 @@ import type { Position, Direction } from '@/types';
 export function usePlayerMovement() {
   const playerStore = usePlayerStore();
   const dungeonStore = useDungeonStore();
-  const { keys } = useActions(false); // false for offline mode
+  const { keys, actionList } = useActions(false); // false for offline mode
   const animationFrame = ref<number | null>(null);
 
   const player = computed(() => playerStore.getPlayer);
@@ -51,10 +51,17 @@ export function usePlayerMovement() {
       }
     };
 
-    if (keys.value.ArrowUp) updatePosition(0, -speed, direction);
-    if (keys.value.ArrowDown) updatePosition(0, speed, direction);
-    if (keys.value.ArrowLeft) updatePosition(-speed, 0, 'left');
-    if (keys.value.ArrowRight) updatePosition(speed, 0, 'right');
+    actionList.value.forEach((action: { name: string; key: string }) => {
+      if (keys.value[action.key]) {
+        if (action.name.includes('walk')) {
+          if (action.name === 'walk up') updatePosition(0, -speed, 'up');
+          if (action.name === 'walk down') updatePosition(0, speed, 'down');
+          if (action.name === 'walk left') updatePosition(-speed, 0, 'left');
+          if (action.name === 'walk right') updatePosition(speed, 0, 'right');
+        }
+        // Другие действия, такие как "run", можно добавить сюда
+      }
+    });
 
     playerStore.updatePlayerPosition(newPosition, direction);
     animationFrame.value = requestAnimationFrame(handleMovement);
@@ -63,12 +70,10 @@ export function usePlayerMovement() {
   watch(
     () => keys.value,
     (newKeys) => {
-      if (
-        newKeys.ArrowUp ||
-        newKeys.ArrowDown ||
-        newKeys.ArrowLeft ||
-        newKeys.ArrowRight
-      ) {
+      const anyMovementKeyPressed = actionList.value.some(
+        (action) => newKeys[action.key] && action.name.includes('walk')
+      );
+      if (anyMovementKeyPressed) {
         startMovement();
       } else {
         stopMovement();

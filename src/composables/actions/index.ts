@@ -16,24 +16,23 @@ export default function useActions(
     playerStore = usePlayerStore();
   }
 
-  const keys = ref<{ [key: string]: boolean }>({
-    ArrowUp: false,
-    ArrowDown: false,
-    ArrowLeft: false,
-    ArrowRight: false,
-    ShiftLeft: false,
-    ShiftRight: false,
-  });
+  const keys = ref<{ [key: string]: boolean }>({});
+  const actionList = ref<{ name: string; key: string }[]>([
+    { name: 'attack', key: 'KeyZ' },
+    { name: 'attack2', key: 'KeyX' },
+    { name: 'attack3', key: 'KeyC' },
+    { name: 'walk up', key: 'ArrowUp' },
+    { name: 'walk down', key: 'ArrowDown' },
+    { name: 'walk left', key: 'ArrowLeft' },
+    { name: 'walk right', key: 'ArrowRight' },
+    { name: 'jump', key: 'Space' },
+  ]);
 
-  const actionMap: { [key: string]: string } = {
-    KeyZ: 'attack',
-    KeyX: 'attack2',
-    KeyC: 'attack3',
-    ArrowRight: 'walk',
-    ArrowLeft: 'walk',
-    ArrowUp: 'walk',
-    ArrowDown: 'walk',
-    Space: 'jump',
+  const initializeKeys = () => {
+    keys.value = {};
+    actionList.value.forEach((action) => {
+      keys.value[action.key] = false;
+    });
   };
 
   const startAction = (action: string) => {
@@ -54,22 +53,16 @@ export default function useActions(
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (online && !isOwn) return;
-
+  
     if (keys.value.hasOwnProperty(event.code)) {
       keys.value[event.code] = true;
     }
-
-    let action = actionMap[event.code];
-
-    if (action) {
-      if (
-        (keys.value.ShiftLeft || keys.value.ShiftRight) &&
-        ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.code)
-      ) {
-        action = 'run';
-      }
-
-      startAction(action);
+  
+    const actionEntry = actionList.value.find((a) => a.key === event.code);
+    if (actionEntry) {
+      const action = actionEntry.name.includes('walk') ? 'walk' : actionEntry.name;
+      const isRunning = (keys.value['ShiftLeft'] || keys.value['ShiftRight']) && action === 'walk';
+      startAction(isRunning ? 'run' : action);
     }
   };
 
@@ -80,17 +73,14 @@ export default function useActions(
       keys.value[event.code] = false;
     }
 
-    if (!Object.values(keys.value).some((key) => key)) {
+    if (!Object.keys(keys.value).some((key) => keys.value[key])) {
       stopAction();
     } else {
-      if (
-        keys.value.ArrowUp ||
-        keys.value.ArrowDown ||
-        keys.value.ArrowLeft ||
-        keys.value.ArrowRight
-      ) {
-        const action =
-          keys.value.ShiftLeft || keys.value.ShiftRight ? 'run' : 'walk';
+      const activeWalkKeys = Object.keys(keys.value).filter(
+        (key) => keys.value[key] && actionList.value.find((a) => a.key === key)?.name === 'walk'
+      );
+      if (activeWalkKeys.length > 0) {
+        const action = keys.value['ShiftLeft'] || keys.value['ShiftRight'] ? 'run' : 'walk';
         startAction(action);
       }
     }
@@ -106,12 +96,29 @@ export default function useActions(
     window.removeEventListener('keyup', handleKeyUp);
   };
 
-  // Функция для расширения или изменения карты действий
-  const addActionMapping = (key: string, action: string) => {
-    actionMap[key] = action;
+  const addActionMapping = (newKey: string, actionName: string) => {
+    const action = actionList.value.find((a) => a.name === actionName);
+    if (action) {
+      const oldKey = action.key;
+      action.key = newKey;
+      
+      keys.value[newKey] = keys.value[oldKey] || false;
+      delete keys.value[oldKey];
+  
+      localStorage.setItem('actionList', JSON.stringify(actionList.value));
+      initializeKeys();
+  
+      unregisterKeyEvents();
+      registerKeyEvents();
+    }
   };
 
   onMounted(() => {
+    const storedActionList = localStorage.getItem('actionList');
+    if (storedActionList) {
+      actionList.value = JSON.parse(storedActionList);
+    }
+    initializeKeys();
     registerKeyEvents();
   });
 
@@ -121,6 +128,7 @@ export default function useActions(
 
   return {
     keys,
+    actionList,
     addActionMapping,
   };
 }

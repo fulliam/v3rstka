@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
-import DungeonGenerator from '@/plugins/generators/dungeon';
 import { useDungeonStore } from '@/stores/dungeon';
 import { Cell } from '@/types';
 
@@ -44,8 +43,6 @@ const props = defineProps({
 
 const dungeonStore = useDungeonStore();
 const dungeonMap = ref<Cell[][]>([]);
-const spawnPoint = ref<{ x: number; y: number } | undefined>(undefined);
-const randomPoints = ref<{ x: number; y: number }[] | undefined>(undefined);
 
 const config = {
   rows: 31,
@@ -91,28 +88,8 @@ onMounted(() => {
   updateCellSize();
   const dungeonMapEl = document.querySelector('.dungeon-map') as HTMLElement;
   dungeonMapEl.style.setProperty('--cell-size', `${dungeonStore.cellSize}px`);
-
-  dungeonMap.value = DungeonGenerator.generate(config /*, +props.seed */);
-  spawnPoint.value = DungeonGenerator.getRandomPoints(
-    dungeonMap.value,
-    1,
-    dungeonStore.cellSize
-  )[0];
-  randomPoints.value = DungeonGenerator.getRandomPoints(
-    dungeonMap.value,
-    20,
-    dungeonStore.cellSize
-  );
-
-  dungeonStore.setDungeon(dungeonMap.value);
-
-  if (spawnPoint.value) {
-    dungeonStore.setSpawnPoint(spawnPoint.value);
-  }
-
-  if (randomPoints.value.length > 0) {
-    dungeonStore.setRandomPoints(randomPoints.value);
-  }
+  dungeonStore.generateDungeon(config, +props.seed);
+  dungeonMap.value = dungeonStore.dungeon;
 
   if (props.centerX && props.centerY) {
     updateMapPosition(props.centerX, props.centerY);

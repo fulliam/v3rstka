@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { createRandomEnemy } from '@/plugins/generators/character/enemy';
+import { createEnemy } from '@/plugins/generators/character/enemy';
 import type { Player, Direction } from '@/types/index';
 
 interface Enemy extends Player {
@@ -14,12 +14,13 @@ const groups = {
 export const useEnemyStore = defineStore('enemy', {
   state: () => ({
     enemies: [] as Enemy[],
+    enemyPaths: [] as { id: string; path: { x: number; y: number }[] }[],
   }),
 
   actions: {
     createEnemy(group?: keyof typeof groups, name?: string) {
       const newEnemy: Enemy = {
-        ...createRandomEnemy(group, name),
+        ...createEnemy(group, name),
         id: this.generateUniqueId(),
       };
       this.enemies.push(newEnemy);
@@ -31,6 +32,15 @@ export const useEnemyStore = defineStore('enemy', {
 
     clearEnemies() {
       this.enemies = [];
+    },
+
+    isPositionOccupied(x: number, y: number, excludeId?: string) {
+      return this.getEnemies.some(
+        (enemy) =>
+          enemy.state.position.x === x &&
+          enemy.state.position.y === y &&
+          enemy.id !== excludeId
+      );
     },
 
     updateEnemyState(id: string, newState: Partial<Enemy>) {
@@ -63,6 +73,15 @@ export const useEnemyStore = defineStore('enemy', {
 
     generateUniqueId(): string {
       return `enemy-${Math.random().toString(36).substr(2, 9)}`;
+    },
+
+    setEnemyPaths(path: { id: string; path: { x: number; y: number }[] }) {
+      const existingIndex = this.enemyPaths.findIndex((p) => p.id === path.id);
+      if (existingIndex !== -1) {
+        this.enemyPaths[existingIndex] = path;
+      } else {
+        this.enemyPaths.push(path);
+      }
     },
   },
 

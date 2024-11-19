@@ -28,7 +28,7 @@ function getRandomElement<T>(array: T[]): T {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-export function createRandomEnemy(
+export function createEnemy(
   group?: keyof typeof groups,
   name?: string
 ): Player {

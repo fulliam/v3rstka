@@ -20,7 +20,10 @@
         <RouterLink to="/auth">Auth</RouterLink>
       </li>
       <li>
-        <RouterLink to="/online_game">Onlinee</RouterLink>
+        <RouterLink to="/online_game">Online</RouterLink>
+      </li>
+      <li>
+        <RouterLink to="/settings">Settings</RouterLink>
       </li>
     </ul>
 

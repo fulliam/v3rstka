@@ -68,8 +68,10 @@ export const usePlayerStore = defineStore('player', {
     },
 
     updatePlayerAction(newAction: string) {
-      this.player.state.action = newAction;
-      this.savePlayer();
+      if (this.player.state) {
+        this.player.state.action = newAction;
+        this.savePlayer();
+      }
     },
 
     updatePlayerStats(

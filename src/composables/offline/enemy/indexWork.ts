@@ -8,9 +8,9 @@ import {
   randomAction,
   randomInterval,
   isInRange,
-  convertToScreenCoordinates,
 } from './utils';
-import { aStarPathfinding } from './utils/astar';
+// import AStarPathfinder from './utils/astar';
+// import { AStarFinder } from '@/lib/a-star';
 
 export function useEnemyAI() {
   const enemyStore = useEnemyStore();
@@ -23,7 +23,7 @@ export function useEnemyAI() {
   const enemyStates = ref<Record<string, 'patrol' | 'chase' | 'attack'>>({});
 
   const ATTACK_DISTANCE = 20;
-  const CHASE_DISTANCE = 500;
+  const CHASE_DISTANCE = 100;
   const AVOIDANCE_DISTANCE = 3;
 
   const moveEnemy = (
@@ -154,44 +154,37 @@ export function useEnemyAI() {
         action = 'run';
         enemyStore.updateEnemyAction(enemy.id, action);
 
-        const { newPosition } = moveEnemy(
+        const { newPosition, movementDirection, hitWall } = moveEnemy(
           enemy.id,
           position,
-          speed
+          speed,
+          playerPosition
         );
 
-        const path = aStarPathfinding(
-          newPosition,
-          playerPosition,
-          dungeonStore.dungeon,
-          dungeonStore.cellSize
-        );
+        // const path = AStarPathfinder.findPath(
+        //   dungeonStore.dungeon,
+        //   {x: Math.floor(position.x), y: Math.floor(position.y)},
+        //   {x: Math.floor(playerPosition.x), y: Math.floor(playerPosition.y)},
+        //   dungeonStore.cellSize
+        // );
+        // console.log('dungeon', dungeonStore.dungeon);
+        // console.log('position', position);
+        // console.log('playerPosition', playerPosition);
+        // console.log('path', path);
+        // console.log('cellCoordinates', dungeonStore.cellCoordinates);
 
-        if (path.length > 0) {
-          const nextStepCell: Position = path[0];
-          const nextStepScreen = convertToScreenCoordinates(
-            nextStepCell,
-            dungeonStore.cellSize,
-            0,
-            0
-          );
-
-          const dx = nextStepScreen.x - position.x;
-          const dy = nextStepScreen.y - position.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance > speed) {
-            const moveX = (dx / distance) * speed;
-            const moveY = (dy / distance) * speed;
-            const newPos = { x: position.x + moveX, y: position.y + moveY };
-            enemyStore.updateEnemyPosition(enemy.id, newPos);
-          } else {
-            enemyStore.updateEnemyPosition(enemy.id, nextStepScreen);
-          }
-
-          const visualDirection = dx > 0 ? 'right' : 'left';
-          enemyStore.updateEnemyDirection(enemy.id, visualDirection);
+        if (hitWall) {
+          lastMovementDirection.value[enemy.id] = randomDirection();
+        } else {
+          enemyStore.updateEnemyPosition(enemy.id, newPosition);
         }
+
+        const visualDirection = movementDirection.includes('left')
+          ? 'left'
+          : movementDirection.includes('right')
+            ? 'right'
+            : direction;
+        enemyStore.updateEnemyDirection(enemy.id, visualDirection);
       } else if (enemyStates.value[enemy.id] === 'attack') {
         action = 'attack';
         enemyStore.updateEnemyAction(enemy.id, action);
