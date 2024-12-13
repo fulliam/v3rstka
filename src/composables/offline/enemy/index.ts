@@ -4,6 +4,7 @@ import { useDungeonStore } from '@/stores/dungeon';
 import { usePlayerStore } from '@/stores/player';
 import type { Position } from '@/types';
 import {
+  directionToTarget,
   randomDirection,
   randomAction,
   randomInterval,
@@ -22,9 +23,9 @@ export function useEnemyAI() {
   const lastMovementDirection = ref<Record<string, string>>({});
   const enemyStates = ref<Record<string, 'patrol' | 'chase' | 'attack'>>({});
 
-  const ATTACK_DISTANCE = 20;
+  const ATTACK_DISTANCE = 40;
   const CHASE_DISTANCE = 500;
-  const AVOIDANCE_DISTANCE = 3;
+  const AVOIDANCE_DISTANCE = 0;
 
   const moveEnemy = (
     enemyId: string,
@@ -34,17 +35,6 @@ export function useEnemyAI() {
   ) => {
     let newPosition: Position = { ...currentPosition };
     let hitWall = false;
-
-    const directionToTarget = () => {
-      if (!targetPosition) return randomDirection();
-      const dx = targetPosition.x - currentPosition.x;
-      const dy = targetPosition.y - currentPosition.y;
-      if (Math.abs(dx) > Math.abs(dy)) {
-        return dx > 0 ? 'right' : 'left';
-      } else {
-        return dy > 0 ? 'down' : 'up';
-      }
-    };
 
     const isTooCloseToOtherEnemy = (pos: Position) => {
       return enemyStore.getEnemies.some((otherEnemy) => {
@@ -109,7 +99,7 @@ export function useEnemyAI() {
 
     let movementDirection =
       enemyStates.value[enemyId] === 'chase'
-        ? directionToTarget()
+        ? directionToTarget(currentPosition, targetPosition as Position)
         : lastMovementDirection.value[enemyId] || randomDirection();
 
     if (!tryMoveInDirection(movementDirection)) {
@@ -193,6 +183,14 @@ export function useEnemyAI() {
           enemyStore.updateEnemyDirection(enemy.id, visualDirection);
         }
       } else if (enemyStates.value[enemy.id] === 'attack') {
+        const visualDirection = directionToTarget(position, playerPosition).includes('left')
+        ? 'left'
+        : directionToTarget(position, playerPosition).includes('right')
+          ? 'right'
+          : direction;
+          
+        enemyStore.updateEnemyDirection(enemy.id, visualDirection);
+
         action = 'attack';
         enemyStore.updateEnemyAction(enemy.id, action);
       } else {

@@ -14,6 +14,8 @@
     <slot name="enemies"></slot>
     <slot name="overlay"></slot>
     <slot name="skills"></slot>
+    <slot name="items"></slot>
+    <slot name="ui"></slot>
   </div>
 </template>
 

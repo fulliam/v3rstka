@@ -1,0 +1,19 @@
+.ui {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    .lightning {
+        display: flex;
+        flex-direction: column;
+        width: 70px;
+        height: 800px;
+        position: relative;
+    }
+}

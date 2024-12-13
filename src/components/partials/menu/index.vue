@@ -56,6 +56,20 @@ const items = [
       display: flex;
       justify-content: center;
       align-items: center;
+      background: violet;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      min-width: 120px;
+
+      &:hover {
+        background: rgba(238, 130, 238, 0.784);
+      }
+
+      a {
+        font-size: 32px;
+        color: white;
+      }
     }
   }
 }

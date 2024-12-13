@@ -34,6 +34,8 @@ defineProps<{
   width: 300px;
   height: 300px;
   border-radius: 50%;
+  /* border: none !important; */
+  border-color: aliceblue;
   background-color: rgba(0, 0, 0, 0);
   box-shadow:
     0 0 0 9999px rgba(0, 0, 0, 0.7),

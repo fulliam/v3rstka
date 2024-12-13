@@ -45,7 +45,19 @@ const convertToScreenCoordinates = (
   };
 };
 
+const directionToTarget = (position: Position, target: Position) => {
+  if (!target) return randomDirection();
+  const dx = target.x - position.x;
+  const dy = target.y - position.y;
+  if (Math.abs(dx) > Math.abs(dy)) {
+    return dx > 0 ? 'right' : 'left';
+  } else {
+    return dy > 0 ? 'down' : 'up';
+  }
+};
+
 export {
+  directionToTarget,
   randomDirection,
   randomAction,
   randomInterval,

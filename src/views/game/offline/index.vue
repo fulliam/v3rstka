@@ -1,7 +1,9 @@
 <template>
-  <Dungeon :seed="location" :shake="shakeDungeon">
-    <!-- :center-x="player.state.position.x / 2"
-    :center-y="player.state.position.y / 2" -->
+  <Dungeon 
+    :seed="location" :shake="shakeDungeon"
+    :center-x="player.state.position.x / 2"
+    :center-y="player.state.position.y / 1.5"
+  >
     <template #characters>
       <Player
         :character="player.info.character"
@@ -9,11 +11,9 @@
         :style="{
           position: 'absolute',
           zIndex: Math.floor(player.state.position.y),
-          left: `${player.state.position.x - characterSize / 2}px`,
-          top: `${player.state.position.y - characterSize}px`,
           width: `${characterSize}px`,
           height: `${characterSize}px`,
-          transform: direction ? 'scaleX(-1)' : '',
+          transform: `translate(${player.state.position.x - (characterSize / 2)}px, ${player.state.position.y - (characterSize * 0.9)}px) ${direction ? 'scaleX(-1)' : ''}`,
         }"
       />
     </template>
@@ -28,16 +28,14 @@
         :style="{
           position: 'absolute',
           zIndex: Math.floor(enemy.state.position.y),
-          left: `${enemy.state.position.x - characterSize / 2}px`,
-          top: `${enemy.state.position.y - characterSize}px`,
           width: `${characterSize}px`,
           height: `${characterSize}px`,
-          transform: enemy.state.direction === 'left' ? 'scaleX(-1)' : '',
+          transform: `translate(${enemy.state.position.x - characterSize / 2}px, ${enemy.state.position.y - (characterSize * 0.9)}px) ${enemy.state.direction === 'left' ? 'scaleX(-1)' : ''}`,
         }"
       />
     </template>
 
-    <template #overlay>
+    <!-- <template #overlay>
       <svg
         width="100vw"
         height="100vh"
@@ -53,17 +51,40 @@
           stroke-linejoin="round"
         />
       </svg>
-    </template>
+    </template> -->
 
-    <!-- <template #overlay>
+    <template #overlay>
       <Overlay
         :position="{ x: player.state.position.x, y: player.state.position.y }"
         style="z-index: 99999"
       />
-    </template> -->
+    </template>
 
-    <!-- <template #skills>
-      <SkillBar />
+    <template #skills>
+      <!-- <SkillBar /> -->
+    </template>
+
+    <template #items></template>
+
+    <!-- <template #ui>
+      <div class="ui">
+        <div class="lightning" style="left: 70%; width: 50px; height: 900px;">
+          <Animation :path="animations.decorations.lightning.cycle" />
+          <Animation :path="animations.decorations.lightning.linear" />
+        </div>
+        <div class="lightning" style="left: 20%; width: 100px;">
+          <Animation :path="animations.decorations.lightning.cycle" />
+          <Animation :path="animations.decorations.lightning.linear" />
+        </div>
+        <div class="lightning" style="left: 55%;">
+          <Animation :path="animations.decorations.lightning.cycle" />
+          <Animation :path="animations.decorations.lightning.linear" />
+        </div>
+        <div class="lightning" style="left: 5%;">
+          <Animation :path="animations.decorations.lightning.cycle" />
+          <Animation :path="animations.decorations.lightning.linear" />
+        </div>
+      </div>
     </template> -->
   </Dungeon>
 </template>
@@ -73,8 +94,8 @@ import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue';
 import Dungeon from '@/components/templates/dungeon/index.vue';
 import Player from '@/components/templates/character/offline/ally/index.vue';
 import Enemy from '@/components/templates/character/offline/enemy/index.vue';
-// import Overlay from '@/components/partials/overlay/index.vue';
-// import SkillBar from '@/components/templates/skillbar/index.vue';
+import Overlay from '@/components/partials/overlay/index.vue';
+import SkillBar from '@/components/templates/skillbar/index.vue';
 import { usePlayerMovement } from '@/composables/offline/ally/movement';
 import { useEnemyAI } from '@/composables/offline/enemy';
 import { useDungeonStore } from '@/stores/dungeon';
@@ -82,6 +103,8 @@ import { usePlayerStore } from '@/stores/player';
 import { useEnemyStore } from '@/stores/enemy';
 import { Position, Cell } from '@/types';
 import { aStarPathfinding } from '@/composables/offline/enemy/utils/astar';
+import Animation from '@/components/templates/animation/index.vue';
+import animations from '@/animations.json';
 
 let characterSize: number = 50;
 
@@ -138,7 +161,7 @@ watch(
       playerStore.updatePlayerPosition(newSpawnPoint, 'right');
     }
     // startEnemyGeneration();
-    generateEnemies(1);
+    generateEnemies(10);
   },
   { immediate: true }
 );
@@ -196,3 +219,7 @@ const getPolylinePoints = () => {
     .join(' ') || '';
 };
 </script>
+
+<style scoped lang="scss">
+@import './index.scss';
+</style>

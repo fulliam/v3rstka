@@ -1,11 +1,15 @@
 <template>
   <section>
-    <Menu />
+    <Menu style="z-index: 100;" />
+    <PracticleCube />
+    <!-- <ModelViewe :url="'@/assets/3D/character.obj'" /> -->
   </section>
 </template>
 
 <script setup lang="ts">
 import Menu from '@/components/partials/menu/index.vue';
+import PracticleCube from '@/components/partials/animations/3D_practicle_cube/index.vue';
+// import ModelViewe from '@/components/partials/animations/3D_model_view/index.vue';
 </script>
 
 <style scoped lang="scss">
