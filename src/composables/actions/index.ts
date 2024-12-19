@@ -53,15 +53,19 @@ export default function useActions(
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (online && !isOwn) return;
-  
+
     if (keys.value.hasOwnProperty(event.code)) {
       keys.value[event.code] = true;
     }
-  
+
     const actionEntry = actionList.value.find((a) => a.key === event.code);
     if (actionEntry) {
-      const action = actionEntry.name.includes('walk') ? 'walk' : actionEntry.name;
-      const isRunning = (keys.value['ShiftLeft'] || keys.value['ShiftRight']) && action === 'walk';
+      const action = actionEntry.name.includes('walk')
+        ? 'walk'
+        : actionEntry.name;
+      const isRunning =
+        (keys.value['ShiftLeft'] || keys.value['ShiftRight']) &&
+        action === 'walk';
       startAction(isRunning ? 'run' : action);
     }
   };
@@ -77,10 +81,13 @@ export default function useActions(
       stopAction();
     } else {
       const activeWalkKeys = Object.keys(keys.value).filter(
-        (key) => keys.value[key] && actionList.value.find((a) => a.key === key)?.name === 'walk'
+        (key) =>
+          keys.value[key] &&
+          actionList.value.find((a) => a.key === key)?.name === 'walk'
       );
       if (activeWalkKeys.length > 0) {
-        const action = keys.value['ShiftLeft'] || keys.value['ShiftRight'] ? 'run' : 'walk';
+        const action =
+          keys.value['ShiftLeft'] || keys.value['ShiftRight'] ? 'run' : 'walk';
         startAction(action);
       }
     }
@@ -101,13 +108,13 @@ export default function useActions(
     if (action) {
       const oldKey = action.key;
       action.key = newKey;
-      
+
       keys.value[newKey] = keys.value[oldKey] || false;
       delete keys.value[oldKey];
-  
+
       localStorage.setItem('actionList', JSON.stringify(actionList.value));
       initializeKeys();
-  
+
       unregisterKeyEvents();
       registerKeyEvents();
     }

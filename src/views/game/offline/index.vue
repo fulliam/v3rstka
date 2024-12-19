@@ -1,6 +1,7 @@
 <template>
-  <Dungeon 
-    :seed="location" :shake="shakeDungeon"
+  <Dungeon
+    :seed="location"
+    :shake="shakeDungeon"
     :center-x="player.state.position.x / 2"
     :center-y="player.state.position.y / 1.5"
   >
@@ -13,7 +14,7 @@
           zIndex: Math.floor(player.state.position.y),
           width: `${characterSize}px`,
           height: `${characterSize}px`,
-          transform: `translate(${player.state.position.x - (characterSize / 2)}px, ${player.state.position.y - (characterSize * 0.9)}px) ${direction ? 'scaleX(-1)' : ''}`,
+          transform: `translate(${player.state.position.x - characterSize / 2}px, ${player.state.position.y - characterSize * 0.9}px) ${direction ? 'scaleX(-1)' : ''}`,
         }"
       />
     </template>
@@ -30,7 +31,7 @@
           zIndex: Math.floor(enemy.state.position.y),
           width: `${characterSize}px`,
           height: `${characterSize}px`,
-          transform: `translate(${enemy.state.position.x - characterSize / 2}px, ${enemy.state.position.y - (characterSize * 0.9)}px) ${enemy.state.direction === 'left' ? 'scaleX(-1)' : ''}`,
+          transform: `translate(${enemy.state.position.x - characterSize / 2}px, ${enemy.state.position.y - characterSize * 0.9}px) ${enemy.state.direction === 'left' ? 'scaleX(-1)' : ''}`,
         }"
       />
     </template>
@@ -66,9 +67,9 @@
 
     <template #items></template>
 
-    <!-- <template #ui>
+    <template #ui>
       <div class="ui">
-        <div class="lightning" style="left: 70%; width: 50px; height: 900px;">
+        <!-- <div class="lightning" style="left: 70%; width: 50px; height: 900px;">
           <Animation :path="animations.decorations.lightning.cycle" />
           <Animation :path="animations.decorations.lightning.linear" />
         </div>
@@ -83,10 +84,29 @@
         <div class="lightning" style="left: 5%;">
           <Animation :path="animations.decorations.lightning.cycle" />
           <Animation :path="animations.decorations.lightning.linear" />
-        </div>
+        </div> -->
       </div>
-    </template> -->
+    </template>
   </Dungeon>
+
+  <div
+    style="
+      z-index: 999999;
+      position: absolute;
+      right: 40px;
+      top: 40px;
+      pointer-events: none;
+      width: 200px;
+      height: 140px;
+    "
+  >
+    <MiniMap
+      :dungeonMap="dungeonStore.dungeon"
+      :playerPosition="player.state.position"
+      :enemyPositions="enemies.map((enemy) => enemy.state.position)"
+      :cellSize="characterSize"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -95,7 +115,7 @@ import Dungeon from '@/components/templates/dungeon/index.vue';
 import Player from '@/components/templates/character/offline/ally/index.vue';
 import Enemy from '@/components/templates/character/offline/enemy/index.vue';
 import Overlay from '@/components/partials/overlay/index.vue';
-import SkillBar from '@/components/templates/skillbar/index.vue';
+// import SkillBar from '@/components/templates/skillbar/index.vue';
 import { usePlayerMovement } from '@/composables/offline/ally/movement';
 import { useEnemyAI } from '@/composables/offline/enemy';
 import { useDungeonStore } from '@/stores/dungeon';
@@ -103,8 +123,9 @@ import { usePlayerStore } from '@/stores/player';
 import { useEnemyStore } from '@/stores/enemy';
 import { Position, Cell } from '@/types';
 import { aStarPathfinding } from '@/composables/offline/enemy/utils/astar';
-import Animation from '@/components/templates/animation/index.vue';
-import animations from '@/animations.json';
+// import Animation from '@/components/templates/animation/index.vue';
+// import animations from '@/animations.json';
+import MiniMap from '@/components/templates/minimap/index.vue';
 
 let characterSize: number = 50;
 
@@ -200,23 +221,33 @@ const path = ref<Position[]>([]);
 
 const generatePath = (start: Position, end: Position) => {
   if (dungeonMap) {
-    path.value = aStarPathfinding(start, end, dungeonMap, dungeonStore.cellSize);
+    path.value = aStarPathfinding(
+      start,
+      end,
+      dungeonMap,
+      dungeonStore.cellSize
+    );
   }
 };
 
-watch(() =>[player.value.state.position, enemies?.value[0]?.state?.position], ([playerVal, enemyPos]) => {
-  if (playerVal) {
-    generatePath(playerVal, enemyPos);
+watch(
+  () => [player.value.state.position, enemies?.value[0]?.state?.position],
+  ([playerVal, enemyPos]) => {
+    if (playerVal) {
+      generatePath(playerVal, enemyPos);
+    }
   }
-});
+);
 
 const getPolylinePoints = () => {
-  return path.value
-    .map(
-      (point) =>
-        `${point.x * dungeonStore.cellSize + dungeonStore.cellSize / 2},${point.y * dungeonStore.cellSize + dungeonStore.cellSize / 2}`
-    )
-    .join(' ') || '';
+  return (
+    path.value
+      .map(
+        (point) =>
+          `${point.x * dungeonStore.cellSize + dungeonStore.cellSize / 2},${point.y * dungeonStore.cellSize + dungeonStore.cellSize / 2}`
+      )
+      .join(' ') || ''
+  );
 };
 </script>
 

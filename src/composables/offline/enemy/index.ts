@@ -23,9 +23,9 @@ export function useEnemyAI() {
   const lastMovementDirection = ref<Record<string, string>>({});
   const enemyStates = ref<Record<string, 'patrol' | 'chase' | 'attack'>>({});
 
-  const ATTACK_DISTANCE = 40;
-  const CHASE_DISTANCE = 500;
-  const AVOIDANCE_DISTANCE = 0;
+  const ATTACK_DISTANCE = 15;
+  const CHASE_DISTANCE = 100;
+  const AVOIDANCE_DISTANCE = 10;
 
   const moveEnemy = (
     enemyId: string,
@@ -144,11 +144,7 @@ export function useEnemyAI() {
         action = 'run';
         enemyStore.updateEnemyAction(enemy.id, action);
 
-        const { newPosition } = moveEnemy(
-          enemy.id,
-          position,
-          speed
-        );
+        const { newPosition } = moveEnemy(enemy.id, position, speed);
 
         const path = aStarPathfinding(
           newPosition,
@@ -183,12 +179,15 @@ export function useEnemyAI() {
           enemyStore.updateEnemyDirection(enemy.id, visualDirection);
         }
       } else if (enemyStates.value[enemy.id] === 'attack') {
-        const visualDirection = directionToTarget(position, playerPosition).includes('left')
-        ? 'left'
-        : directionToTarget(position, playerPosition).includes('right')
-          ? 'right'
-          : direction;
-          
+        const visualDirection = directionToTarget(
+          position,
+          playerPosition
+        ).includes('left')
+          ? 'left'
+          : directionToTarget(position, playerPosition).includes('right')
+            ? 'right'
+            : direction;
+
         enemyStore.updateEnemyDirection(enemy.id, visualDirection);
 
         action = 'attack';

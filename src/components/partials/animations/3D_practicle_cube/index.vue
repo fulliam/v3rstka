@@ -10,7 +10,11 @@ import * as THREE from 'three';
 const canvas = ref<HTMLCanvasElement | null>(null);
 
 // Утилиты
-function applyAtOffset(arr: Float32Array, step: number, fn: (offset: number) => void) {
+function applyAtOffset(
+  arr: Float32Array,
+  step: number,
+  fn: (offset: number) => void
+) {
   for (let offset = 0; offset < arr.length; offset += step) {
     fn(offset);
   }
@@ -20,8 +24,16 @@ function randomBetween(min: number, max: number): number {
   return Math.random() * (max - min) + min;
 }
 
-function randomiseVector(v: THREE.Vector3, min: number, max: number): THREE.Vector3 {
-  v.set(randomBetween(min, max), randomBetween(min, max), randomBetween(min, max));
+function randomiseVector(
+  v: THREE.Vector3,
+  min: number,
+  max: number
+): THREE.Vector3 {
+  v.set(
+    randomBetween(min, max),
+    randomBetween(min, max),
+    randomBetween(min, max)
+  );
   return v;
 }
 
@@ -54,7 +66,12 @@ onMounted(() => {
   if (!canvas.value) return;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    3000
+  );
   const renderer = new THREE.WebGLRenderer({ canvas: canvas.value });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -81,7 +98,10 @@ onMounted(() => {
   });
 
   const clusterGeometry = new THREE.BufferGeometry();
-  clusterGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  clusterGeometry.setAttribute(
+    'position',
+    new THREE.BufferAttribute(positions, 3)
+  );
   clusterGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
   const pixelMaterial = new THREE.PointsMaterial({
@@ -104,15 +124,19 @@ onMounted(() => {
   let positionInitial = randomiseVector(new THREE.Vector3(), -300, 300);
   const positionCurrent = new THREE.Vector3();
 
-  const cameraMover = makeRandomTimeout(() => {
-    lookAtInitial = lookAtTarget;
-    lookAtTarget = randomiseVector(new THREE.Vector3(), -100, 100);
+  const cameraMover = makeRandomTimeout(
+    () => {
+      lookAtInitial = lookAtTarget;
+      lookAtTarget = randomiseVector(new THREE.Vector3(), -100, 100);
 
-    positionInitial = positionTarget;
-    positionTarget = randomiseVector(new THREE.Vector3(), -300, 300);
+      positionInitial = positionTarget;
+      positionTarget = randomiseVector(new THREE.Vector3(), -300, 300);
 
-    cameraMover.schedule();
-  }, 5000, 10000);
+      cameraMover.schedule();
+    },
+    5000,
+    10000
+  );
 
   cameraMover.schedule();
 

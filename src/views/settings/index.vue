@@ -20,14 +20,14 @@ import useActions from '@/composables/actions';
 const { addActionMapping } = useActions(false);
 
 const actionList = ref<{ name: string; key: string }[]>([
-    { name: 'attack', key: 'KeyZ' },
-    { name: 'attack2', key: 'KeyX' },
-    { name: 'attack3', key: 'KeyC' },
-    { name: 'walk', key: 'ArrowUp' },
-    { name: 'walk', key: 'ArrowDown' },
-    { name: 'walk', key: 'ArrowLeft' },
-    { name: 'walk', key: 'ArrowRight' },
-    { name: 'jump', key: 'Space' },
+  { name: 'attack', key: 'KeyZ' },
+  { name: 'attack2', key: 'KeyX' },
+  { name: 'attack3', key: 'KeyC' },
+  { name: 'walk', key: 'ArrowUp' },
+  { name: 'walk', key: 'ArrowDown' },
+  { name: 'walk', key: 'ArrowLeft' },
+  { name: 'walk', key: 'ArrowRight' },
+  { name: 'jump', key: 'Space' },
 ]);
 
 const awaitingKeyInput = ref<{ name: string; key: string } | null>(null);
@@ -41,7 +41,9 @@ const updateBinding = (
     existingAction.key = '';
   }
 
-  const currentKeyIndex = actionList.value.findIndex((a) => a.key === action.key);
+  const currentKeyIndex = actionList.value.findIndex(
+    (a) => a.key === action.key
+  );
   if (currentKeyIndex !== -1) {
     actionList.value[currentKeyIndex].key = '';
   }

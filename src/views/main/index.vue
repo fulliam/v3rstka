@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Menu style="z-index: 100;" />
+    <Menu style="z-index: 100" />
     <PracticleCube />
     <!-- <ModelViewe :url="'@/assets/3D/character.obj'" /> -->
   </section>
