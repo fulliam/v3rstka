@@ -96,6 +96,8 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+$primary-color: #dbc8346d;
+
 .mini-map {
   display: grid;
   grid-template-rows: repeat(auto-fill, auto);
@@ -103,9 +105,16 @@ onMounted(() => {
   background: rgba(133, 133, 133, 0.9);
   width: 100%;
   height: 100%;
-  border: 1px solid orange;
   position: relative;
   overflow: hidden;
+
+  @include pixel-box(
+    $corner-size: 2,
+    $border-size: 2px,
+    $background-color: $primary-color
+  );
+
+  opacity: 0.5;
 }
 
 .mini-map-row {
@@ -130,7 +139,7 @@ onMounted(() => {
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: #00ff00;
+  background-color: #00ff00a8;
   border-radius: 50%;
   z-index: 10;
 }
@@ -140,7 +149,7 @@ onMounted(() => {
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: #ff0000;
+  background-color: #ff00008d;
   border-radius: 50%;
   z-index: 9;
 }
