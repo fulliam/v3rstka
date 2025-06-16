@@ -55,10 +55,10 @@
     </template> -->
 
     <template #overlay>
-      <Overlay
+      <!-- <Overlay
         :position="{ x: player.state.position.x, y: player.state.position.y }"
         style="z-index: 99999"
-      />
+      /> -->
     </template>
 
     <template #skills>
