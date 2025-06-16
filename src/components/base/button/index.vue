@@ -5,7 +5,10 @@
     :class="`btn--${type} ${disabled ? 'loading' : ''}`"
     @click="handleClick"
   >
-    <span v-if="isLoading" class="loader"></span>
+    <span
+      v-if="isLoading"
+      class="loader"
+    ></span>
     <span :style="isLoading ? 'opacity: 0' : ''">
       <slot name="icon" />
       {{ label }}
@@ -14,8 +17,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-
 interface Button {
   label?: string;
   type?: 'primary' | 'secondary' | 'danger' | 'base';

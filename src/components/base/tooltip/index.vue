@@ -8,8 +8,8 @@
     <slot></slot>
 
     <div
-      ref="tooltip"
       v-show="visible"
+      ref="tooltip"
       :class="['tooltip', position, visible ? 'visible' : '']"
       role="tooltip"
     >
@@ -19,8 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick } from 'vue';
-
 const trigger = ref<HTMLElement | null>(null);
 const tooltip = ref<HTMLElement | null>(null);
 const visible = ref(false);

@@ -1,10 +1,17 @@
 <template>
-  <div id="starshine" class="starshine-container">
-    <img :src="imageSrc" alt="Image" class="starshine-image" />
+  <div
+    id="starshine"
+    class="starshine-container"
+  >
+    <img
+      :src="imageSrc"
+      alt="Image"
+      class="starshine-image"
+    />
     <div
-      class="template shine"
       v-for="star in stars"
       :key="star.id"
+      class="template shine"
       :style="{
         top: star.position.top,
         left: star.position.left,
@@ -18,8 +25,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-
 interface Star {
   id: number;
   position: {

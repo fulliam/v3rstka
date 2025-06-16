@@ -52,7 +52,7 @@ export function aStarPathfinding(
     });
 
     if (current.x === endCell.x && current.y === endCell.y) {
-      let path: Position[] = [];
+      const path: Position[] = [];
       while (cameFrom[`${current.x},${current.y}`]) {
         path.push(current);
         current = cameFrom[`${current.x},${current.y}`];
@@ -63,7 +63,7 @@ export function aStarPathfinding(
     openList.splice(openList.indexOf(current), 1);
     closedList.add(`${current.x},${current.y}`);
 
-    for (let neighbor of neighbors) {
+    for (const neighbor of neighbors) {
       const neighborX = current.x + neighbor.x;
       const neighborY = current.y + neighbor.y;
 

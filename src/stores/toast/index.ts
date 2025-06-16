@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia';
-import { ref, onBeforeUnmount } from 'vue';
 import type { Toast } from '@/types';
 
 export const useToastStore = defineStore('toast', () => {

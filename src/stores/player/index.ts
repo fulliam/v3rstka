@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia';
 import { createDefaultPlayer } from '@/plugins/generators/character/player';
 import {
   calculateHealth,

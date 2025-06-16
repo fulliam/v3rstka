@@ -1,14 +1,18 @@
 <template>
   <div class="auth-container">
-    <div :key="authKey" class="form" @submit.prevent="handleSubmit">
+    <div
+      :key="authKey"
+      class="form"
+      @submit.prevent="handleSubmit"
+    >
       <h2>{{ isLogin ? 'Login' : 'Register' }}</h2>
 
       <Input
         v-model="username"
         placeholder="Username"
         :error="usernameError"
-        @input="clearError('username')"
         required
+        @input="clearError('username')"
       />
 
       <Input
@@ -16,8 +20,8 @@
         :type="'password'"
         placeholder="Password"
         :error="passwordError"
-        @input="clearError('password')"
         required
+        @input="clearError('password')"
       />
 
       <Input
@@ -26,12 +30,15 @@
         :type="'password'"
         placeholder="Confirm Password"
         :error="confirmPasswordError"
-        @input="clearError('confirmPassword')"
         required
+        @input="clearError('confirmPassword')"
       />
     </div>
 
-    <div :key="authKey" class="auth-footer">
+    <div
+      :key="authKey"
+      class="auth-footer"
+    >
       <Button
         type="secondary"
         :label="isLogin ? 'Login' : 'Register'"
@@ -43,7 +50,10 @@
         "
       />
 
-      <p class="switch-mode" @click="toggleMode">
+      <p
+        class="switch-mode"
+        @click="toggleMode"
+      >
         {{
           isLogin
             ? 'Don`t have an account? Register'
@@ -62,9 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import { useRouter } from 'vue-router';
 import { useToastStore } from '@/stores/toast';
 
 const { register, login } = useAuthStore();

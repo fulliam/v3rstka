@@ -1,14 +1,25 @@
 <template>
-  <div class="click-parent" @click="setPosition">
-    <div v-if="isActive" ref="dotRef" class="dot" :style="containerStyle">
+  <div
+    class="click-parent"
+    @click="setPosition"
+  >
+    <div
+      v-if="isActive"
+      ref="dotRef"
+      class="dot"
+      :style="containerStyle"
+    >
       <slot></slot>
     </div>
-    <div v-if="isPositioningMode" class="pulse-mouse" :style="pulseStyle" />
+    <div
+      v-if="isPositioningMode"
+      class="pulse-mouse"
+      :style="pulseStyle"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick, onBeforeUnmount } from 'vue';
 import { useDungeonStore } from '@/stores/dungeon';
 
 const dungeonStore = useDungeonStore();

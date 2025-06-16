@@ -7,14 +7,17 @@
       top: `${enemy.state.position.y - 50}px`,
     }"
   >
-    <div class="enemy__health" :style="{}">
+    <div
+      class="enemy__health"
+      :style="{}"
+    >
       <div
         class="enemy__health-inner"
         :style="{ width: healthPercentage + '%' }"
       >
-        <span
-          >{{ enemy.state.health.current }}/{{ enemy.state.health.max }}</span
-        >
+        <span>
+          {{ enemy.state.health.current }}/{{ enemy.state.health.max }}
+        </span>
       </div>
     </div>
 
@@ -28,7 +31,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
 import animations from '@/animations.json';
 
 const props = defineProps({

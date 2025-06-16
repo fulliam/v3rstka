@@ -5,8 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, onUnmounted } from 'vue';
-
 interface RadarChartProps {
   size: [number, number];
   step: number;

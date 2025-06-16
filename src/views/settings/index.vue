@@ -1,20 +1,23 @@
 <template>
   <section>
     <h1>Настройки управления</h1>
-    <div v-for="(action, index) in actionList" :key="index" class="binding">
+    <div
+      v-for="(action, index) in actionList"
+      :key="index"
+      class="binding"
+    >
       <span class="binding-name">{{ action.name }}</span>
       <Button
-        @click="awaitKeyInput(action)"
         :class="['binding-button', { active: awaitingKeyInput === action }]"
         :label="action.key"
         type="base"
+        @click="awaitKeyInput(action)"
       />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
 import useActions from '@/composables/actions';
 
 const { addActionMapping } = useActions(false);

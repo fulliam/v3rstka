@@ -3,47 +3,60 @@
     class="input"
     :class="{ dark, error, disabled, big, full, colored, small }"
   >
-    <div v-if="label || hint" class="text">
+    <div
+      v-if="label || hint"
+      class="text"
+    >
       <label
         v-if="label"
         :class="{ required }"
         :style="labelStyle"
         :for="inputId"
-        >{{ label }}</label
       >
+        {{ label }}
+      </label>
       <p v-if="hint">{{ hint }}</p>
     </div>
     <div class="input__container">
       <input
+        v-bind="$attrs"
+        :id="inputId"
+        v-model="currentInput"
         v-maska
         :data-maska="maska"
-        v-bind="$attrs"
         :placeholder="placeholder"
         :type="isHide ? type : 'text'"
-        v-model="currentInput"
         :disabled="disabled"
         :maxlength="maxLength"
         :max="`'${max}'`"
-        :id="inputId"
       />
-      <button class="dice-icon" v-if="dice" @click="clickDice">
+      <button
+        v-if="dice"
+        class="dice-icon"
+        @click="clickDice"
+      >
         <Icon.Dice />
       </button>
       <button
+        v-if="type === 'password' && !dice"
         class="password-icon"
         :disabled="!currentInput"
-        v-if="type === 'password' && !dice"
         @click="toggleHide"
       >
-        <Icon.Eye v-if="!isHide" class="" />
-        <Icon.CrossEye v-else class="" />
+        <Icon.Eye
+          v-if="!isHide"
+          class=""
+        />
+        <Icon.CrossEye
+          v-else
+          class=""
+        />
       </button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup generic="T = 'string'">
-import { computed, ref, watch } from 'vue';
 import { Icon } from '@/assets/icons/index';
 import { vMaska } from 'maska/vue';
 
@@ -69,7 +82,7 @@ interface IInput {
   type?: string;
   value?: any;
   maska?: string;
-  dice?: Boolean;
+  dice?: boolean;
   clickDice?: () => Promise<void>;
   labelStyle?: any;
 }

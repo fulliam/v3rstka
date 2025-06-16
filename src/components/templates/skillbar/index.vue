@@ -29,7 +29,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import ClickParent from '@/components/partials/clickparent/index.vue';
 import Animation from '@/components/templates/animation/index.vue';
 import animations from '@/animations.json';

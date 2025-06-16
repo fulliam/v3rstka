@@ -1,6 +1,9 @@
 <template>
   <div class="chat-container">
-    <div ref="messagesContainer" class="messages">
+    <div
+      ref="messagesContainer"
+      class="messages"
+    >
       <div
         v-for="message in messages"
         :key="message.userId + message.content"
@@ -12,14 +15,13 @@
     </div>
     <input
       v-model="newMessage"
-      @keyup.enter="sendMessage"
       placeholder="Type a message..."
+      @keyup.enter="sendMessage"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onUpdated } from 'vue';
 import { useSocketStore } from '@/stores/socket';
 import { useChatStore } from '@/stores/chat';
 

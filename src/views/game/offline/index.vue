@@ -40,7 +40,7 @@
       <svg
         width="100vw"
         height="100vh"
-        style="position: absolute; z-index: 100000; pointer-events: none;"
+        style="position: absolute; z-index: 100000; pointer-events: none"
       >
         <polyline
           v-if="path.length > 1"
@@ -110,11 +110,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue';
 import Dungeon from '@/components/templates/dungeon/index.vue';
 import Player from '@/components/templates/character/offline/ally/index.vue';
 import Enemy from '@/components/templates/character/offline/enemy/index.vue';
-import Overlay from '@/components/partials/overlay/index.vue';
 // import SkillBar from '@/components/templates/skillbar/index.vue';
 import { usePlayerMovement } from '@/composables/offline/ally/movement';
 import { useEnemyAI } from '@/composables/offline/enemy';

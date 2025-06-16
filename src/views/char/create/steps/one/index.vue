@@ -1,7 +1,10 @@
 <template>
   <div class="step-one">
     <NickNameInput />
-    <Carousel :cards="cards" @change="changeCard" />
+    <Carousel
+      :cards="cards"
+      @change="changeCard"
+    />
     <Button
       class="continue-button"
       type="base"
@@ -12,7 +15,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
 import Carousel from '@/components/partials/carousel/index.vue';
 import NickNameInput from '@/components/templates/nickname/index.vue';
 import Animation from '@/components/templates/animation/index.vue';

@@ -8,10 +8,17 @@
     <div>
       <button @click="openNewModal">Открыть модальное окно</button>
 
-      <Modal v-for="modal in modalStore.modals" :key="modal.id" :id="modal.id">
+      <Modal
+        v-for="modal in modalStore.modals"
+        :id="modal.id"
+        :key="modal.id"
+      >
         <div style="background-color: #666">
           {{ modal.content }}
-          <SkillTree :tree="tree" :speech-box="speechBoxData" />
+          <SkillTree
+            :tree="tree"
+            :speech-box="speechBoxData"
+          />
         </div>
       </Modal>
 
@@ -39,7 +46,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import SkillTree from '@/components/templates/modals/skilltree/index.vue';
 import Animation from '@/components/templates/animation/index.vue';
 import { useModalStore } from '@/stores/modal';

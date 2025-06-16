@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia';
 import createWebSocket from '@/plugins/socket';
 import type { Player, Position, Attack, Direction } from '@/types';
 import { useChatStore } from '@/stores/chat';

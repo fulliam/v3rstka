@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia';
-
 interface Message {
   userId: string;
   content: string;

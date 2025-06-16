@@ -328,415 +328,493 @@ $line9_:
 
 @keyframes fill-100 {
   0% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0;
   }
   10% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   20% {
-    box-shadow: $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   30% {
-    box-shadow: $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   40% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   50% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   60% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   70% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   80% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7_, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7_,
+      $line8, $line9, $border, $line0_;
   }
 
   90% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7_, $line8_, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7_,
+      $line8_, $line9, $border, $line0_;
   }
 
   95% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7_, $line8_, $line9_, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7_,
+      $line8_, $line9_, $border, $line0_;
   }
 
   100% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7_, $line8_, $line9_, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7_,
+      $line8_, $line9_, $border, $line0_;
   }
 }
 
 @keyframes fill-95 {
   0% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0;
   }
   10% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   20% {
-    box-shadow: $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   30% {
-    box-shadow: $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   40% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   50% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   60% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   70% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   80% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7_, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7_,
+      $line8, $line9, $border, $line0_;
   }
 
   90% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7_, $line8_, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7_,
+      $line8_, $line9, $border, $line0_;
   }
 
   95%,
   100% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7_, $line8_, $line9_, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7_,
+      $line8_, $line9_, $border, $line0_;
   }
 }
 
 @keyframes fill-90 {
   0% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0;
   }
   10% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   20% {
-    box-shadow: $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   30% {
-    box-shadow: $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   40% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   50% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   60% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   70% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   80% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7_, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7_,
+      $line8, $line9, $border, $line0_;
   }
 
   90%,
   100% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7_, $line8_, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7_,
+      $line8_, $line9, $border, $line0_;
   }
 }
 
 @keyframes fill-80 {
   0% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0;
   }
   10% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   20% {
-    box-shadow: $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   30% {
-    box-shadow: $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   40% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   50% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   60% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   70% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   80%,
   100% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7_, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7_,
+      $line8, $line9, $border, $line0_;
   }
 }
 
 @keyframes fill-70 {
   0% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0;
   }
   10% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   20% {
-    box-shadow: $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   30% {
-    box-shadow: $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   40% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   50% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   60% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   70%,
   100% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6_, $line7,
+      $line8, $line9, $border, $line0_;
   }
 }
 
 @keyframes fill-60 {
   0% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0;
   }
   10% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   20% {
-    box-shadow: $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   30% {
-    box-shadow: $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   40% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   50% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 
   60%,
   100% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5_, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 }
 
 @keyframes fill-50 {
   0% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0;
   }
   10% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   20% {
-    box-shadow: $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   30% {
-    box-shadow: $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   40% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   50%,
   100% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4_, $line5, $line6, $line7,
+      $line8, $line9, $border, $line0_;
   }
 }
 
 @keyframes fill-40 {
   0% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0;
   }
   10% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   20% {
-    box-shadow: $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   30% {
-    box-shadow: $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   40%,
   100% {
-    box-shadow: $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6,
-      $line7, $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3_, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 }
 
 @keyframes fill-30 {
   0% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0;
   }
   10% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   20% {
-    box-shadow: $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   30%,
   100% {
-    box-shadow: $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2_, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 }
 
 @keyframes fill-20 {
   0% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0;
   }
   10% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 
   20%,
   100% {
-    box-shadow: $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1_, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 }
 
 @keyframes fill-10 {
   0% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0;
   }
   10%,
   100% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0_;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0_;
   }
 }
 
 @keyframes fill-0 {
   0%,
   100% {
-    box-shadow: $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7,
-      $line8, $line9, $border, $line0;
+    box-shadow:
+      $shine, $line1, $line2, $line3, $line4, $line5, $line6, $line7, $line8,
+      $line9, $border, $line0;
   }
 }
 </style>

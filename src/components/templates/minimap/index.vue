@@ -1,5 +1,8 @@
 <template>
-  <div class="mini-map" ref="miniMapContainer">
+  <div
+    ref="miniMapContainer"
+    class="mini-map"
+  >
     <!-- Карта -->
     <div
       v-for="(row, rowIndex) in dungeonMap"
@@ -35,7 +38,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, PropType } from 'vue';
 import { Cell, Position } from '@/types';
 
 const props = defineProps({

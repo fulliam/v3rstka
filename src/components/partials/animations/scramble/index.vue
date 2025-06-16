@@ -1,12 +1,13 @@
 <template>
   <div class="scrumble">
-    <div ref="textEl" class="text"></div>
+    <div
+      ref="textEl"
+      class="text"
+    ></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
-
 const props = defineProps<{
   phrases: string[];
   enableReturnValue?: boolean;

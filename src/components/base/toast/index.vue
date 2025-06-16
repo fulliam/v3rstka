@@ -26,7 +26,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useToastStore } from '@/stores/toast';
 import type { Toast } from '@/types';
 

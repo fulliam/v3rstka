@@ -1,13 +1,18 @@
 <template>
   <section>
     <Firefly />
-    <StepOne v-if="currentStep === 1" @step="setStep" />
-    <StepTwo v-if="currentStep === 2" @step="setStep" />
+    <StepOne
+      v-if="currentStep === 1"
+      @step="setStep"
+    />
+    <StepTwo
+      v-if="currentStep === 2"
+      @step="setStep"
+    />
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import Firefly from '@/components/templates/firefly/index.vue';
 import StepOne from './steps/one/index.vue';
 import StepTwo from './steps/two/index.vue';

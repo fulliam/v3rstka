@@ -1,7 +1,10 @@
 <template>
   <div class="json-viewer">
     <ul>
-      <li v-for="(value, key) in data" :key="key">
+      <li
+        v-for="(value, key) in data"
+        :key="key"
+      >
         <strong>{{ key }}:</strong>
         <div v-if="isObject(value)">
           <JsonView :data="value" />

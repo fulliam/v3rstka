@@ -1,6 +1,7 @@
 <template>
   <div class="nickname">
     <Input
+      v-model="nickname"
       style="
         min-width: 400px;
         min-height: 50px;
@@ -8,17 +9,16 @@
         color: #cd6e3f;
       "
       :label-style="{ color: '#cd6e3f', fontSize: '24px' }"
-      v-model="nickname"
       label="Enter your nickname or generate:"
       :error="nicknameError"
       :clickDice="debounceGenerateNickname"
-      @input="nicknameError = ''"
       :dice="true"
       required
+      @input="nicknameError = ''"
     />
     <TextScramble
-      style="display: none"
       v-if="updateScramble"
+      style="display: none"
       :phrases="[generatedNickname]"
       enable-return-value
       @output="handleUpdateNickname"
@@ -27,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeUnmount, onMounted } from 'vue';
 import { debounce } from '@/lib/helpers/debounce';
 import TextScramble from '@/components/partials/animations/scramble/index.vue';
 

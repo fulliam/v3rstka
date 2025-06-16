@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia';
 import { Cell, Position } from '@/types';
 import DungeonGenerator from '@/plugins/generators/dungeon';
 

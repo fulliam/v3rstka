@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { initFireflies } from '@/plugins/generators/firefly';
 
 onMounted(() => {

@@ -1,5 +1,8 @@
 <template>
-  <World ref="world" :scenes="actsData['ActI']">
+  <World
+    ref="world"
+    :scenes="actsData['ActI']"
+  >
     <template #character>
       <Player
         :character="player.info.character"
@@ -11,7 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import World from '@/components/templates/world/index.vue';
 import { actsData } from './assets';
 import Player from '@/components/templates/character/offline/ally/index.vue';

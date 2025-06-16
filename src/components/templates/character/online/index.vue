@@ -12,11 +12,11 @@
         class="character__health-inner"
         :style="{ width: healthPercentage + '%' }"
       >
-        <span
-          >{{ props.character.state.health.current }}/{{
+        <span>
+          {{ props.character.state.health.current }}/{{
             props.character.state.health.max
-          }}</span
-        >
+          }}
+        </span>
       </div>
     </div>
 
@@ -30,7 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed, onMounted, onUnmounted } from 'vue';
 import { useSocketStore } from '@/stores/socket';
 import { useDungeonStore } from '@/stores/dungeon';
 import useActions from '@/composables/actions';

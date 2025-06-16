@@ -73,7 +73,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue';
 import Character from '@/components/templates/character/online/index.vue';
 import BotViewer from '@/views/game/online/tmp/BotViewer.vue';
 // import ChatViewer from '@/views/game/online/tmp/ChatViewer.vue';

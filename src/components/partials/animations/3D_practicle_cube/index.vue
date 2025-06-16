@@ -1,9 +1,11 @@
 <template>
-  <canvas ref="canvas" class="particle-field"></canvas>
+  <canvas
+    ref="canvas"
+    class="particle-field"
+  ></canvas>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
 import * as THREE from 'three';
 
 const canvas = ref<HTMLCanvasElement | null>(null);

@@ -11,26 +11,44 @@
         class="route line-1"
       >
         <div
-          class="line-wrapper"
           v-for="(frame, frameIndex) in route.frames"
           :key="`frame-${frameIndex}`"
+          class="line-wrapper"
         >
-          <div class="frame" :class="{ active: frame.active }">
-            <img :src="frame.img.src" :alt="frame.img.alt" />
+          <div
+            class="frame"
+            :class="{ active: frame.active }"
+          >
+            <img
+              :src="frame.img.src"
+              :alt="frame.img.alt"
+            />
             <span>{{ frame.title }}</span>
           </div>
 
-          <div v-if="frameIndex < route.frames.length - 1" class="line-wrapper">
-            <div class="line" :style="{ width: route.lineWidth + 'px' }"></div>
+          <div
+            v-if="frameIndex < route.frames.length - 1"
+            class="line-wrapper"
+          >
+            <div
+              class="line"
+              :style="{ width: route.lineWidth + 'px' }"
+            ></div>
             <div class="angle-right"></div>
           </div>
         </div>
       </div>
     </div>
 
-    <div v-if="speechBox" class="speech-box">
+    <div
+      v-if="speechBox"
+      class="speech-box"
+    >
       <div class="speech-img">
-        <img :src="speechBox.img.src" :alt="speechBox.img.alt" />
+        <img
+          :src="speechBox.img.src"
+          :alt="speechBox.img.alt"
+        />
       </div>
       <div class="speech-text">
         <h4>{{ speechBox.title }}</h4>

@@ -1,10 +1,11 @@
 <template>
-  <img :src="String(currentImage)" alt="Animation frame" />
+  <img
+    :src="String(currentImage)"
+    alt="Animation frame"
+  />
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue';
-
 const props = defineProps({
   path: {
     type: Object,

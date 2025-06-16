@@ -1,9 +1,24 @@
 <template>
-  <div class="act-container" :style="containerStyle">
-    <slot name="decorations" :scene="styledScenes"></slot>
-    <slot name="enemy" :scene="styledScenes"></slot>
-    <slot name="currencies" :scene="styledScenes"></slot>
-    <slot name="character" :scene="styledScenes"></slot>
+  <div
+    class="act-container"
+    :style="containerStyle"
+  >
+    <slot
+      name="decorations"
+      :scene="styledScenes"
+    ></slot>
+    <slot
+      name="enemy"
+      :scene="styledScenes"
+    ></slot>
+    <slot
+      name="currencies"
+      :scene="styledScenes"
+    ></slot>
+    <slot
+      name="character"
+      :scene="styledScenes"
+    ></slot>
 
     <div
       v-for="(styledScene, index) in styledScenes"
@@ -17,7 +32,10 @@
           :class="['bg-part', styledPart.class]"
           :style="styledPart.style"
         >
-          <img :src="styledPart.src" :alt="styledPart.alt || ' '" />
+          <img
+            :src="styledPart.src"
+            :alt="styledPart.alt || ' '"
+          />
         </div>
       </slot>
     </div>
@@ -25,8 +43,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
-
 type ScenePart = {
   src: string;
   alt?: string;

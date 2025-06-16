@@ -1,8 +1,21 @@
 <template>
-  <div class="modal" :class="{ active: isActive }" v-if="isActive">
-    <div class="overlay" @click="handleClose"></div>
-    <div id="modal" class="window">
-      <Icon.Cross class="close" @click="handleClose" />
+  <div
+    v-if="isActive"
+    class="modal"
+    :class="{ active: isActive }"
+  >
+    <div
+      class="overlay"
+      @click="handleClose"
+    ></div>
+    <div
+      id="modal"
+      class="window"
+    >
+      <Icon.Cross
+        class="close"
+        @click="handleClose"
+      />
       <div class="modal-content">
         <slot></slot>
       </div>
@@ -13,7 +26,6 @@
 <script lang="ts" setup>
 import { Icon } from '@/assets/icons';
 import { useModalStore } from '@/stores/modal';
-import { ref, computed, watch, onBeforeUnmount } from 'vue';
 
 const props = defineProps<{ id: string }>();
 const emit = defineEmits(['close']);

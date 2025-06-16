@@ -2,10 +2,12 @@
   <div class="controller">
     <empty><i></i></empty>
     <button><i>w</i></button>
-    <empty><i></i></empty><br />
+    <empty><i></i></empty>
+    <br />
     <button><i>a</i></button>
     <button><i>s</i></button>
-    <button><i>d</i></button><br />
+    <button><i>d</i></button>
+    <br />
   </div>
 </template>
 

@@ -1,6 +1,3 @@
-import { defineStore } from 'pinia';
-import { ref } from 'vue';
-
 export const useModalStore = defineStore('modalStore', () => {
   const modals = ref<Array<{ id: string; content: any }>>([]);
 

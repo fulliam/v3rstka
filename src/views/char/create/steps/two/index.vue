@@ -8,7 +8,10 @@
           </th>
           <th>
             <h2>
-              <TextScramble v-if="playScramble" :phrases="[currentCharacter]" />
+              <TextScramble
+                v-if="playScramble"
+                :phrases="[currentCharacter]"
+              />
               <span v-else>{{ currentCharacter }}</span>
             </h2>
           </th>
@@ -40,7 +43,10 @@
               >
                 <span class="stat-name">{{ stat }}:</span>
                 <div>
-                  <button :disabled="value <= 2" @click="decreaseStat(stat)">
+                  <button
+                    :disabled="value <= 2"
+                    @click="decreaseStat(stat)"
+                  >
                     -
                   </button>
                   <span class="stat-value">{{ value }}</span>
@@ -107,7 +113,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue';
 import Chart from '@/components/partials/chart/index.vue';
 import TextScramble from '@/components/partials/animations/scramble/index.vue';
 import Hearths from '@/components/partials/hearths/index.vue';

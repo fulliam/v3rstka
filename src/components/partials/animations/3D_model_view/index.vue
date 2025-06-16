@@ -1,9 +1,11 @@
 <template>
-  <canvas ref="canvas" class="model-viewer"></canvas>
+  <canvas
+    ref="canvas"
+    class="model-viewer"
+  ></canvas>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 

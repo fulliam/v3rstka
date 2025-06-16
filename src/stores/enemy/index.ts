@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia';
 import { createEnemy } from '@/plugins/generators/character/enemy';
 import type { Player, Direction } from '@/types/index';
 

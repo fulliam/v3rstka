@@ -1,6 +1,13 @@
 <template>
-  <div class="dungeon-map" :class="{ shake: props.shake }">
-    <div v-for="(row, rowIndex) in dungeonMap" :key="rowIndex" class="row">
+  <div
+    class="dungeon-map"
+    :class="{ shake: props.shake }"
+  >
+    <div
+      v-for="(row, rowIndex) in dungeonMap"
+      :key="rowIndex"
+      class="row"
+    >
       <div
         v-for="(cell, colIndex) in row"
         :key="colIndex"
@@ -20,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
 import { useDungeonStore } from '@/stores/dungeon';
 import { Cell } from '@/types';
 

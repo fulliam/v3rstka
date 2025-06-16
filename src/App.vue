@@ -1,5 +1,8 @@
 <template>
-  <nav class="nav" v-show="false">
+  <nav
+    v-show="false"
+    class="nav"
+  >
     <ul>
       <li>
         <RouterLink to="/">Main menu</RouterLink>
@@ -30,7 +33,12 @@
       </li>
     </ul>
 
-    <Button type="danger" class="logout" label="Logout" :action="logout" />
+    <Button
+      type="danger"
+      class="logout"
+      label="Logout"
+      :action="logout"
+    />
     <!-- <Button type="primary" class="logout" label="Respawn" :action="setSpawnPoint" /> -->
   </nav>
 

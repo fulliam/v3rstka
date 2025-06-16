@@ -1,7 +1,5 @@
-import { defineStore } from 'pinia';
-import { API } from '@/stores/api';
+import { API } from '@/api';
 import Cookies from 'js-cookie';
-import { useRouter } from 'vue-router';
 
 interface AuthState {
   token: string | null;

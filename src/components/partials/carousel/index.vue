@@ -8,15 +8,16 @@
         :style="getCardStyle(index)"
         @click="onCardClick(index)"
       >
-        <component :is="card.component" v-bind="card.props" />
+        <component
+          :is="card.component"
+          v-bind="card.props"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-
 interface Card {
   id: string;
   component: any;
