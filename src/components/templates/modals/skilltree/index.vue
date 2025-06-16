@@ -110,12 +110,6 @@ $c-shadow: 1px 1px #cd6e3f;
   margin: 35px;
   cursor: pointer;
   display: inline-block;
-  @include pixel-box(
-    $corner-size: 2,
-    $border-size: 5px,
-    $background-color: $c-border,
-    $background-color-hover: $c-border
-  );
 
   &:after {
     content: '';
@@ -152,6 +146,13 @@ $c-shadow: 1px 1px #cd6e3f;
     font-weight: bold;
     text-shadow: $c-shadow;
   }
+
+  @include pixel-box(
+    $corner-size: 2,
+    $border-size: 5px,
+    $background-color: $c-border,
+    $background-color-hover: $c-border
+  );
 }
 
 .line-wrapper {

@@ -108,14 +108,13 @@ $primary-color: #c7c7c56d;
   height: 100%;
   position: relative;
   overflow: hidden;
+  opacity: 0.5;
 
   @include pixel-box(
     $corner-size: 2,
     $border-size: 2px,
     $background-color: $primary-color
   );
-
-  opacity: 0.5;
 }
 
 .mini-map-row {

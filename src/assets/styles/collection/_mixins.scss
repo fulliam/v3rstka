@@ -1,9 +1,13 @@
+@use "sass:color";
+@use "sass:string";
+
 // Генерация изображения для углов
 @function pixel-borders-image($corner-size, $color) {
   $svg: '';
   $svg-path: '';
   $svg-size: $corner-size * 6;
-  $color: str-replace('' + $color, '#', '%23');
+  // Используем пользовательскую функцию str-replace для замены символов
+  $color: str-replace("#{$color}", "#", "%23");
 
   @if $corner-size == 1 {
     $svg-path: 'M0 2h2v2H0zM2 0h2v2H2zM4 2h2v2H4zM2 4h2v2H2z';
@@ -18,12 +22,13 @@
 
 // Замена строки - заменяем `$search` на `$replace` в `$string`
 @function str-replace($string, $search, $replace: '') {
-  $index: str-index($string, $search);
+  $index: string.index($string, $search);
 
   @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace +
-      str-replace(
-        str-slice($string, $index + str-length($search)),
+    @return string.slice($string, 1, $index - 1)
+      + $replace
+      + str-replace(
+        string.slice($string, $index + string.length($search)),
         $search,
         $replace
       );
@@ -83,22 +88,16 @@
   $box-shadow: '';
 
   @if $border-inset-sides == 'bottom-right' or $border-inset-sides == false {
-    $box-shadow: inset -#{$border-inset-size} -#{$border-inset-size}
-      $border-inset-color-br;
+    $box-shadow: inset -#{$border-inset-size} -#{$border-inset-size} $border-inset-color-br;
   }
 
   @if $border-inset-sides == 'top-left' {
-    $box-shadow: inset
-      $border-inset-size
-      $border-inset-size
-      $border-inset-color-tl;
+    $box-shadow: inset #{$border-inset-size} #{$border-inset-size} $border-inset-color-tl;
   }
 
   @if $border-inset-sides == 'all' {
-    $box-shadow:
-      inset -#{$border-inset-size} -#{$border-inset-size}
-        $border-inset-color-br,
-      inset $border-inset-size $border-inset-size $border-inset-color-tl;
+    $box-shadow: inset -#{$border-inset-size} -#{$border-inset-size} $border-inset-color-br,
+      inset #{$border-inset-size} #{$border-inset-size} $border-inset-color-tl;
   }
 
   &::after {
@@ -132,11 +131,11 @@
   background: $background;
 
   @if not($background-color-hover) {
-    $background-color-hover: darken($background-color, 15%);
+    $background-color-hover: color.adjust($background-color, $lightness: -15%);
   }
 
   @if not($border-color) {
-    $border-color: darken($background-color, 20%);
+    $border-color: color.adjust($background-color, $lightness: -20%);
   }
 
   @include pixel-borders(
@@ -146,8 +145,8 @@
   );
 
   @if $border-inset-sides == 'all' and not($border-inset-color) {
-    $border-inset-color-br: darken($background-color, 10%);
-    $border-inset-color-tl: lighten($background-color, 15%);
+    $border-inset-color-br: color.adjust($background-color, $lightness: -10%);
+    $border-inset-color-tl: color.adjust($background-color, $lightness: 15%);
   }
 
   @if not($border-inset-color) {
@@ -155,7 +154,7 @@
   }
 
   @if $border-inset-sides == 'top-left' {
-    $border-inset-color: lighten($background-color, 15%);
+    $border-inset-color: color.adjust($background-color, $lightness: 15%);
   }
 
   @if $border-inset {

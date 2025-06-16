@@ -68,12 +68,6 @@ $primary-color: violet;
       min-width: 180px;
       transition: background-color 0.3s ease;
 
-      @include pixel-box(
-        $corner-size: 2,
-        $border-size: 2px,
-        $background-color: $primary-color
-      );
-
       &:hover {
         background: rgba(238, 130, 238, 0.784);
       }
@@ -83,6 +77,12 @@ $primary-color: violet;
         text-decoration: none;
         color: white;
       }
+
+      @include pixel-box(
+        $corner-size: 2,
+        $border-size: 2px,
+        $background-color: $primary-color
+      );
     }
   }
 }

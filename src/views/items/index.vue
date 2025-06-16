@@ -30,6 +30,8 @@ import animations from '@/animations.json';
 </script>
 
 <style scoped lang="scss">
+@use "sass:color";
+
 .items {
   margin: 20px;
   padding: 20px;
@@ -63,7 +65,7 @@ import animations from '@/animations.json';
       $border-size: 2px,
       $border-color: #5bcbac2b,
       $background-color: #5bcbac2b,
-      $background-color-hover: lighten(#5bcbac2b, 10%)
+      $background-color-hover: color.adjust(#5bcbac2b, $lightness: 10%)
     );
   }
 

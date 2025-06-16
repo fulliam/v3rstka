@@ -164,12 +164,6 @@ $box-shadow-color: rgba(0, 0, 0, 0.5);
     color: $color-input-text;
     line-height: 120%;
 
-    @include pixel-borders(
-      $corner-size: 2,
-      $border-size: 2px,
-      $border-color: $color-input-border
-    );
-
     &::placeholder {
       color: $color-placeholder-text;
     }
@@ -177,6 +171,12 @@ $box-shadow-color: rgba(0, 0, 0, 0.5);
     &:focus {
       outline: none;
     }
+
+    @include pixel-borders(
+      $corner-size: 2,
+      $border-size: 2px,
+      $border-color: $color-input-border
+    );
   }
 
   input[type='time']::-webkit-calendar-picker-indicator {

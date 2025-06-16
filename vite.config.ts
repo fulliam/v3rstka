@@ -36,7 +36,8 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "@/assets/styles/index.scss";'
+          additionalData: '@use "@/assets/styles/index.scss" as *;',
+          silenceDeprecations: ['legacy-js-api'],
         }
       }
     },

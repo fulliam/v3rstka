@@ -1,3 +1,5 @@
+@use '@/assets/styles/collection/_mixins.scss' as *;
+
 .buttons {
   display: flex;
   gap: 20px;
