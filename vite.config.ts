@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
           'vue-router',
           'pinia',
         ],
-        dts: './src/auto-imports.d.ts',
+        dts: './src/declares/auto-imports.d.ts',
         eslintrc: {
           enabled: true,
           filepath: './eslint.auto-imports.json',

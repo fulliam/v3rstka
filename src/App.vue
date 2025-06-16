@@ -50,7 +50,8 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth';
 // import { useDungeonStore } from './stores/dungeon';
-import '@/declares/eve';
+import eve from 'eve';
+window.eve = eve; 
 
 // const { setSpawnPoint } = useDungeonStore();
 const { logout } = useAuthStore();
