@@ -24,7 +24,7 @@ export function useEnemyAI() {
   const enemyStates = ref<Record<string, 'patrol' | 'chase' | 'attack'>>({});
 
   const ATTACK_DISTANCE = 20;
-  const CHASE_DISTANCE = 100;
+  const CHASE_DISTANCE = 400;
   const AVOIDANCE_DISTANCE = 0;
 
   const moveEnemy = (

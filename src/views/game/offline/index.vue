@@ -36,7 +36,7 @@
       />
     </template>
 
-    <!-- <template #overlay>
+    <template #overlay>
       <svg
         width="100vw"
         height="100vh"
@@ -52,14 +52,14 @@
           stroke-linejoin="round"
         />
       </svg>
-    </template> -->
+    </template>
 
-    <template #overlay>
-      <!-- <Overlay
+    <!-- <template #overlay>
+      <Overlay
         :position="{ x: player.state.position.x, y: player.state.position.y }"
         style="z-index: 99999"
-      /> -->
-    </template>
+      />
+    </template> -->
 
     <template #skills>
       <!-- <SkillBar /> -->
@@ -182,7 +182,7 @@ watch(
       playerStore.updatePlayerPosition(newSpawnPoint, 'right');
     }
     // startEnemyGeneration();
-    generateEnemies(10);
+    generateEnemies(1);
   },
   { immediate: true }
 );
@@ -239,16 +239,16 @@ watch(
   }
 );
 
-// const getPolylinePoints = () => {
-//   return (
-//     path.value
-//       .map(
-//         (point) =>
-//           `${point.x * dungeonStore.cellSize + dungeonStore.cellSize / 2},${point.y * dungeonStore.cellSize + dungeonStore.cellSize / 2}`
-//       )
-//       .join(' ') || ''
-//   );
-// };
+const getPolylinePoints = () => {
+  return (
+    path.value
+      .map(
+        (point) =>
+          `${point.x * dungeonStore.cellSize + dungeonStore.cellSize / 2},${point.y * dungeonStore.cellSize + dungeonStore.cellSize / 2}`
+      )
+      .join(' ') || ''
+  );
+};
 </script>
 
 <style scoped lang="scss">
