@@ -9,7 +9,6 @@
     "preview": "vite preview",
     "generate-animations": "node utils/generateAnimations.cjs",
     "lint": "eslint \"src/**/*.{js,ts,vue}\" --fix",
-    "lint:fix": "eslint \"src/**/*.{js,ts,vue}\" --fix",
     "format": "prettier --write \"src/**/*.{js,ts,vue,json,css,scss,md}\""
   },
   "dependencies": {
@@ -17,6 +16,7 @@
     "@types/lodash": "^4.17.12",
     "@types/node": "^20.16.5",
     "@types/snapsvg": "^0.5.8",
+    "@types/three": "^0.171.0",
     "@typescript-eslint/eslint-plugin": "^8.5.0",
     "@typescript-eslint/parser": "^8.5.0",
     "@vue/eslint-config-typescript": "^13.0.0",

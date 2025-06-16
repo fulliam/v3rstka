@@ -6,10 +6,8 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import * as THREE from 'three';
 
-// Референс на canvas
 const canvas = ref<HTMLCanvasElement | null>(null);
 
-// Утилиты
 function applyAtOffset(
   arr: Float32Array,
   step: number,
@@ -61,7 +59,6 @@ function makeRandomTimeout(fn: () => void, min: number, max: number) {
   };
 }
 
-// Логика Three.js
 onMounted(() => {
   if (!canvas.value) return;
 
@@ -79,12 +76,10 @@ onMounted(() => {
 
   const updateFns: Array<() => void> = [];
 
-  // Пиксельное облако
-  const numberOfPixels = 5000; // Уменьшите для тестирования
+  const numberOfPixels = 20000;
   const colors = new Float32Array(numberOfPixels * 3);
   const positions = new Float32Array(numberOfPixels * 3);
 
-  // Генерация данных для буферов
   applyAtOffset(colors, 3, (offset) => {
     colors[offset] = Math.random(); // R
     colors[offset + 1] = Math.random(); // G
@@ -149,7 +144,6 @@ onMounted(() => {
     camera.position.copy(positionCurrent);
   });
 
-  // Рендеринг
   const render = () => {
     requestAnimationFrame(render);
     updateFns.forEach((fn) => fn());
@@ -157,7 +151,6 @@ onMounted(() => {
   };
   render();
 
-  // Обновление размера окна
   const handleResize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -166,7 +159,6 @@ onMounted(() => {
 
   window.addEventListener('resize', handleResize);
 
-  // Очистка
   onBeforeUnmount(() => {
     window.removeEventListener('resize', handleResize);
   });

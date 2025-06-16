@@ -20,9 +20,9 @@
 import Animation from '@/components/templates/animation/index.vue';
 import animations from '@/animations.json';
 
-const getRarityClass = (rarity: string) => {
-  return rarity ? rarity : 'common';
-};
+// const getRarityClass = (rarity: string) => {
+//   return rarity ? rarity : 'common';
+// };
 </script>
 
 <style scoped lang="scss">

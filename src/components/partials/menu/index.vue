@@ -34,6 +34,8 @@ const items = [
 </script>
 
 <style scoped lang="scss">
+$primary-color: violet;
+
 .menu {
   display: flex;
   justify-content: center;
@@ -56,11 +58,17 @@ const items = [
       display: flex;
       justify-content: center;
       align-items: center;
-      background: violet;
-      padding: 10px 20px;
+      padding: 5px 10px;
       border-radius: 10px;
       cursor: pointer;
-      min-width: 120px;
+      min-width: 180px;
+      transition: background-color 0.3s ease;
+
+      @include pixel-box(
+        $corner-size: 2,
+        $border-size: 2px,
+        $background-color: $primary-color
+      );
 
       &:hover {
         background: rgba(238, 130, 238, 0.784);
@@ -68,6 +76,7 @@ const items = [
 
       a {
         font-size: 32px;
+        text-decoration: none;
         color: white;
       }
     }

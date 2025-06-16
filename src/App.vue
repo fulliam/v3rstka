@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav">
+  <nav class="nav" v-show="false">
     <ul>
       <li>
         <RouterLink to="/">Main menu</RouterLink>
@@ -24,6 +24,9 @@
       </li>
       <li>
         <RouterLink to="/settings">Settings</RouterLink>
+      </li>
+      <li>
+        <RouterLink to="/world">World</RouterLink>
       </li>
     </ul>
 

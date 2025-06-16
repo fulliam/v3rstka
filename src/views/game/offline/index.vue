@@ -164,12 +164,12 @@ const generateEnemies = (count: number) => {
   });
 };
 
-const startEnemyGeneration = () => {
-  enemyGenerationInterval = setInterval(() => {
-    const count = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
-    generateEnemies(count);
-  }, 5000);
-};
+// const startEnemyGeneration = () => {
+//   enemyGenerationInterval = setInterval(() => {
+//     const count = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
+//     generateEnemies(count);
+//   }, 5000);
+// };
 
 watch(
   () => dungeonStore.spawnPoint,
@@ -239,16 +239,16 @@ watch(
   }
 );
 
-const getPolylinePoints = () => {
-  return (
-    path.value
-      .map(
-        (point) =>
-          `${point.x * dungeonStore.cellSize + dungeonStore.cellSize / 2},${point.y * dungeonStore.cellSize + dungeonStore.cellSize / 2}`
-      )
-      .join(' ') || ''
-  );
-};
+// const getPolylinePoints = () => {
+//   return (
+//     path.value
+//       .map(
+//         (point) =>
+//           `${point.x * dungeonStore.cellSize + dungeonStore.cellSize / 2},${point.y * dungeonStore.cellSize + dungeonStore.cellSize / 2}`
+//       )
+//       .join(' ') || ''
+//   );
+// };
 </script>
 
 <style scoped lang="scss">

@@ -8,6 +8,7 @@ import OnlineGame from '@/views/game/online/index.vue';
 import Tmp from '@/views/tmp/index.vue';
 import Items from '@/views/items/index.vue';
 import Settings from '@/views/settings/index.vue';
+import World from '@/views/game/world/index.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -51,6 +52,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/settings',
     name: 'Settings',
     component: Settings,
+  },
+  {
+    path: '/world',
+    name: 'World',
+    component: World,
   },
 ];
 

@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, onBeforeUnmount, PropType } from 'vue';
+import { ref, onMounted, onBeforeUnmount, PropType } from 'vue';
 import { Cell, Position } from '@/types';
 
 const props = defineProps({
@@ -96,13 +96,12 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-$primary-color: #dbc8346d;
+$primary-color: #c7c7c56d;
 
 .mini-map {
   display: grid;
   grid-template-rows: repeat(auto-fill, auto);
   grid-template-columns: repeat(auto-fill, auto);
-  background: rgba(133, 133, 133, 0.9);
   width: 100%;
   height: 100%;
   position: relative;
@@ -139,8 +138,7 @@ $primary-color: #dbc8346d;
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: #00ff00a8;
-  border-radius: 50%;
+  background-color: #09ff00da;
   z-index: 10;
 }
 
