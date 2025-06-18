@@ -1,0 +1,180 @@
+@use '../../styles/glass-effects.scss';
+@use '../../styles/sidebar.scss';
+
+.current-colors-enhanced {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.color-display-enhanced {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+
+.primary-color-enhanced {
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.primary-color-enhanced:hover {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.secondary-color-enhanced {
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.swap-colors-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  z-index: 3;
+  padding: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.color-values-enhanced {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 11px;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+}
+
+.color-value-enhanced {
+  padding: 6px 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.color-value-enhanced.primary {
+  background: rgba(0, 122, 255, 0.15);
+  border: 1px solid rgba(0, 122, 255, 0.3);
+}
+
+.color-value-enhanced.secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.palette-grid-enhanced {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.palette-color-enhanced {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.palette-color-enhanced:hover {
+  transform: scale(1.1);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.palette-color-enhanced.active-primary {
+  border: 2px solid #007aff;
+  transform: scale(1.05);
+}
+
+.palette-color-enhanced.active-secondary {
+  border: 2px solid #ff6b6b;
+  transform: scale(1.05);
+}
+
+.palette-color-enhanced.active-primary.active-secondary {
+  border: 2px solid #ffd700;
+}
+
+.add-color-btn-enhanced {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-color-btn-enhanced:hover {
+  border-color: rgba(0, 122, 255, 0.6);
+  background: rgba(0, 122, 255, 0.1);
+  transform: scale(1.05);
+}
+
+.extended-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+}
+
+.palette-color-small {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.palette-color-small:hover {
+  transform: scale(1.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.palette-color-small.active-primary {
+  border: 2px solid #007aff;
+}
+
+.palette-color-small.active-secondary {
+  border: 2px solid #ff6b6b;
+}
+
+.glass-button-icon {
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+}
+
+.icon-small {
+  width: 12px;
+  height: 12px;
+}

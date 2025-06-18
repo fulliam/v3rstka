@@ -1,38 +1,17 @@
+<!-- components/NavMenu.vue -->
 <template>
   <nav
     v-show="false"
     class="nav"
   >
     <ul>
-      <li>
-        <RouterLink to="/">Main menu</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/create_character">Create character</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/offline_game">Offline</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/tmp">Tmp</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/items">Items</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/auth">Auth</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/online_game">Online</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/settings">Settings</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/world">World</RouterLink>
+      <li
+        v-for="item in navItems"
+        :key="item.to"
+      >
+        <RouterLink :to="item.to">{{ item.label }}</RouterLink>
       </li>
     </ul>
-
     <Button
       type="danger"
       class="logout"
@@ -49,15 +28,26 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth';
-// import { useDungeonStore } from './stores/dungeon';
 import eve from 'eve';
-window.eve = eve; 
+window.eve = eve;
 
-// const { setSpawnPoint } = useDungeonStore();
 const { logout } = useAuthStore();
+
+const navItems = [
+  { to: '/', label: 'Main menu' },
+  { to: '/create_character', label: 'Create character' },
+  { to: '/offline_game', label: 'Offline' },
+  { to: '/tmp', label: 'Tmp' },
+  { to: '/items', label: 'Items' },
+  { to: '/auth', label: 'Auth' },
+  { to: '/online_game', label: 'Online' },
+  { to: '/settings', label: 'Settings' },
+  { to: '/world', label: 'World' },
+  { to: '/editor', label: 'Editor' },
+];
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .nav {
   position: fixed;
   left: 0;

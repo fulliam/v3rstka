@@ -1,0 +1,140 @@
+@use '../../styles/glass-effects.scss';
+
+.color-picker-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.custom-color-picker {
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+}
+
+.color-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.color-picker-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hsv-picker {
+  display: flex;
+  gap: 16px;
+}
+
+.hue-saturation-picker {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  cursor: crosshair;
+}
+
+.saturation-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0));
+}
+
+.value-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #000, rgba(0, 0, 0, 0));
+}
+
+.hsv-cursor {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hue-slider-container {
+  width: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.hue-slider {
+  width: 100%;
+  height: 200px;
+  -webkit-appearance: slider-vertical;
+}
+
+.color-preview-section {
+  display: flex;
+  gap: 16px;
+}
+
+.color-preview-large {
+  width: 80px;
+  height: 80px;
+  border: 1px solid #464647;
+}
+
+.color-inputs-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.color-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.color-input-group label {
+  font-size: 12px;
+  color: #969696;
+}
+
+.rgb-inputs {
+  display: flex;
+  gap: 8px;
+}
+
+.color-input-field {
+  flex: 1;
+  padding: 6px;
+  border-radius: 2px;
+  border: 1px solid #464647;
+  background: #3c3c3c;
+  color: #cccccc;
+  font-size: 12px;
+}
+
+.color-picker-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}

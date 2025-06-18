@@ -1,0 +1,86 @@
+@use './styles/glass-effects.scss';
+@use './styles/sidebar.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', sans-serif;
+  background: #1e1e1e;
+  color: #cccccc;
+  overflow: hidden;
+}
+
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pixel-editor {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1e1e1e 0%, #2d2d30 100%);
+}
+
+.editor-layout {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.mobile-menu-btn {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 999;
+  padding: 12px;
+  border-radius: 50%;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: flex;
+  }
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Selection styles */
+::selection {
+  background: rgba(0, 122, 255, 0.3);
+}
+
+::-moz-selection {
+  background: rgba(0, 122, 255, 0.3);
+}

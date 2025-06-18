@@ -1,0 +1,120 @@
+@use '../../styles/glass-effects.scss';
+
+.app-header {
+  padding: 12px 20px;
+  margin: 0 20px 20px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.header-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 24px;
+  height: 24px;
+  color: #007aff;
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.control-group:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.control-group:first-child {
+  padding-left: 0;
+}
+
+.glass-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 1024px) {
+  .header-controls {
+    gap: 12px;
+  }
+
+  .control-group {
+    gap: 6px;
+    padding: 0 6px;
+  }
+
+  /* .glass-button {
+    font-size: 12px;
+    padding: 6px 10px;
+  } */
+
+  .glass-button span {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 8px 12px;
+  }
+
+  .app-title {
+    font-size: 16px;
+  }
+
+  .header-controls {
+    gap: 8px;
+  }
+
+  .control-group {
+    gap: 4px;
+    padding: 0 4px;
+  }
+
+  .glass-button {
+    padding: 6px 8px;
+    min-width: auto;
+  }
+}

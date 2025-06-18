@@ -121,9 +121,9 @@ const validateUsername = (username: string) => {
 };
 
 const validatePassword = (password: string) => {
-  if (!passwordPattern.test(password)) {
-    return 'Пароль должен содержать хотя бы одну букву, одну цифру и иметь не менее 8 символов.';
-  }
+  // if (!passwordPattern.test(password)) {
+  //   return 'Пароль должен содержать хотя бы одну букву, одну цифру и иметь не менее 8 символов.';
+  // }
   return '';
 };
 

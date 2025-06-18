@@ -1,0 +1,120 @@
+@use '../../styles/glass-effects.scss';
+
+.floating-tool-panel-compact {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: auto;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floating-tool-panel-compact.expanded {
+  width: auto;
+}
+
+.tool-panel-toggle-compact {
+  cursor: pointer;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px 12px 0 0;
+}
+
+.tool-toggle-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.current-tool-indicator {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tool-panel-content-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 0 0 12px 12px;
+}
+
+.tool-grid-compact {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.tool-btn-compact {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.tool-btn-compact:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.tool-btn-compact.active {
+  background: #0e639c;
+  border-color: #007acc;
+}
+
+.tool-icon-compact,
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+.brush-controls-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.brush-size-compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brush-label-compact {
+  font-size: 12px;
+  min-width: 40px;
+  text-align: right;
+}
+
+.brush-slider-compact {
+  flex: 1;
+}
+
+.brush-preview-compact {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #464647;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brush-preview-square-compact {
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .floating-tool-panel-compact {
+    bottom: 16px;
+  }
+}

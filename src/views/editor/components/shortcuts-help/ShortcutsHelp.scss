@@ -1,0 +1,50 @@
+@use '../../styles/glass-effects.scss';
+
+.shortcuts-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.shortcuts-panel {
+  padding: 24px;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.shortcuts-panel h3 {
+  margin: 0 0 16px 0;
+  color: #cccccc;
+}
+
+.shortcuts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.shortcut-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+kbd {
+  background: #3c3c3c;
+  border: 1px solid #464647;
+  border-radius: 2px;
+  padding: 2px 6px;
+  font-size: 11px;
+  min-width: 20px;
+  text-align: center;
+}

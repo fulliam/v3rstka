@@ -1,0 +1,217 @@
+@use '../../styles/glass-effects.scss';
+@use '../../styles/sidebar.scss';
+
+.frame-controls,
+.layer-controls {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.frame-list,
+.layer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.frame-item-enhanced {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.frame-item-enhanced:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.frame-item-enhanced.active {
+  background: rgba(0, 122, 255, 0.2);
+  border-color: rgba(0, 122, 255, 0.4);
+}
+
+.frame-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.frame-preview-enhanced {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  image-rendering: pixelated;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.layer-item-redesigned {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.layer-item-redesigned:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.layer-item-redesigned.active {
+  background: rgba(0, 122, 255, 0.2);
+  border-color: rgba(0, 122, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+}
+
+.layer-preview-container {
+  width: 36px;
+  height: 36px;
+  position: relative;
+  border-radius: 6px;
+}
+
+.layer-preview-canvas {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  image-rendering: pixelated;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.layer-preview-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.layer-info-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.layer-header-redesigned {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.visibility-btn-redesigned {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #999999;
+}
+
+.visibility-btn-redesigned:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.visibility-btn-redesigned.visible {
+  color: #007aff;
+  background: rgba(0, 122, 255, 0.1);
+  border-color: rgba(0, 122, 255, 0.3);
+}
+
+.layer-name-input-redesigned {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  max-width: 60px;
+}
+
+.layer-name-input-redesigned:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(0, 122, 255, 0.5);
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.1);
+}
+
+.layer-opacity-display {
+  font-size: 11px;
+  color: #999999;
+  min-width: 35px;
+  text-align: right;
+  font-weight: 500;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+}
+
+.layer-footer-redesigned {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.opacity-slider-redesigned {
+  flex: 1;
+}
+
+.animation-controls {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fps-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #cccccc;
+}
+
+.fps-slider {
+  flex: 1;
+}
+
+.glass-button-icon {
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+}
+
+.icon-tiny {
+  width: 12px;
+  height: 12px;
+}

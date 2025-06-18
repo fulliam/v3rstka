@@ -58,6 +58,15 @@ const routes: Array<RouteRecordRaw> = [
     name: 'World',
     component: World,
   },
+  {
+    path: '/editor',
+    name: 'Editor',
+    component: () => import('@/views/editor/Editor.vue'),
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: { name: 'MainMenu' },
+  },
 ];
 
 const router = createRouter({
