@@ -1,36 +1,5 @@
-<template>
-  <Teleport to="body">
-    <div
-      class="modal"
-      :class="{ modal__active: modal.isOpen }"
-    >
-      <div
-        class="overlay"
-        @click="modal.close({ confirmed: false })"
-      />
-      
-      <div
-        id="modal"
-        class="window"
-      >
-        <component
-          :is="modal.entry.component"
-          v-if="modal.entry"
-          v-bind="modal.entry.props"
-          @close="modal.close"
-        />
-      </div>
-    </div>
-  </Teleport>
-</template>
+@use '@/assets/styles/collection/_animations.scss' as *;
 
-<script setup lang="ts">
-import { useModalStore } from '@/stores/modal';
-
-const modal = useModalStore();
-</script>
-
-<style lang="scss">
 .modal {
   position: fixed;
   top: 0;
@@ -83,4 +52,3 @@ const modal = useModalStore();
   justify-content: center;
   align-items: center;
 }
-</style>
