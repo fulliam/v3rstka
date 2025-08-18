@@ -35,7 +35,7 @@
         class="dice-icon"
         @click="clickDice"
       >
-        <Icon.Dice />
+        <Dice />
       </button>
       <button
         v-if="type === 'password' && !dice"
@@ -43,11 +43,11 @@
         :disabled="!currentInput"
         @click="toggleHide"
       >
-        <Icon.Eye
+        <Eye
           v-if="!isHide"
           class=""
         />
-        <Icon.CrossEye
+        <CrossEye
           v-else
           class=""
         />
@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts" setup generic="T = 'string'">
-import { Icon } from '@/assets/icons/index';
+import { Dice, Eye, CrossEye } from '@/assets/icons';
 import { vMaska } from 'maska/vue';
 
 const inputId = `input-${Math.random().toString(36).substr(2, 9)}`;

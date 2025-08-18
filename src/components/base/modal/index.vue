@@ -1,67 +1,41 @@
 <template>
-  <div
-    v-if="isActive"
-    class="modal"
-    :class="{ active: isActive }"
-  >
+  <Teleport to="body">
     <div
-      class="overlay"
-      @click="handleClose"
-    ></div>
-    <div
-      id="modal"
-      class="window"
+      class="modal"
+      :class="{ modal__active: modal.isOpen }"
     >
-      <Icon.Cross
-        class="close"
-        @click="handleClose"
+      <div
+        class="overlay"
+        @click="modal.close({ confirmed: false })"
       />
-      <div class="modal-content">
-        <slot></slot>
+      
+      <div
+        id="modal"
+        class="window"
+      >
+        <Cross
+          class="close"
+          @click="modal.close({ confirmed: false })"
+        />
+        <component
+          :is="modal.entry.component"
+          v-if="modal.entry"
+          v-bind="modal.entry.props"
+          @close="modal.close"
+        />
       </div>
     </div>
-  </div>
+  </Teleport>
 </template>
 
-<script lang="ts" setup>
-import { Icon } from '@/assets/icons';
+<script setup lang="ts">
 import { useModalStore } from '@/stores/modal';
+import { Cross } from '@/assets/icons';
 
-const props = defineProps<{ id: string }>();
-const emit = defineEmits(['close']);
-
-const modalStore = useModalStore();
-const active = ref<boolean>(false);
-const isActive = computed(() => {
-  active.value = modalStore.modals.some((modal) => modal.id === props.id);
-  return active.value;
-});
-
-const toggleScroll = (disable: boolean) => {
-  if (disable) {
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = '';
-    document.documentElement.style.overflow = '';
-  }
-};
-
-watch(active, (newVal) => {
-  toggleScroll(newVal);
-});
-
-const handleClose = () => {
-  modalStore.closeModal(props.id);
-  emit('close');
-};
-
-onBeforeUnmount(() => {
-  toggleScroll(false);
-});
+const modal = useModalStore();
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .modal {
   position: fixed;
   top: 0;
@@ -80,6 +54,14 @@ onBeforeUnmount(() => {
     visibility 0.2s,
     opacity 0.2s;
   overflow: auto;
+
+  &__active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    overflow: hidden;
+    animation: fadeIn 0.12s forwards linear;
+  }
 }
 
 .close {
@@ -88,14 +70,7 @@ onBeforeUnmount(() => {
   right: 20px;
   cursor: pointer;
   z-index: 99;
-}
-
-.active {
-  display: flex;
-  opacity: 1;
-  visibility: visible;
-  overflow: hidden;
-  animation: fadeIn 0.12s forwards linear;
+  color: black;
 }
 
 .overlay {

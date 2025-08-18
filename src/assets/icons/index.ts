@@ -4,10 +4,10 @@ import Google from './Google.vue';
 import Dice from './Dice.vue';
 import Cross from './Cross.vue';
 
-export const Icon = {
+export {
   Eye,
   CrossEye,
   Google,
   Dice,
   Cross,
-} as const;
+};
