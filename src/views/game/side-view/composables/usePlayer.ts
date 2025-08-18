@@ -47,13 +47,11 @@ export function usePlayer(actsData: ActsData, currentAct: Ref<string>) {
     const roadOffset = roadOffsetFromBottom[currentAct.value] ?? 170;
     const roadDesignY = DESIGN_HEIGHT - roadOffset;
   
-    const containerY = roadDesignY - 40;
-  
     return {
       position: 'absolute',
       width: `${characterSize.value}px`,
-      height: `${characterSize.value + 40}px`,
-      transform: `translate(${pos.x}px, ${containerY}px)`,
+      height: `${characterSize.value}px`,
+      transform: `translate(${pos.x}px, ${roadDesignY}px)`,
       zIndex: 1000,
     } as HTMLAttributes & ReservedProps & Record<string, unknown> || { display: 'none' };
   }) as any;

@@ -79,7 +79,7 @@
                 />
               </div>
 
-              <Hearths
+              <Hearts
                 :hearts="attack.damage"
                 style="--color-heart-background: #828282"
               />
@@ -115,7 +115,7 @@
 <script setup lang="ts">
 import Chart from '@/components/partials/chart/index.vue';
 import TextScramble from '@/components/partials/animations/scramble/index.vue';
-import Hearths from '@/components/partials/hearths/index.vue';
+import { Hearts } from '@/components/partials/hearts';
 import { attacks } from './data/attacks';
 import { usePlayerStore } from '@/stores/player';
 import type { StatKeys } from '@/types';

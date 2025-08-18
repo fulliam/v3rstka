@@ -1,90 +1,23 @@
+@use '@/assets/styles/collection/_mixins.scss' as *;
+
 .hp-bar-container {
-  position: absolute;
-  top: 110px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  pointer-events: none;
-}
+  position: absolute !important;
+  left: 20px !important;
+  top: 20px !important;
+  width: 500px !important;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  backdrop-filter: blur(4px);
 
-.hp-bar-wrapper {
-  position: relative;
-  width: 120px;
-  height: 20px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.5);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-}
-
-.hp-bar-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to top, #333, #555);
-  border-radius: 8px;
-  
-  &.danger {
-    animation: danger-pulse 1s infinite;
-  }
-}
-
-.hp-bar-fill {
-  height: 100%;
-  border-radius: 8px;
-  transition: width 0.3s ease, background 0.3s ease;
-  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2);
-  
-  &.high {
-    background: linear-gradient(to right, #4CAF50, #8BC34A);
-  }
-  
-  &.medium {
-    background: linear-gradient(to right, #FFC107, #FF9800);
-  }
-  
-  &.low {
-    background: linear-gradient(to right, #F44336, #D32F2F);
-  }
-}
-
-.hp-bar-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 10px;
-  font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-@keyframes danger-pulse {
-  0%, 100% {
-    box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 16px rgba(255, 0, 0, 0.8);
-  }
-}
-
-/* Дополнительные эффекты при изменении HP */
-.hp-bar-fill {
-  &.low {
-    animation: low-health 2s infinite;
-  }
-}
-
-@keyframes low-health {
-  0%, 100% {
-    opacity: 0.9;
-  }
-  50% {
-    opacity: 0.7;
-  }
+  @include pixel-box(
+    $corner-size: 2,
+    $border-size: 8px,
+    $background-color: #08030370,
+    $background-color-hover: #0f0e0e0b,
+    $border-color: #0707079c
+  );
 }

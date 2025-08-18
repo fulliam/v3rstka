@@ -1,8 +1,11 @@
 <template>
   <Background ref="bgRef" :scenes="actsData[currentAct]">
+    <template #decorations>
+      <HpBar :health="player.state.health" />
+    </template>
+    
     <template #character>
       <div class="player-container" :style="playerContainerStyle">
-        <HpBar :player="player" />
         <Player
           :character="player.info.character"
           :action="player.state.action"

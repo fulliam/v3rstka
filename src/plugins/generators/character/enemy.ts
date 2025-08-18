@@ -14,7 +14,7 @@ import {
   CharacterState,
   CharacterStats,
   CharacterInventory,
-} from '@/types/index';
+} from '@/types';
 
 const groups = {
   orcs: ['warrior', 'berserk', 'shaman'],

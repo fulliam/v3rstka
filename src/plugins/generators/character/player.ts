@@ -14,7 +14,7 @@ import {
   CharacterState,
   CharacterStats,
   CharacterInventory,
-} from '@/types/index';
+} from '@/types';
 
 export function createDefaultPlayer(characterType: string): Player {
   const defaultPosition: Position = { x: 0, y: 0 };
