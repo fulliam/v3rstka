@@ -1,7 +1,20 @@
-// import { decorations } from '@/assets/decorations/decorations';
 import animations from '@/animations.json';
 
-export const actsData = {
+type AnimationSrc = string;
+
+interface SceneLayer {
+  src?: AnimationSrc;
+  alt?: string;
+  class?: string;
+  style?: Record<string, string | number>;
+  parallaxSpeed: number;
+}
+
+type Scene = SceneLayer[];
+type Act = Scene[];
+type ActsData = Record<string, Act>;
+
+export const actsData: ActsData = {
   ActI: [
     [
       // Сцена 1
@@ -371,3 +384,5 @@ export const actsData = {
     ],
   ],
 };
+
+export type { SceneLayer, Scene, Act, ActsData };

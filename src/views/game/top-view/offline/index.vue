@@ -111,7 +111,7 @@
 
 <script setup lang="ts">
 import Dungeon from '@/components/templates/dungeon/index.vue';
-import Player from '@/components/templates/character/offline/ally/index.vue';
+import { Player } from '@/components/templates/character/offline/ally';
 import Enemy from '@/components/templates/character/offline/enemy/index.vue';
 // import SkillBar from '@/components/templates/skillbar/index.vue';
 import { useDungeonMovement } from '@/composables/offline/ally/movement';

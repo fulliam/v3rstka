@@ -56,13 +56,13 @@
 </template>
 
 <script setup lang="ts">
-import type { Scene, SceneLayer } from '../data';
+import type { Scene, SceneLayer } from '@/views/game/side-view/data';
 
 interface Props {
   scenes?: Scene[];
   sceneCount?: number;
-  designWidth?: number;
-  designHeight?: number;
+  designWidth?: number | any;
+  designHeight?: number | any;
   maxScale?: number | null;
 }
 
@@ -79,7 +79,7 @@ const { scenes, sceneCount, designWidth, designHeight, maxScale } = toRefs(props
 const backgroundPositionX = ref(0);
 const viewportRef = ref<HTMLElement | null>(null);
 
-const effectiveSceneCount = computed(() => {
+const effectiveSceneCount: ComputedRef = computed(() => {
   return sceneCount.value && sceneCount.value > 0
     ? sceneCount.value
     : scenes.value?.length || 0;
@@ -218,5 +218,5 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
-@use './Index.scss';
+@use './Background.scss';
 </style>

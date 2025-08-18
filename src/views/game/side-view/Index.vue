@@ -1,78 +1,35 @@
 <template>
-  <Bg ref="bgRef" :scenes="actsData[currentAct]">
+  <Background ref="bgRef" :scenes="actsData[currentAct]">
     <template #character>
-      <Player
-        :character="player.info.character"
-        :action="player.state.action"
-        :style="playerStyle"
-      />
+      <div class="player-container" :style="playerContainerStyle">
+        <HpBar :player="player" />
+        <Player
+          :character="player.info.character"
+          :action="player.state.action"
+          :style="playerStyle"
+        />
+      </div>
     </template>
-  </Bg>
+  </Background>
 </template>
 
 <script setup lang="ts">
-import Bg from './bg/Index.vue';
-import actsData from './data';
-import Player from '@/components/templates/character/offline/ally/index.vue';
-import { usePlayerStore } from '@/stores/player';
+import { Background, HpBar } from './components';
+import { actsData } from './data';
+import { Player } from '@/components/templates/character/offline/ally';
 import { useSideMovement } from '@/composables/offline/ally/movement';
+import { usePlayer } from './composables';
 
-const bgRef = ref<InstanceType<typeof Bg> | null>(null);
+const bgRef = ref<InstanceType<typeof Background> | null>(null);
 const currentAct = ref<keyof typeof actsData>('ActI');
 
-const DESIGN_WIDTH = 1920;
-const DESIGN_HEIGHT = 1080;
+const {
+  player,
+  playerContainerStyle,
+  playerStyle,
+  canMoveTo,
+} = usePlayer(actsData, currentAct);
 
-const roadOffsetFromBottom: Record<string, number> = {
-  ActI: 600,
-  ActII: 180,
-  ActIII: 170,
-  ActIV: 160,
-  ActV: 150,
-  ActVI: 170,
-};
-
-let characterSize = 300;
-
-const canMoveTo = computed(() => {
-  const sceneCount = actsData[currentAct.value]?.length ?? 1;
-  const worldWidth = DESIGN_WIDTH * sceneCount;
-  const margin = characterSize / 10;
-
-  return (x: number) => x >= margin && x <= worldWidth - margin;
-});
-
-const playerStore = usePlayerStore();
-playerStore.initializePlayer();
-
-onMounted(() => {
-  const initialPlayerPosition = {
-    x: DESIGN_WIDTH * 0.1,
-    y: 0,
-  };
-  playerStore.updatePlayerPosition(initialPlayerPosition, 'right');
-});
-
-const player = computed(() => playerStore.getPlayer);
-const direction = computed(() => player.value?.state?.direction === 'left');
-
-const playerStyle = computed(() => {
-  const pos = player.value?.state?.position;
-  if (!pos) return { display: 'none' };
-
-  const roadOffset = roadOffsetFromBottom[currentAct.value] ?? 170;
-  const roadDesignY = DESIGN_HEIGHT - roadOffset;
-
-  const flip = direction.value ? ' scaleX(-1)' : '';
-
-  return {
-    position: 'absolute',
-    width: `${characterSize}px`,
-    height: `${characterSize}px`,
-    transform: `translate(${pos.x}px, ${roadDesignY}px)${flip}`,
-    zIndex: 1000,
-  };
-});
 
 useSideMovement({
   canMoveTo: (x: number) => canMoveTo.value(x),
@@ -84,3 +41,9 @@ useSideMovement({
   },
 });
 </script>
+
+<style scoped>
+.player-container {
+  transform-origin: bottom center;
+}
+</style>

@@ -2,13 +2,10 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { authGuard } from '@/router/middlewares';
 import MainMenu from '@/views/main/index.vue';
 import CreateCharacter from '@/views/char/create/index.vue';
-import OfflineGame from '@/views/game/offline/index.vue';
 import Auth from '@/views/auth/index.vue';
-import OnlineGame from '@/views/game/online/index.vue';
 import Tmp from '@/views/tmp/index.vue';
 import Items from '@/views/items/index.vue';
 import Settings from '@/views/settings/index.vue';
-import World from '@/views/game/world/index.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -25,12 +22,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/offline_game',
     name: 'OfflineGame',
-    component: OfflineGame,
+    component: () => import('@/views/game/top-view/offline/index.vue'),
   },
   {
     path: '/online_game',
     name: 'OnlineGame',
-    component: OnlineGame,
+    component: () => import('@/views/game/top-view/online/index.vue'),
     meta: { requiresAuth: true },
   },
   {
@@ -55,11 +52,6 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/world',
-    name: 'World',
-    component: World,
-  },
-  {
-    path: '/side',
     name: 'SideView',
     component: () => import('@/views/game/side-view/Index.vue'),
   },
