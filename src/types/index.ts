@@ -96,7 +96,7 @@ export interface CharacterStats {
 
 export interface CharacterInventory {
   money: Money;
-  inventory: any[];
+  inventory: any[]; // TODO: add type for inventory item
 }
 
 export interface Player {

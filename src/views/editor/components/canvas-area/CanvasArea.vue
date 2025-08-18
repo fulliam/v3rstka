@@ -218,7 +218,7 @@ const canvasInner = ref<HTMLDivElement>();
 const layerCanvasRefs = ref<(HTMLCanvasElement | null)[]>([]);
 
 // Canvas key for forcing re-renders when needed
-const canvasKey = computed(() => `${props.currentFrame}-${Date.now()}`);
+const canvasKey = computed(() => `${props.currentFrame}`);
 
 // Drawing state
 const isDrawing = ref(false);
@@ -362,7 +362,7 @@ function drawPixel(x: number, y: number, color: string) {
   }
 
   // Emit canvas changed event
-  emit('canvasChanged');
+  // emit('canvasChanged');
 }
 
 function drawLine(
@@ -504,7 +504,7 @@ function floodFill(startX: number, startY: number, newColor: string) {
   }
 
   // Emit canvas changed event
-  emit('canvasChanged');
+  // emit('canvasChanged');
 }
 
 function pickColor(x: number, y: number): string {
@@ -541,9 +541,9 @@ function handleCanvasMouseDown(event: MouseEvent) {
   const coords = getCanvasCoordinates(event);
   if (!coords) return;
 
-  emit('saveHistory');
   isDrawing.value = true;
   lastDrawPoint.value = coords;
+  emit('saveHistory');
 
   const color = event.button === 2 ? props.secondaryColor : props.primaryColor;
 
@@ -588,21 +588,17 @@ function handleCanvasMouseMove(event: MouseEvent) {
 }
 
 function handleCanvasMouseUp() {
-  isDrawing.value = false;
-  lastDrawPoint.value = null;
+  if (isDrawing.value) {
+    isDrawing.value = false;
+    lastDrawPoint.value = null;
 
-  if (props.isPanning) {
-    stopPan();
+    emit('canvasChanged');
   }
+  if (props.isPanning) stopPan();
 }
 
 function handleCanvasMouseLeave() {
-  isDrawing.value = false;
-  lastDrawPoint.value = null;
-
-  if (props.isPanning) {
-    stopPan();
-  }
+  handleCanvasMouseUp();
 }
 
 function updateBrushIndicator(event: MouseEvent) {

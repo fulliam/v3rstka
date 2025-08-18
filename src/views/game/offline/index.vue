@@ -36,7 +36,7 @@
       />
     </template>
 
-    <template #overlay>
+    <!-- <template #overlay>
       <svg
         width="100vw"
         height="100vh"
@@ -52,7 +52,7 @@
           stroke-linejoin="round"
         />
       </svg>
-    </template>
+    </template> -->
 
     <!-- <template #overlay>
       <Overlay
@@ -61,15 +61,15 @@
       />
     </template> -->
 
-    <template #skills>
-      <!-- <SkillBar /> -->
-    </template>
+    <!-- <template #skills>
+      <SkillBar />
+    </template> -->
 
     <template #items></template>
 
-    <template #ui>
+    <!-- <template #ui>
       <div class="ui">
-        <!-- <div class="lightning" style="left: 70%; width: 50px; height: 900px;">
+        <div class="lightning" style="left: 70%; width: 50px; height: 900px;">
           <Animation :path="animations.decorations.lightning.cycle" />
           <Animation :path="animations.decorations.lightning.linear" />
         </div>
@@ -84,9 +84,9 @@
         <div class="lightning" style="left: 5%;">
           <Animation :path="animations.decorations.lightning.cycle" />
           <Animation :path="animations.decorations.lightning.linear" />
-        </div> -->
+        </div>
       </div>
-    </template>
+    </template> -->
   </Dungeon>
 
   <div
@@ -114,7 +114,7 @@ import Dungeon from '@/components/templates/dungeon/index.vue';
 import Player from '@/components/templates/character/offline/ally/index.vue';
 import Enemy from '@/components/templates/character/offline/enemy/index.vue';
 // import SkillBar from '@/components/templates/skillbar/index.vue';
-import { usePlayerMovement } from '@/composables/offline/ally/movement';
+import { useDungeonMovement } from '@/composables/offline/ally/movement';
 import { useEnemyAI } from '@/composables/offline/enemy';
 import { useDungeonStore } from '@/stores/dungeon';
 import { usePlayerStore } from '@/stores/player';
@@ -141,7 +141,7 @@ const enemies = computed(() => enemyStore.getEnemies);
 let enemyGenerationInterval: NodeJS.Timeout | null = null;
 const location = player.value?.info.location || '';
 
-usePlayerMovement();
+useDungeonMovement();
 useEnemyAI();
 
 const generateEnemies = (count: number) => {

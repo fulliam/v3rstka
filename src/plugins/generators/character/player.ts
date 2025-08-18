@@ -88,7 +88,8 @@ export function createDefaultPlayer(characterType: string): Player {
   };
 
   const defaultStats: CharacterStats = {
-    speed: { walking: 50, running: 10 },
+    // for dungeon need walk = 5 run = 10
+    speed: { walking: 30, running: 60 },
     params: defaultParams,
     skills: defaultSkills,
     skillPoints: 5,

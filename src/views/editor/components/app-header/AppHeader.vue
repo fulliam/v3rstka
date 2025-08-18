@@ -125,7 +125,16 @@
 </template>
 
 <script setup lang="ts">
-import { Logo, File, Save, Undo, Redo, Trash, Resize, Question } from '../../icons';
+import {
+  Logo,
+  File,
+  Save,
+  Undo,
+  Redo,
+  Trash,
+  Resize,
+  Question,
+} from '../../icons';
 
 interface Props {
   canUndo: boolean;

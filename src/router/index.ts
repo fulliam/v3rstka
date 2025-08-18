@@ -59,6 +59,11 @@ const routes: Array<RouteRecordRaw> = [
     component: World,
   },
   {
+    path: '/side',
+    name: 'SideView',
+    component: () => import('@/views/game/side-view/Index.vue'),
+  },
+  {
     path: '/editor',
     name: 'Editor',
     component: () => import('@/views/editor/Editor.vue'),

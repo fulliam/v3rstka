@@ -1,3 +1,4 @@
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useSocketStore } from '@/stores/socket';
 import { usePlayerStore } from '@/stores/player';
 
@@ -25,18 +26,33 @@ export default function useActions(
     { name: 'walk left', key: 'ArrowLeft' },
     { name: 'walk right', key: 'ArrowRight' },
     { name: 'jump', key: 'Space' },
+    // (опционально) вы можете добавить WASD сюда как маппинги
   ]);
 
   const initializeKeys = () => {
     keys.value = {};
+    // создаём флаги для всех маппингов
     actionList.value.forEach((action) => {
       keys.value[action.key] = false;
     });
+    // обязательно добавляем модификаторы/фолбэки, чтобы Shift учитывался
+    keys.value['ShiftLeft'] = keys.value['ShiftLeft'] ?? false;
+    keys.value['ShiftRight'] = keys.value['ShiftRight'] ?? false;
+    keys.value['Shift'] = keys.value['Shift'] ?? false;
+    // также можно добавить WASD по умолчанию, если хотите
+    keys.value['KeyA'] = keys.value['KeyA'] ?? false;
+    keys.value['KeyD'] = keys.value['KeyD'] ?? false;
+    keys.value['KeyW'] = keys.value['KeyW'] ?? false;
+    keys.value['KeyS'] = keys.value['KeyS'] ?? false;
+    keys.value['ArrowLeft'] = keys.value['ArrowLeft'] ?? false;
+    keys.value['ArrowRight'] = keys.value['ArrowRight'] ?? false;
+    keys.value['ArrowUp'] = keys.value['ArrowUp'] ?? false;
+    keys.value['ArrowDown'] = keys.value['ArrowDown'] ?? false;
   };
 
   const startAction = (action: string) => {
     if (online) {
-      socketStore.updateUserAction(userId, character.info.character, action);
+      socketStore.updateUserAction(userId, character?.info?.character, action);
     } else {
       playerStore.updatePlayerAction(action);
     }
@@ -44,7 +60,7 @@ export default function useActions(
 
   const stopAction = () => {
     if (online) {
-      socketStore.updateUserAction(userId, character.info.character, 'idle');
+      socketStore.updateUserAction(userId, character?.info?.character, 'idle');
     } else {
       playerStore.updatePlayerAction('idle');
     }
@@ -53,41 +69,77 @@ export default function useActions(
   const handleKeyDown = (event: KeyboardEvent) => {
     if (online && !isOwn) return;
 
-    if (keys.value.hasOwnProperty(event.code)) {
-      keys.value[event.code] = true;
-    }
+    // Всегда помечаем клавишу в keys (даже если её не было в actionList).
+    // Это позволяет отслеживать Shift и др. служебные клавиши.
+    keys.value[event.code] = true;
 
     const actionEntry = actionList.value.find((a) => a.key === event.code);
     if (actionEntry) {
-      const action = actionEntry.name.includes('walk')
+      // если это walk-left/right/up/down — нормализуем в 'walk'
+      const action = actionEntry.name.toLowerCase().includes('walk')
         ? 'walk'
         : actionEntry.name;
+      // бег если Shift нажат и это walk
       const isRunning =
-        (keys.value['ShiftLeft'] || keys.value['ShiftRight']) &&
+        !!(keys.value['ShiftLeft'] || keys.value['ShiftRight'] || keys.value['Shift']) &&
         action === 'walk';
       startAction(isRunning ? 'run' : action);
+    } else {
+      // если нажата просто Shift (и ранее уже была нажата стрелка), нужно пересчитать действие
+      if (event.code === 'ShiftLeft' || event.code === 'ShiftRight' || event.code === 'Shift') {
+        // если есть активные walk-клавиши — переключаем на run
+        const anyWalkPressed = actionList.value.some(
+          (a) => a.name.toLowerCase().includes('walk') && keys.value[a.key]
+        ) || keys.value.ArrowLeft || keys.value.ArrowRight || keys.value.KeyA || keys.value.KeyD;
+        if (anyWalkPressed) startAction('run');
+      }
     }
   };
 
   const handleKeyUp = (event: KeyboardEvent) => {
     if (online && !isOwn) return;
 
-    if (keys.value.hasOwnProperty(event.code)) {
-      keys.value[event.code] = false;
+    // Сбрасываем флаг (если не было — всё равно создадим и сделаем false)
+    keys.value[event.code] = false;
+
+    // если больше нет никаких нажатых ключей — стоп
+    if (!Object.keys(keys.value).some((k) => keys.value[k])) {
+      stopAction();
+      return;
     }
 
-    if (!Object.keys(keys.value).some((key) => keys.value[key])) {
-      stopAction();
+    // иначе — проверим, есть ли ещё активные walk-клавиши
+    const activeWalkKeys = Object.keys(keys.value).filter((key) => {
+      if (!keys.value[key]) return false;
+      const mapped = actionList.value.find((a) => a.key === key);
+      return !!(mapped && mapped.name.toLowerCase().includes('walk'));
+    });
+
+    // fallback: если WASD/Arrow активны — тоже считаем как walk
+    const fallbackWalkActive = !!(
+      keys.value.ArrowLeft ||
+      keys.value.ArrowRight ||
+      keys.value.KeyA ||
+      keys.value.KeyD
+    );
+
+    if (activeWalkKeys.length > 0 || fallbackWalkActive) {
+      const action =
+        keys.value['ShiftLeft'] || keys.value['ShiftRight'] || keys.value['Shift'] ? 'run' : 'walk';
+      startAction(action);
     } else {
-      const activeWalkKeys = Object.keys(keys.value).filter(
-        (key) =>
-          keys.value[key] &&
-          actionList.value.find((a) => a.key === key)?.name === 'walk'
-      );
-      if (activeWalkKeys.length > 0) {
-        const action =
-          keys.value['ShiftLeft'] || keys.value['ShiftRight'] ? 'run' : 'walk';
-        startAction(action);
+      // есть какие-то другие клавиши — выбираем их действия (например атака) или остаёмся idle
+      // попробуем найти любую активную кнопку в actionList и запустить её (упрощённо)
+      const activeOther = Object.keys(keys.value).find((k) => {
+        return keys.value[k] && actionList.value.some((a) => a.key === k && !a.name.toLowerCase().includes('walk'));
+      });
+      if (activeOther) {
+        const mapped = actionList.value.find((a) => a.key === activeOther);
+        if (mapped) {
+          startAction(mapped.name);
+        }
+      } else {
+        stopAction();
       }
     }
   };
@@ -108,6 +160,7 @@ export default function useActions(
       const oldKey = action.key;
       action.key = newKey;
 
+      // перенести текущее состояние флага (если было)
       keys.value[newKey] = keys.value[oldKey] || false;
       delete keys.value[oldKey];
 
@@ -122,7 +175,11 @@ export default function useActions(
   onMounted(() => {
     const storedActionList = localStorage.getItem('actionList');
     if (storedActionList) {
-      actionList.value = JSON.parse(storedActionList);
+      try {
+        actionList.value = JSON.parse(storedActionList);
+      } catch (e) {
+        // ignore parse errors
+      }
     }
     initializeKeys();
     registerKeyEvents();
