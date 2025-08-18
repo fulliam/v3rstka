@@ -6,20 +6,10 @@ export type ModalConfig = {
   promptText?: string;
   cancelText?: string;
   submitText?: string;
-  buttonAccessTheme?:
-    | 'blue'
-    | 'green'
-    | 'black'
-    | 'blue-outline'
-    | 'gray'
-    | 'red'
-    | 'icon'
-    | 'white';
+  buttonAccessType?: 'primary' | 'secondary' | 'danger' | 'base'
   subTitle?: {
     topText?: string;
     bottomText?: string;
-    enableCheckbox?: boolean;
-    tooltipText?: string;
   };
 };
 
@@ -45,15 +35,15 @@ export const useModalStore = defineStore('modalStore', () => {
         resolve,
       };
       isOpen.value = true;
-      document.body.classList.add('no-scroll');
+      // PAUSE GAME IF NEEDED
     });
   }
 
   function close<T = boolean>(result?: T) {
     entry.value?.resolve(result);
     isOpen.value = false;
-    document.body.classList.remove('no-scroll');
     entry.value = null;
+    // RESUME GAME IF NEEDED
   }
 
   return { isOpen, entry, open, close };

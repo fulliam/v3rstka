@@ -8,14 +8,14 @@
   >
     <path
       d="M15 5L5 15"
-      stroke="#fff"
+      stroke="currentColor"
       stroke-width="1.66667"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
     <path
       d="M5 5L15 15"
-      stroke="#fff"
+      stroke="currentColor"
       stroke-width="1.66667"
       stroke-linecap="round"
       stroke-linejoin="round"

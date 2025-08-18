@@ -1,7 +1,7 @@
 <template>
   <Background ref="bgRef" :scenes="actsData[currentAct]">
     <template #decorations>
-      <HpBar :health="player.state.health" />
+      <HpBar :health="player.state.health" @click="openConfirm" />
     </template>
     
     <template #character>
@@ -22,6 +22,19 @@ import { actsData } from './data';
 import { Player } from '@/components/templates/character/offline/ally';
 import { useSideMovement } from '@/composables/offline/ally/movement';
 import { usePlayer } from './composables';
+import { Confirm } from '@/components/templates/modals/confirm';
+import { useModalStore } from '@/stores';
+
+const modal = useModalStore();
+async function openConfirm(){
+  await modal.open(Confirm, {
+    titleText: 'Are you sure?',
+    contentText: 'If you confirm, the game will be reset. Current progress will be lost.',
+    buttonAccessType: 'danger',
+    cancelText: 'CANCEL',
+    submitText: 'CONFIRM',
+  });
+};
 
 const bgRef = ref<InstanceType<typeof Background> | null>(null);
 const currentAct = ref<keyof typeof actsData>('ActI');
@@ -32,7 +45,6 @@ const {
   playerStyle,
   canMoveTo,
 } = usePlayer(actsData, currentAct);
-
 
 useSideMovement({
   canMoveTo: (x: number) => canMoveTo.value(x),

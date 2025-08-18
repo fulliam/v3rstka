@@ -1,5 +1,7 @@
 <!-- components/NavMenu.vue -->
 <template>
+  <Modal />
+
   <nav
     v-show="false"
     class="nav"

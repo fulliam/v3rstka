@@ -1,53 +1,5 @@
-<template>
-  <button
-    :disabled="isLoading || disabled"
-    class="btn"
-    :class="`btn--${type} ${disabled ? 'loading' : ''}`"
-    @click="handleClick"
-  >
-    <span
-      v-if="isLoading"
-      class="loader"
-    ></span>
-    <span :style="isLoading ? 'opacity: 0' : ''">
-      <slot name="icon" />
-      {{ label }}
-    </span>
-  </button>
-</template>
+@use '@/assets/styles/collection/_mixins.scss' as *;
 
-<script setup lang="ts">
-interface Button {
-  label?: string;
-  type?: 'primary' | 'secondary' | 'danger' | 'base';
-  action?: () => Promise<void>;
-  disabled?: boolean;
-}
-
-const props = defineProps<Button>();
-
-const emit = defineEmits<{
-  (e: 'action-complete'): void;
-}>();
-
-const isLoading = ref(false);
-
-const handleClick = async () => {
-  if (props.disabled || isLoading.value) return;
-
-  if (props.action) {
-    isLoading.value = true;
-    try {
-      await props.action();
-      emit('action-complete');
-    } finally {
-      isLoading.value = false;
-    }
-  }
-};
-</script>
-
-<style scoped lang="scss">
 $primary-color: #3498db;
 $base-color: #cd6e3f;
 $base-text-color: #fff;
@@ -77,6 +29,9 @@ $loader-border-color: rgba(255, 255, 255, 0.2);
 
   span {
     margin: 0 8px;
+    font-family: 'Jersey 10', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 18px;
   }
 
   .loader {
@@ -127,4 +82,3 @@ $loader-border-color: rgba(255, 255, 255, 0.2);
     );
   }
 }
-</style>

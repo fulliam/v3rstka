@@ -1,0 +1,65 @@
+@use '@/assets/styles/collection/_mixins.scss' as *;
+
+.modal-card {
+  max-width: 475px;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @include pixel-box(
+    $corner-size: 2,
+    $border-size: 8px,
+    $background-color: #0803038e,
+    $background-color-hover: #0803038e,
+    $border-color: #0707079c
+  );
+
+  &__header {
+    padding-inline: 20px;
+    padding-bottom: 20px;
+    border-bottom: 4px solid #0707079c;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__close {
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  &__content {
+    padding: 0 20px;
+  }
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__title {
+    font-size: 24px;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  &__subtitle {
+    display: flex;
+    gap: 20px;
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  &__option {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  &__text {
+    font-size: 16px;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}

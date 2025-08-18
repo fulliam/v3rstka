@@ -13,10 +13,6 @@
         id="modal"
         class="window"
       >
-        <Cross
-          class="close"
-          @click="modal.close({ confirmed: false })"
-        />
         <component
           :is="modal.entry.component"
           v-if="modal.entry"
@@ -30,7 +26,6 @@
 
 <script setup lang="ts">
 import { useModalStore } from '@/stores/modal';
-import { Cross } from '@/assets/icons';
 
 const modal = useModalStore();
 </script>
