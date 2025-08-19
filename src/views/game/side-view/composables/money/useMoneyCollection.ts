@@ -1,6 +1,6 @@
 import { usePlayerStore } from '@/stores/player';
 import type { BgContext } from '@/views/game/side-view/types';
-import { randomInt } from '@/lib/helpers/randomInt';
+import { randomInt } from '@/lib/helpers';
 
 export function useMoneyCollection(props: {
   currentAct: string;
@@ -22,7 +22,7 @@ export function useMoneyCollection(props: {
   const coinParallaxFactor = props.type.includes('gem') ? 0.95 : 1.0;
 
   const moneyPositionX = ref(props.positionX);
-  // const moneyPositionY = ref(-20);
+  const moneyPositionY = ref(randomInt(0, -40));
 
   const screenX = computed(() => {
     const bgX = bgContext?.backgroundPositionX?.value ?? 0;
@@ -35,7 +35,7 @@ export function useMoneyCollection(props: {
     return {
       position: 'absolute' as const,
       left: `calc(${screenX.value}px + ${DROP_RANGE}px)`,
-      bottom: `calc(${bottomPercentage} - ${randomInt(0, -40)}px)`,
+      bottom: `calc(${bottomPercentage} - ${moneyPositionY.value}px)`,
       zIndex: 999,
     };
   });

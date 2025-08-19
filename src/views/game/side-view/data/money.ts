@@ -53,6 +53,39 @@ function createGems(
   }));
 }
 
+/**
+ * Генератор "кучи" монет — случайно смещённые в небольшом радиусе
+ */
+function createPile(
+  baseId: string,
+  imageKey: keyof typeof animations.currencies.coins,
+  centerX: number,
+  centerY: number,
+  count: number,
+  spread = 60,
+  type: string
+): Array<{
+  currencyId: string;
+  images: string[];
+  initialPositionX: number;
+  type: string;
+  offsetY?: number;
+}> {
+  return Array.from({ length: count }, (_, i) => {
+    // Случайное смещение в пределах круга/квадрата
+    const offsetX = Math.random() * spread - spread / 2; // от -30 до +30
+    const offsetY = Math.random() * spread - spread / 2; // от -30 до +30
+
+    return {
+      currencyId: `${baseId}-pile-${i + 1}`,
+      images: getImagesArray(animations.currencies.coins[imageKey]),
+      initialPositionX: centerX + offsetX,
+      type,
+      // offsetY можно использовать позже для визуала (например, в стиле)
+    };
+  });
+}
+
 export const money: Money = {
   ActI: [
     // === БЛИЖНИЙ ЗОНА (0–400px) — приветствие игрока ===
@@ -106,6 +139,12 @@ export const money: Money = {
       initialPositionX: 940,
       type: 'red',
     },
+
+    // === КУЧА МОНЕТ — сокровище! ===
+    ...createPile('pile-silver', 'silver', 1020, 0, 7, 50, 'coin'),
+    ...createPile('pile-gold', 'gold', 1020, 0, 5, 40, 'coin'),
+    ...createPile('pile-red', 'red', 1020, 0, 3, 30, 'coin'),
+
     {
       currencyId: 'gem-blue-hidden-1',
       images: getImagesArray(animations.currencies.gems.blue),

@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { debounce } from '@/lib/helpers/debounce';
+import { debounce } from '@/lib/helpers';
 import TextScramble from '@/components/partials/animations/scramble/index.vue';
 
 const nickname = ref<string>('');
