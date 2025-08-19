@@ -8,7 +8,7 @@
         class="overlay"
         @click="modal.close({ confirmed: false })"
       />
-      
+
       <div
         id="modal"
         class="window"

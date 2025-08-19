@@ -4,10 +4,4 @@ import Google from './Google.vue';
 import Dice from './Dice.vue';
 import Cross from './Cross.vue';
 
-export {
-  Eye,
-  CrossEye,
-  Google,
-  Dice,
-  Cross,
-};
+export { Eye, CrossEye, Google, Dice, Cross };

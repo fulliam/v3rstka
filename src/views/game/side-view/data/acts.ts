@@ -1,8 +1,8 @@
 import animations from '@/animations.json';
 
-type AnimationSrc = string;
+export type AnimationSrc = string;
 
-interface SceneLayer {
+export interface SceneLayer {
   src?: AnimationSrc;
   alt?: string;
   class?: string;
@@ -10,11 +10,11 @@ interface SceneLayer {
   parallaxSpeed: number;
 }
 
-type Scene = SceneLayer[];
-type Act = Scene[];
-type ActsData = Record<string, Act>;
+export type Scene = SceneLayer[];
+export type Act = Scene[];
+export type Acts = Record<string, Act>;
 
-export const actsData: ActsData = {
+export const acts: Acts = {
   ActI: [
     [
       // Сцена 1
@@ -384,5 +384,3 @@ export const actsData: ActsData = {
     ],
   ],
 };
-
-export type { SceneLayer, Scene, Act, ActsData };

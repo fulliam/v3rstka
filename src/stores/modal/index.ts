@@ -6,7 +6,7 @@ export type ModalConfig = {
   promptText?: string;
   cancelText?: string;
   submitText?: string;
-  buttonAccessType?: 'primary' | 'secondary' | 'danger' | 'base'
+  buttonAccessType?: 'primary' | 'secondary' | 'danger' | 'base';
   subTitle?: {
     topText?: string;
     bottomText?: string;

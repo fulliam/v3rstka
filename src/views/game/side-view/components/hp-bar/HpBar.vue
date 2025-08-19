@@ -14,16 +14,16 @@ const hearts = computed(() => {
   const current = props.health.current;
   const max = props.health.max;
   const percentage = Math.max(0, Math.min(100, (current / max) * 100));
-  
+
   const heartCount = 8;
   const heartsArray = [];
-  
+
   for (let i = 0; i < heartCount; i++) {
     const heartValue = (percentage / 100) * heartCount;
     const fill = Math.max(0, Math.min(100, (heartValue - i) * 100));
     heartsArray.push({ fill });
   }
-  
+
   return heartsArray;
 });
 </script>

@@ -33,7 +33,9 @@ export default function useSideMovement(options?: SideMovementOptions) {
   const lastTimestamp = ref<number | null>(null);
 
   const player = computed(() => playerStore.getPlayer);
-  const directionIsLeft = computed(() => player.value?.state?.direction === 'left');
+  const directionIsLeft = computed(
+    () => player.value?.state?.direction === 'left'
+  );
 
   function getMaxSpeed() {
     const speedStats = player.value?.stats?.speed;
@@ -76,11 +78,15 @@ export default function useSideMovement(options?: SideMovementOptions) {
     const desiredVelocity = desiredDir * maxSpeed;
 
     if (Math.abs(desiredVelocity - velocity.value) > 0.0001) {
-      const accel = desiredVelocity !== 0 ? opts.acceleration : opts.deceleration;
+      const accel =
+        desiredVelocity !== 0 ? opts.acceleration : opts.deceleration;
       const sign = desiredVelocity > velocity.value ? 1 : -1;
       velocity.value += sign * accel * dt;
 
-      if ((sign > 0 && velocity.value > desiredVelocity) || (sign < 0 && velocity.value < desiredVelocity)) {
+      if (
+        (sign > 0 && velocity.value > desiredVelocity) ||
+        (sign < 0 && velocity.value < desiredVelocity)
+      ) {
         velocity.value = desiredVelocity;
       }
     }
@@ -108,7 +114,8 @@ export default function useSideMovement(options?: SideMovementOptions) {
     }
 
     const running = keys.value.ShiftLeft || keys.value.ShiftRight;
-    const movementAction = velocity.value === 0 ? 'idle' : (running ? 'run' : 'walk');
+    const movementAction =
+      velocity.value === 0 ? 'idle' : running ? 'run' : 'walk';
 
     const currentAction = player.value?.state?.action;
     const isMovementAction = ['walk', 'run', 'idle'].includes(currentAction);
@@ -151,7 +158,10 @@ export default function useSideMovement(options?: SideMovementOptions) {
       );
       if (anyMovementKeyPressed) {
         startMovement();
-      } else if (opts.autoStart && Math.abs(velocity.value) <= opts.stopEpsilon) {
+      } else if (
+        opts.autoStart &&
+        Math.abs(velocity.value) <= opts.stopEpsilon
+      ) {
         stopMovement();
       }
     },

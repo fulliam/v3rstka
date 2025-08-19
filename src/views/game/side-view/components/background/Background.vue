@@ -43,7 +43,7 @@
           :scene="currentScene"
         ></slot>
         <slot
-          name="currencies"
+          name="money"
           :scene="currentScene"
         ></slot>
         <slot
@@ -74,7 +74,8 @@ const props = withDefaults(defineProps<Props>(), {
   maxScale: null,
 });
 
-const { scenes, sceneCount, designWidth, designHeight, maxScale } = toRefs(props);
+const { scenes, sceneCount, designWidth, designHeight, maxScale } =
+  toRefs(props);
 
 const backgroundPositionX = ref(0);
 const viewportRef = ref<HTMLElement | null>(null);
@@ -139,7 +140,9 @@ const flatStyledLayers = computed(() => {
       const totalX = sceneOffsetX + parallaxOffset;
 
       const existingStyle = layer.style ? { ...layer.style } : {};
-      const transformFromStyle = existingStyle.transform ? `${existingStyle.transform} ` : '';
+      const transformFromStyle = existingStyle.transform
+        ? `${existingStyle.transform} `
+        : '';
       existingStyle.transform = `${transformFromStyle} translateX(${totalX}px)`;
 
       result.push({
@@ -156,11 +159,17 @@ const flatStyledLayers = computed(() => {
 });
 
 const progress = computed(() => {
-  return -backgroundPositionX.value / (designWidth.value * (effectiveSceneCount.value - 1));
+  return (
+    -backgroundPositionX.value /
+    (designWidth.value * (effectiveSceneCount.value - 1))
+  );
 });
 
 const currentSceneIndex = computed(() => {
-  return Math.max(0, Math.min(Math.floor(progress.value), effectiveSceneCount.value - 1));
+  return Math.max(
+    0,
+    Math.min(Math.floor(progress.value), effectiveSceneCount.value - 1)
+  );
 });
 
 const currentScene = computed(() => {
@@ -174,10 +183,7 @@ function moveBackground(direction: 'left' | 'right', speed = 100) {
       maxScrollPosition.value
     );
   } else if (direction === 'left') {
-    backgroundPositionX.value = Math.min(
-      backgroundPositionX.value + speed,
-      0
-    );
+    backgroundPositionX.value = Math.min(backgroundPositionX.value + speed, 0);
   }
 }
 

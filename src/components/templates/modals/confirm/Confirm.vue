@@ -36,7 +36,7 @@
         :label="cancelText || 'Cancel'"
         @click="$emit('close', { confirmed: false })"
       />
-      
+
       <Button
         :type="buttonAccessType || 'base'"
         :label="submitText || 'Ok'"
@@ -53,7 +53,7 @@ import { Cross } from '@/assets/icons';
 
 const props = defineProps<ModalConfig>();
 defineEmits<{
-  (e: 'close', result: { confirmed: boolean; }): void;
+  (e: 'close', result: { confirmed: boolean }): void;
 }>();
 
 const promptLines = computed(() => {

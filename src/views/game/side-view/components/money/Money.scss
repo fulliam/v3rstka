@@ -1,0 +1,8 @@
+.money {
+  position: absolute;
+  z-index: 20;
+  will-change: transform;
+  height: 40px;
+  width: 40px;
+  pointer-events: none;
+}

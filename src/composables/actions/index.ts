@@ -81,16 +81,28 @@ export default function useActions(
         : actionEntry.name;
       // бег если Shift нажат и это walk
       const isRunning =
-        !!(keys.value['ShiftLeft'] || keys.value['ShiftRight'] || keys.value['Shift']) &&
-        action === 'walk';
+        !!(
+          keys.value['ShiftLeft'] ||
+          keys.value['ShiftRight'] ||
+          keys.value['Shift']
+        ) && action === 'walk';
       startAction(isRunning ? 'run' : action);
     } else {
       // если нажата просто Shift (и ранее уже была нажата стрелка), нужно пересчитать действие
-      if (event.code === 'ShiftLeft' || event.code === 'ShiftRight' || event.code === 'Shift') {
+      if (
+        event.code === 'ShiftLeft' ||
+        event.code === 'ShiftRight' ||
+        event.code === 'Shift'
+      ) {
         // если есть активные walk-клавиши — переключаем на run
-        const anyWalkPressed = actionList.value.some(
-          (a) => a.name.toLowerCase().includes('walk') && keys.value[a.key]
-        ) || keys.value.ArrowLeft || keys.value.ArrowRight || keys.value.KeyA || keys.value.KeyD;
+        const anyWalkPressed =
+          actionList.value.some(
+            (a) => a.name.toLowerCase().includes('walk') && keys.value[a.key]
+          ) ||
+          keys.value.ArrowLeft ||
+          keys.value.ArrowRight ||
+          keys.value.KeyA ||
+          keys.value.KeyD;
         if (anyWalkPressed) startAction('run');
       }
     }
@@ -125,13 +137,22 @@ export default function useActions(
 
     if (activeWalkKeys.length > 0 || fallbackWalkActive) {
       const action =
-        keys.value['ShiftLeft'] || keys.value['ShiftRight'] || keys.value['Shift'] ? 'run' : 'walk';
+        keys.value['ShiftLeft'] ||
+        keys.value['ShiftRight'] ||
+        keys.value['Shift']
+          ? 'run'
+          : 'walk';
       startAction(action);
     } else {
       // есть какие-то другие клавиши — выбираем их действия (например атака) или остаёмся idle
       // попробуем найти любую активную кнопку в actionList и запустить её (упрощённо)
       const activeOther = Object.keys(keys.value).find((k) => {
-        return keys.value[k] && actionList.value.some((a) => a.key === k && !a.name.toLowerCase().includes('walk'));
+        return (
+          keys.value[k] &&
+          actionList.value.some(
+            (a) => a.key === k && !a.name.toLowerCase().includes('walk')
+          )
+        );
       });
       if (activeOther) {
         const mapped = actionList.value.find((a) => a.key === activeOther);
