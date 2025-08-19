@@ -1,18 +1,5 @@
 import animations from '@/animations.json';
-
-export type AnimationSrc = string;
-
-export interface SceneLayer {
-  src?: AnimationSrc;
-  alt?: string;
-  class?: string;
-  style?: Record<string, string | number>;
-  parallaxSpeed: number;
-}
-
-export type Scene = SceneLayer[];
-export type Act = Scene[];
-export type Acts = Record<string, Act>;
+import type { Acts } from '@/views/game/side-view/types';
 
 export const acts: Acts = {
   ActI: [

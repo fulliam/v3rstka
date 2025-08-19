@@ -1,5 +1,5 @@
 import { usePlayerStore } from '@/stores/player';
-import type { Acts } from '@/views/game/side-view/data';
+import type { Acts } from '@/views/game/side-view/types';
 import type { HTMLAttributes, ReservedProps } from 'vue';
 
 const DESIGN_WIDTH = 1920;

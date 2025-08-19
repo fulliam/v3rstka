@@ -56,7 +56,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Scene, SceneLayer } from '@/views/game/side-view/data';
+import type { Scene, SceneLayer } from '@/views/game/side-view/types';
+import type { BgMoveCb } from '@/views/game/side-view/types';
 
 interface Props {
   scenes?: Scene[];
@@ -79,6 +80,23 @@ const { scenes, sceneCount, designWidth, designHeight, maxScale } =
 
 const backgroundPositionX = ref(0);
 const viewportRef = ref<HTMLElement | null>(null);
+const bgMoveCallbacks = new Set<BgMoveCb>();
+
+function registerOnBackgroundMove(cb: BgMoveCb) {
+  bgMoveCallbacks.add(cb);
+  return () => bgMoveCallbacks.delete(cb);
+}
+
+function emitBackgroundMove(deltaPx: number, direction: 'left' | 'right') {
+  const ts = performance.now();
+  bgMoveCallbacks.forEach((cb) => {
+    try {
+      cb(deltaPx, direction, ts);
+    } catch (e) {
+      /* ignore individual errors */
+    }
+  });
+}
 
 const effectiveSceneCount: ComputedRef = computed(() => {
   return sceneCount.value && sceneCount.value > 0
@@ -178,12 +196,18 @@ const currentScene = computed(() => {
 
 function moveBackground(direction: 'left' | 'right', speed = 100) {
   if (direction === 'right') {
+    const prev = backgroundPositionX.value;
     backgroundPositionX.value = Math.max(
       backgroundPositionX.value - speed,
       maxScrollPosition.value
     );
+    const delta = backgroundPositionX.value - prev;
+    if (delta !== 0) emitBackgroundMove(Math.abs(delta), direction);
   } else if (direction === 'left') {
+    const prev = backgroundPositionX.value;
     backgroundPositionX.value = Math.min(backgroundPositionX.value + speed, 0);
+    const delta = backgroundPositionX.value - prev;
+    if (delta !== 0) emitBackgroundMove(Math.abs(delta), direction);
   }
 }
 
@@ -212,6 +236,12 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('resize', updatePageSize);
+});
+
+provide('bgContext', {
+  backgroundPositionX,
+  scale,
+  registerOnBackgroundMove,
 });
 
 defineExpose({
