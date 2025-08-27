@@ -17,9 +17,9 @@ export function useMoneyAnimation(
 
   const startAnimation = () => {
     const intervalSpeed = moneyId.includes('gem') ? 150 : 100;
-  
+
     currentImageIndex.value = Math.floor(Math.random() * images.length);
-  
+
     animationIntervalId.value = window.setInterval(changeImage, intervalSpeed);
   };
 

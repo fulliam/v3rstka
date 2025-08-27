@@ -15,6 +15,7 @@ import {
   CharacterStats,
   CharacterInventory,
 } from '@/types';
+import { inventory } from '@/views/game/side-view/data/inventory';
 
 export function createDefaultPlayer(characterType: string): Player {
   const defaultPosition: Position = { x: 0, y: 0 };
@@ -120,7 +121,7 @@ export function createDefaultPlayer(characterType: string): Player {
 
   const defaultInventory: CharacterInventory = {
     money: defaultMoney,
-    inventory: [],
+    bag: inventory,
   };
 
   return {

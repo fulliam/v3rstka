@@ -10,6 +10,10 @@
       />
     </template>
 
+    <template #menu>
+      <Menu />
+    </template>
+
     <template #character>
       <div
         class="player-container"
@@ -35,6 +39,12 @@
       />
     </template>
   </Background>
+
+  <AudioPlayer
+    :show-controls="true"
+    :initial-volume="0.7"
+    :preload="true"
+  />
 </template>
 
 <script setup lang="ts">
@@ -45,6 +55,8 @@ import { useSideMovement } from '@/composables/offline/ally/movement';
 import { usePlayer } from './composables';
 import { Confirm } from '@/components/templates/modals/confirm';
 import { useModalStore } from '@/stores';
+import { Menu } from './components/menu';
+import { AudioPlayer } from '@/components/partials/audio-player';
 
 const modal = useModalStore();
 async function openConfirm() {

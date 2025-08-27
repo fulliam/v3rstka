@@ -1,4 +1,3 @@
-<!-- components/NavMenu.vue -->
 <template>
   <Modal />
 

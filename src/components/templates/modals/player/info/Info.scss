@@ -1,0 +1,233 @@
+@use '@/assets/styles/collection/_mixins.scss' as *;
+
+.grid-2-col {
+    display: grid;
+    gap: 0;
+    grid-template-columns: 1fr 1fr;
+}
+
+.modal-card {
+  max-width: pxToRem(600);
+  min-width: pxToRem(600);
+  padding: 20px;
+  @include pixel-box(
+    $corner-size: 2,
+    $border-size: 8px,
+    $background-color: #0803038e,
+    $background-color-hover: #0803038e,
+    $border-color: #0707079c
+  );
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 13px;
+  color: #e0e0e0;
+  backdrop-filter: blur(4px);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235bcbac' fill-opacity='0.05'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='18' cy='18' r='3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.2;
+    pointer-events: none;
+  }
+}
+
+.name-level {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px
+}
+
+/* --- Header --- */
+.modal-card__header {
+  text-align: center;
+  padding: 16px 20px;
+  border-bottom: 3px double #5bcbac;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.character-animation {
+  width: 100%;
+  height: 120px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 0 10px rgba(91, 203, 172, 0.4);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+  }
+
+  @include pixel-box(
+    $corner-size: 2,
+    $border-size: 8px,
+    $background-color: #5bcbaba6,
+    $background-color-hover: #64ffd39c,
+    $border-color: #31ffd29c
+  );
+}
+
+.modal-card__title {
+  font-size: 26px;
+  color: #fff;
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #5bcbac;
+  letter-spacing: 1px;
+  margin: 6px 0 0;
+}
+
+.modal-card__subtitle {
+  font-size: 16px;
+  color: #5bcbac;
+  text-shadow: 1px 1px 0 #000;
+}
+
+/* --- EXP Bar --- */
+.exp-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px;
+}
+
+.exp-label {
+  min-width: 30px;
+  color: #5bcbac;
+  font-weight: bold;
+}
+
+.exp-bar .bar-track,
+.exp-bar .bar {
+  flex: 1;
+  height: 8px;
+  background: #000;
+  border: 1px solid #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.exp-bar .bar-fill,
+.exp-bar .fill {
+  height: 100%;
+  transition: width 0.4s ease;
+  background: linear-gradient(90deg, #44a898, #5bcbac);
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.4);
+}
+
+.exp-value {
+  min-width: 60px;
+  text-align: right;
+  color: #5bcbac;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* --- Section Title --- */
+.section-title {
+  font-size: 16px;
+  color: #5bcbac;
+  text-align: center;
+  margin: 0 20px 10px;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0 #000;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 70%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #5bcbac, transparent);
+    margin: 4px auto 0;
+  }
+}
+
+/* --- Parameters Grid --- */
+.stats-grid,
+.params-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  padding: 0 20px;
+}
+
+.stat-item,
+.param-item {
+    min-width: 100%;
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  border: 1px solid rgba(91, 203, 172, 0.2);
+  font-size: 13px;
+
+  .icon {
+    font-size: 16px;
+  }
+
+  .name {
+    color: #ccc;
+    font-size: 12px;
+  }
+
+  .value {
+    color: #fff;
+    font-weight: bold;
+    text-align: right;
+  }
+}
+
+.stat-item {
+  background: rgba(91, 203, 172, 0.1);
+  border: 1px dashed #5bcbac66;
+}
+
+.points-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 0 20px;
+}
+
+.point {
+  padding: 8px;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 6px;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 #000;
+
+  &.stat {
+    background: linear-gradient(135deg, #ffd70055, #ffa50033);
+    border: 1px solid #ffd700;
+    color: #ffd700;
+  }
+
+  &.skill {
+    background: linear-gradient(135deg, #ffaa0055, #cc800033);
+    border: 1px solid #ffaa00;
+    color: #ffaa00;
+  }
+}
+
+/* --- Inventory --- */
+.item-count {
+  padding: 8px 20px;
+  font-size: 13px;
+  color: #ccc;
+  text-align: center;
+  font-style: italic;
+}

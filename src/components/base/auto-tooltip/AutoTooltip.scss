@@ -1,0 +1,86 @@
+@use '@/assets/styles/collection/_mixins.scss' as *;
+
+$border-color: #00b881;
+$border-size: 4px;
+$corner-size: 2;
+$border-inset-color: false;
+
+@mixin pixel-inset-border(
+  $border-inset-size: 4px,
+  $border-inset-color: #ddd,
+  $border-inset-sides: 'bottom-right',
+  $border-inset-color-br: false,
+  $border-inset-color-tl: false
+) {
+  @if not($border-inset-color-br) {
+    $border-inset-color-br: $border-inset-color;
+  }
+
+  @if not($border-inset-color-tl) {
+    $border-inset-color-tl: $border-inset-color;
+  }
+
+  & {
+    position: relative;
+  }
+
+  $box-shadow: '';
+
+  @if $border-inset-sides == 'bottom-right' or $border-inset-sides == false {
+    $box-shadow: inset -#{$border-inset-size} -#{$border-inset-size} $border-inset-color-br;
+  }
+
+  @if $border-inset-sides == 'top-left' {
+    $box-shadow: inset #{$border-inset-size} #{$border-inset-size} $border-inset-color-tl;
+  }
+
+  @if $border-inset-sides == 'all' {
+    $box-shadow: inset -#{$border-inset-size} -#{$border-inset-size} $border-inset-color-br,
+      inset #{$border-inset-size} #{$border-inset-size} $border-inset-color-tl;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: $box-shadow;
+  }
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 9999;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  pointer-events: none;
+  width: max-content;
+
+  transition: opacity 0.15s ease-in-out;
+  opacity: 0;
+  z-index: 9999;
+
+  border-style: solid;
+  border-width: $border-size;
+  border-color: $border-color;
+
+  border-image-slice: $corner-size * 2;
+  border-image-width: $corner-size;
+  border-image-outset: 0;
+
+  border-image-source: url(pixel-borders-image($corner-size, $border-color));
+
+  @supports (border-image-source: none) {
+    & {
+      border-radius: ($border-size * ($corner-size + 2)) + ($corner-size * 2);
+    }
+  }
+
+  @if $border-inset-color {
+    @include pixel-inset-border($border-size, $border-inset-color);
+  }
+}

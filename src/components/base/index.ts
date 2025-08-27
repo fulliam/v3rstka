@@ -4,6 +4,7 @@ import { Button } from './button';
 import Tooltip from './tooltip/index.vue';
 import { Modal } from './modal';
 import JsonView from './jsonview/index.vue';
+import { Loader } from './loader';
 
 export const Base = {
   Input,
@@ -12,4 +13,5 @@ export const Base = {
   Tooltip,
   Modal,
   JsonView,
+  Loader
 } as const;

@@ -1,5 +1,3 @@
-// types/index.ts
-
 export interface Position {
   x: number;
   y: number;
@@ -94,9 +92,32 @@ export interface CharacterStats {
   crit: Crit;
 }
 
+export type Rarity = 'common' | 'rare' | 'unique' | 'mythic' | 'legendary';
+export type ItemType = 'weapon' | 'armor' | 'consumable' | 'jewelry' | 'material' | 'quest' | 'book';
+
+export interface InventoryItem {
+  id: number;
+  quantity: number | '?';
+  image: string | null;
+  rarity?: Rarity;
+  description?: string;
+  name?: string;
+  type?: ItemType;
+  stats?: {
+    attack?: number;
+    defense?: number;
+    health?: number;
+    mana?: number;
+    speed?: number;
+    crit?: number;
+  };
+}
+
+export type Inventory = InventoryItem[];
+
 export interface CharacterInventory {
   money: Money;
-  inventory: any[]; // TODO: add type for inventory item
+  bag: Inventory;
 }
 
 export interface Player {

@@ -1,0 +1,206 @@
+@use '@/assets/styles/collection/_mixins.scss' as *;
+
+// --- Rarity Colors ---
+$rarity-common: #c0c0c0;
+$rarity-rare: #7FFF00;
+$rarity-unique: #1E90FF;
+$rarity-mythic: #EE82EE;
+$rarity-legendary: #FFD700;
+
+$rarity-map: (
+  'common': $rarity-common,
+  'rare': $rarity-rare,
+  'unique': $rarity-unique,
+  'mythic': $rarity-mythic,
+  'legendary': $rarity-legendary,
+);
+
+// --- Генерация цветных pixel-box по редкости ---
+@each $rarity, $color in $rarity-map {
+  .inventory-cell--#{$rarity} {
+    @include pixel-box(
+      $corner-size: 2,
+      $border-size: 2px,
+      $background-color: rgba($color, 0.2),
+      $background-color-hover: rgba($color, 0.3),
+      $border-color: $color
+    );
+
+    &:hover {
+      @include pixel-box(
+        $corner-size: 2,
+        $border-size: 2px,
+        $background-color: rgba($color, 0.3),
+        $background-color-hover: rgba($color, 0.4),
+        $border-color: $color
+      );
+    }
+  }
+}
+
+.inventory-modal {
+  width: 90%;
+  max-width: 600px;
+  // min-height: 400px;
+  background: #0803038e;
+  border-radius: 12px;
+  padding: 16px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  color: #e0e0e0;
+  position: relative;
+
+  @include pixel-box(
+    $corner-size: 2,
+    $border-size: 8px,
+    $background-color: #0803038e,
+    $background-color-hover: #0803038e,
+    $border-color: #0707079c
+  );
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235bcbac' fill-opacity='0.05'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='18' cy='18' r='3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.15;
+    pointer-events: none;
+    border-radius: 12px;
+  }
+}
+
+// --- Header ---
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 3px double #5bcbac;
+
+  h2 {
+    color: #fff;
+    text-shadow: 1px 1px 0 #000;
+    font-size: 18px;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #5bcbac;
+    }
+  }
+}
+
+// --- Сетка инвентаря (8 колонок) ---
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 0 8px;
+}
+
+// --- Ячейка ---
+.inventory-cell {
+  position: relative;
+  aspect-ratio: 1 / 1; // 1:1
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  @include pixel-box(
+    $corner-size: 2,
+    $border-size: 2px,
+    $background-color: #4343438e,
+    $background-color-hover: #5151518e,
+    $border-color: #1795829c
+  );
+
+  &:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+// --- Обёртка предмета ---
+.item-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-wrapper img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  image-rendering: pixelated; // 🔹 Пиксельный рендеринг
+  cursor: grab;
+  border-radius: 4px;
+}
+
+// --- Пустой слот ---
+.empty-slot {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border-radius: 6px;
+}
+
+// --- Количество ---
+.quantity {
+  display: none;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 8px;
+  color: #c8b400;
+  background: #000000e6;
+  padding: 1px 4px;
+  border-radius: 6px 0 0 0;
+  min-width: 16px;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+// --- Счётчик ---
+.item-count {
+  font-size: 12px;
+  color: #ccc;
+  text-align: center;
+  font-style: italic;
+  margin-top: 8px;
+}
+
+// --- Адаптивность ---
+@media (max-width: 480px) {
+  .inventory-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+  }
+
+  .inventory-modal {
+    width: 95%;
+    padding: 12px;
+  }
+
+  .inventory-cell .quantity {
+    font-size: 10px;
+    padding: 1px 3px;
+  }
+}

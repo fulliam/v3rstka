@@ -50,6 +50,7 @@
           name="character"
           :scene="currentScene"
         ></slot>
+        <slot name="menu"></slot>
       </div>
     </div>
   </div>
